@@ -1,6 +1,6 @@
 package ru.practicum.app.event.model;
 
-import ru.practicum.app.category.model.Category;
+import ru.practicum.app.category.Category;
 import ru.practicum.app.location.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer id;
+    Long id;
 
     @Column(name = "annotation", nullable = false)
     String annotation;

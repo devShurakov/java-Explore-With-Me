@@ -1,4 +1,4 @@
-package ru.practicum.app.category.model;
+package ru.practicum.app.category;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer id;
+    Long id;
 
     @Column(name = "name")
     String name;

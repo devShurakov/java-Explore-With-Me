@@ -7,13 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.*;
 
 
 @Slf4j
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
@@ -26,27 +25,27 @@ public class UserServiceImpl {
         this.userMapper = userMapper;
     }
 
+    @Override
     public UserDto create(UserDto userDto) {
         if(userDto.getName() == null || userDto.getEmail() == null){
-            throw new UserNotFoundException("Неверные данные");
+            throw new UserCastomException("Неверные данные");
         }
         User user = userRepository.save(userMapper.mapToUser(userDto));
         log.info("Пользователь создан");
         return userMapper.mapToUserDto(user);
-//        return new UserDto(1, "dd", "dd");
     }
-
+    @Override
     public HttpStatus delete(long userId) {
         log.info("Пользователь удален");
         userRepository.deleteById(userId);
         return HttpStatus.OK;
     }
-
+    @Override
     public List<UserDto> getUser(String[] ids, Integer from, Integer size) {
         checkIds(ids);
 
         if (ids == null){
-          throw new UserNotFoundException("Неправильный формат ввода");
+          throw new UserCastomException("Неправильный формат ввода");
         }
             long[] array = Arrays.stream(ids).mapToLong(Long::parseLong).toArray();
 
@@ -59,7 +58,7 @@ public class UserServiceImpl {
         } else {
             for (long x : array) {
                 returnList.add(userMapper.mapToUserDto(userRepository.findById(x).orElseThrow(() ->
-                        new UserNotFoundException("Пользователь не найден"))));
+                        new UserCastomException("Пользователь не найден"))));
             }
         }
         return returnList;
@@ -73,11 +72,11 @@ public class UserServiceImpl {
             }
         } catch (NumberFormatException e) {
             exceptionFrom = true;
-            throw new UserNotFoundException("Input String cannot be parsed to Integer.");
+            throw new UserCastomException("Input String cannot be parsed to Integer.");
         }
 
         if (exceptionFrom == true){
-            throw new UserNotFoundException("Input String cannot be parsed to Integer.");
+            throw new UserCastomException("Input String cannot be parsed to Integer.");
         }
     }
 }

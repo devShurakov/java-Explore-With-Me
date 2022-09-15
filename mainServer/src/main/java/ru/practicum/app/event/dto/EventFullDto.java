@@ -1,6 +1,6 @@
 package ru.practicum.app.event.dto;
 
-import ru.practicum.app.category.dto.CategoryDto;
+import ru.practicum.app.category.CategoryDto;
 import ru.practicum.app.user.UserShortDto;
 
 

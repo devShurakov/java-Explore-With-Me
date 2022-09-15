@@ -5,13 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.app.user.UserController;
-import ru.practicum.app.user.UserNotFoundException;
+import ru.practicum.app.user.UserCastomException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Map;
 
 @ControllerAdvice
 public class ErrorHandler {
@@ -28,8 +24,8 @@ public class ErrorHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Response> handleException3(UserNotFoundException e) {
+    @ExceptionHandler(UserCastomException.class)
+    public ResponseEntity<Response> handleException3(UserCastomException e) {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
