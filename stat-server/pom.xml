@@ -10,8 +10,7 @@
 <!--        <relativePath>pom.xml</relativePath>-->
     </parent>
 
-    <artifactId>statService</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>stat-server</artifactId>
     <name>stat-server</name>
 
     <dependencies>
