@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.practicum.app.category.CategoryCastomException;
 import ru.practicum.app.user.UserCastomException;
+import ru.practicum.app.user.UserCastomException2;
 
 import javax.validation.ConstraintViolationException;
 
@@ -29,7 +31,17 @@ public class ErrorHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    @ExceptionHandler(UserCastomException2.class)
+    public ResponseEntity<Response> handleException3(UserCastomException2 e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(CategoryCastomException.class)
+    public ResponseEntity<Response> handleException3(CategoryCastomException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    public Map<String, String> dataIsNotValid(final MethodArgumentNotValidException e) {

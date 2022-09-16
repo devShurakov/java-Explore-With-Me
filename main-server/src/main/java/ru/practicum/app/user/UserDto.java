@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
-@Builder
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
 
-    long id;
+    private Integer id;
 
     @NotNull
-    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
-    String name;
+//    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
+    private String name;
 
     @NotNull
-    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
-    String email;
+//    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
+    private String email;
 }

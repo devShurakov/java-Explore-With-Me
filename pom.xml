@@ -22,8 +22,8 @@
 	</properties>
 
 	<modules>
-		<module>mainServer</module>
-		<module>statisticServer</module>
+		<module>main-server</module>
+		<module>stat-server</module>
 	</modules>
 
 	<build>

@@ -15,7 +15,10 @@ public class CategoryMapper {
     }
 
     public static CategoryDto mapToCategoryDto(Category category) {
-        return new CategoryDto(category.getId(), category.getName());
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        return categoryDto;
     }
 
     public static List<CategoryDto> mapAllToCategoryDto(List<Category> categories) {

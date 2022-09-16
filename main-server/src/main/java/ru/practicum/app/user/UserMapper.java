@@ -18,12 +18,11 @@ public class UserMapper {
     }
 
     public static UserDto mapToUserDto(User user) {
-
-        return new UserDto(
-                user.getId(),
-                user.getName(),
-                user.getEmail()
-        );
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
+        return userDto;
     }
 
     public static List<UserDto> maptoAllUserDto(Collection<User> users) {

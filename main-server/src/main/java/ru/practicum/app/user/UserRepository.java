@@ -9,6 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findAllById(long[] array, Pageable page);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    List<User> findAllById(int[] array, Pageable page);
 }

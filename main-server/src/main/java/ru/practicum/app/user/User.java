@@ -13,11 +13,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    Long id;
+//    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "email")
     String email;

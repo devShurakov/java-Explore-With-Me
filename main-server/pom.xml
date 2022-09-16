@@ -10,8 +10,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mainService</artifactId>
-    <name>mainServer</name>
+    <artifactId>stat-server</artifactId>
+    <name>main-server</name>
 
     <dependencies>
 

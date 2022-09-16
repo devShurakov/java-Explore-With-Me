@@ -31,22 +31,26 @@ public class CategoryServiceImpl {
     }
 
     public CategoryDto update(CategoryDto categoryDto) {
-        if(categoryDto.getName() == null){
+//        if(categoryDto.getName()==null ){
+//            throw new CategoryCastomException("данные введены неверно");
+//        }
+        if(categoryDto.getName()==null && categoryDto.getId() ==0 ){
             throw new CategoryCastomException("данные введены неверно");
         }
         Category category = categoryRepository.findById(categoryDto.getId()).orElseThrow(() -> {
             throw new CategoryCastomException(String.format("такой категории не сущетствует", categoryDto.getId()));
         });
 
-        if (category.getName().equals(categoryDto.getName())) {
-            throw new CategoryCastomException(String.format("такая категория уже сущетствует", categoryDto.getId()));
-        }else{
+//        if (category.getName().equals(categoryDto.getName())) {
+//            throw new CategoryCastomException(String.format("такая категория уже сущетствует", categoryDto.getId()));
+//        }else{
             category.setName(categoryDto.getName());
+            log.info("категория обновлена");
             return categoryMapper.mapToCategoryDto(categoryRepository.save(category));
-        }
+//        }
     }
 
-    public void delete(long id) {
+    public void delete(int id) {
         categoryRepository.deleteById(id);
     }
 
@@ -58,9 +62,11 @@ public class CategoryServiceImpl {
     }
 
     public CategoryDto getCategoryById(int catId) {
-        Category category = categoryRepository.findById((long) catId).orElseThrow(() -> {
+        Category category = categoryRepository.findById(catId).orElseThrow(() -> {
             throw new CategoryCastomException(String.format("Такой категории не сущетствует", catId));
         });
         return categoryMapper.mapToCategoryDto(category);
     }
 }
+
+

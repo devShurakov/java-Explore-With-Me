@@ -1,7 +1,9 @@
 package ru.practicum.app.category;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping
+@Slf4j
 public class CategoryController {
 
 
@@ -22,16 +25,18 @@ public class CategoryController {
 
     @PostMapping(value = "/admin/categories")
     public CategoryDto create(@RequestBody @Valid CategoryDto categoryDto) {
+        log.info("Create category createDto={}", categoryDto);
         return categoryService.create(categoryDto);
     }
 
     @PatchMapping(value = "/admin/categories")
-    public CategoryDto update(@RequestBody CategoryDto categoryDto) {
+    public CategoryDto update(@RequestBody  CategoryDto categoryDto) {
+        log.info("Update category updateDto={}", categoryDto);
         return categoryService.update(categoryDto);
     }
 
-    @DeleteMapping(value = "/admin/{catId}")
-    public void delete(@RequestBody long catId) {
+    @DeleteMapping(value = "/admin/categories/{catId}")
+    public void delete(@PathVariable(value = "catId") int catId) {
          categoryService.delete(catId);
     }
 
