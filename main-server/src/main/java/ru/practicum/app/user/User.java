@@ -16,10 +16,10 @@ public class User {
     @Column(name = "id") // TODO: 17.09.2022  убрать mb
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     String email;
 
 }

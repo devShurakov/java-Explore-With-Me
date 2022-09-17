@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Builder
@@ -13,35 +14,35 @@ import java.time.LocalDateTime;
 //@ConfigurationProperties(prefix="app.properties") // TODO: 17.09.2022 мб нужно настроить
 public class NewEventDto {
 
-    Integer id;
+    private Integer id;
+    @NotNull
+    private String annotation;
+    @NotNull
+    private Category category;
 
-    String annotation;
-
-    Category category;
-
-    Initiator initiator;
-
-    Location location;
-
-    String title;
-
-    Integer confirmedRequests;
+    private User initiator;
+    @NotNull
+    private Location location;
+    @NotNull
+    private String title;
+    @NotNull
+    private Integer confirmedRequests;
 
     @Future // TODO: 17.09.2022 сделать на два + часа позднее
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime createdOn;
-
-    String description;
+    private LocalDateTime createdOn;
+    @NotNull
+    private  String description;
 
     @Future // TODO: 17.09.2022 сделать на два часа позднее
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime eventDate;
-
-    Boolean paid;
-
-    Integer participantLimit;
-
-    Boolean requestModeration;
+    private LocalDateTime eventDate;
+    @NotNull
+    private Boolean paid;
+    @NotNull
+    private Integer participantLimit;
+    @NotNull
+    private Boolean requestModeration;
 
     @Builder
     @Getter
@@ -60,7 +61,7 @@ public class NewEventDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Initiator {
+    public static class User {
 
         private Integer id;
 

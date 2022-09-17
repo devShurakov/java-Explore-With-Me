@@ -14,29 +14,29 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventShortDto {
 
-    Integer id;
+    private Integer id;
 
-    String annotation;
+    private String annotation;
 
-    Integer category; // todo id, name
+    private Integer category; // todo id, name
 
-    String description;
+    private String description;
 
-    Location location;
+    private Location location;
 
-    String title;
+    private String title;
 
 //    Integer confirmedRequests;
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss") // TODO: 17.09.2022 //    дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента
-    LocalDateTime eventDate;
+    private LocalDateTime eventDate;
 
 //    UserShortDto initiator;
 
-    Boolean paid;
+    private Boolean paid;
 
-    Integer participantLimit;
+    private Integer participantLimit;
 
-    Boolean requestModeration;
+    private Boolean requestModeration;
 //    String title;
 //
 //    Integer views;

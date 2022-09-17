@@ -33,7 +33,7 @@ public class CategoryServiceImpl {
     }
 
     public CategoryDto update(CategoryDto categoryDto) {
-        if (categoryDto.getName() == null && categoryDto.getId() == 0) {
+        if (categoryDto.getId() == null && categoryDto.getId() == 0) {
             throw new CategoryCastomException("данные введены неверно");
         }
 

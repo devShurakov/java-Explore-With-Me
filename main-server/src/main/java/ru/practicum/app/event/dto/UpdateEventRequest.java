@@ -1,8 +1,6 @@
 package ru.practicum.app.event.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -17,27 +15,39 @@ import java.time.LocalDateTime;
 public class UpdateEventRequest {
 
 
-    Integer id;
+    private Integer id;
 
-    String annotation;
+    private String annotation;
 
-    Integer category; // TODO: 17.09.2022   id, name
+    private Integer category; // TODO: 17.09.2022   id, name
 
-    String description;
+    private String description;
 
-    EventShortDto.Location location;
+    private Location location;
 
-    String title;
+    private String title;
 
     //    Integer confirmedRequests;
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime eventDate;
+    private LocalDateTime eventDate;
 
 //    UserShortDto initiator;
 
-    Boolean paid;
+    private Boolean paid;
 
-    Integer participantLimit;
+    private Integer participantLimit;
 
-    Boolean requestModeration;
+    private Boolean requestModeration;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Location {
+
+        private Float lat;
+
+        private Float lon;
+    }
 }

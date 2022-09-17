@@ -1,43 +1,83 @@
 package ru.practicum.app.event.dto;
 
-import ru.practicum.app.category.CategoryDto;
-import ru.practicum.app.user.UserShortDto;
-
+import lombok.*;
+import ru.practicum.app.event.model.EventStatus;
+import ru.practicum.app.user.User;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventFullDto {
-
 
     Integer id;
 
     String annotation;
 
-    String category;
+    Category category;
 
-    CategoryDto confirmedRequests;
+    Integer confirmedRequests;
 
-    String createdOn;
+    LocalDateTime created;
 
     String description;
 
     LocalDateTime eventDate;
 
-    UserShortDto initiator;
+    User initiator;
 
-    String location; //todo
+    Location location;
 
-    boolean paid;
+    Boolean paid;
 
-    String participantLimit;
+    Integer participantLimit;
 
-    String publishedOn;
+    LocalDateTime publishedOn;
 
-    boolean requestModeration;
+    Boolean requestModeration;
 
-    String state;
+    EventStatus status;
 
     String title;
 
-    int views;
+    Integer views;
+
+    @Builder
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Category {
+
+        private Integer id;
+
+        private String name;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Initiator extends User {
+
+        private Integer id;
+
+        private String name;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Location {
+
+        private Float lat;
+
+        private Float lon;
+    }
+
 }

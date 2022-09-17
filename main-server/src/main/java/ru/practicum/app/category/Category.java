@@ -4,10 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Setter
-@Getter
-@EqualsAndHashCode
-@ToString
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,10 +13,10 @@ import javax.persistence.*;
 @Table(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // TODO: 17.09.2022 вернуть  и исправить в схеме
+    @Column(name = "category_id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 }

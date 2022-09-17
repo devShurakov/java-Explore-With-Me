@@ -19,14 +19,15 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "event_id")
     Integer id;
 
     @Column(name = "annotation", nullable = false)
     String annotation;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
+//    @JsonDeserialize(using = SubCategoryDeserializer.class)
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "category_id", nullable = false) // TODO: 17.09.2022  category_id
     Category category;
 
     @Column(name = "confirmed_requests", nullable = false)
@@ -38,17 +39,17 @@ public class Event {
     @Column(name = "description", nullable = false)
     String description;
 
-    @Column(name = "eventDate", nullable = false)
+    @Column(name = "event_date", nullable = false)
     LocalDateTime eventDate;
 
     @OneToOne
-    @JoinColumn(name = "initiator_id")
+    @JoinColumn(name = "initiator_id", nullable = false) // TODO: 17.09.2022  initiator_id
     User initiator;
 
-    @Column(name = "location_lat")
+    @Column(name = "location_lat", nullable = false)
     Float lat;
 
-    @Column(name = "location_lon")
+    @Column(name = "location_lon", nullable = false)
     Float lon;
 
 
@@ -65,7 +66,7 @@ public class Event {
     Boolean requestModeration;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "event_status")
+    @Column(name = "event_status", nullable = false)
     EventStatus status;
 
     @Column(name = "title", nullable = false)

@@ -25,11 +25,11 @@ public class UserMapper {
     }
 
     public static List<UserDto> maptoAllUserDto(Collection<User> users) {
-        List<UserDto> dtos = new ArrayList<>();
+        List<UserDto> usersDtoList = new ArrayList<>();
         for (User user : users) {
-            dtos.add(mapToUserDto(user));
+            usersDtoList.add(mapToUserDto(user));
         }
-        return dtos;
+        return usersDtoList;
     }
 
 }
