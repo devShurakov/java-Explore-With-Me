@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @Column(name = "id") // TODO: 17.09.2022  убрать mb
     private Integer id;
 
     @Column(name = "name")

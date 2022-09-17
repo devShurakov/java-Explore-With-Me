@@ -38,5 +38,4 @@ public class AdminUpdateEventRequest {
     String title;
 
     int views;
-
 }

@@ -2,10 +2,10 @@ package ru.practicum.app.user;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 
@@ -17,10 +17,11 @@ public class UserDto {
     private Integer id;
 
     @NotNull
-//    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
+    @NotBlank(message = "не может быть пустым")
     private String name;
 
     @NotNull
-//    @NotBlank(message = "{validation.field.audiometryTaskId.notNull}")
+    @NotBlank(message = "не может быть пустым")
+    @Email
     private String email;
 }

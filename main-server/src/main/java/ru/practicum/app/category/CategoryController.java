@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 
 @RestController
 @RequestMapping
 @Slf4j
+@Validated
 public class CategoryController {
 
 
@@ -25,18 +27,16 @@ public class CategoryController {
 
     @PostMapping(value = "/admin/categories")
     public CategoryDto create(@RequestBody @Valid CategoryDto categoryDto) {
-        log.info("Create category createDto={}", categoryDto);
         return categoryService.create(categoryDto);
     }
 
     @PatchMapping(value = "/admin/categories")
-    public CategoryDto update(@RequestBody  CategoryDto categoryDto) {
-        log.info("Update category updateDto={}", categoryDto);
+    public CategoryDto update(@RequestBody @Valid CategoryDto categoryDto) {
         return categoryService.update(categoryDto);
     }
 
     @DeleteMapping(value = "/admin/categories/{catId}")
-    public void delete(@PathVariable(value = "catId") int catId) {
+    public void delete(@PathVariable(value = "catId") @NotNull int catId) {
          categoryService.delete(catId);
     }
 
@@ -47,7 +47,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/categories/{catId}")
-    public CategoryDto getCategoryById(@PathVariable("catId")int catId) {
+    public CategoryDto getCategoryById(@PathVariable("catId") @NotNull int catId) {
         return categoryService.getCategoryById(catId);
     }
 }

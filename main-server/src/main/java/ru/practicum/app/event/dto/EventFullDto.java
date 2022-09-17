@@ -40,5 +40,4 @@ public class EventFullDto {
     String title;
 
     int views;
-
 }

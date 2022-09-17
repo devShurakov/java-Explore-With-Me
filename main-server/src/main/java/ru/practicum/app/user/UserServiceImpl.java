@@ -20,7 +20,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -28,31 +29,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(UserDto userDto) {
-        if(userDto.getName() == null || userDto.getEmail() == null){
+        if (userDto.getName() == null || userDto.getEmail() == null) {
             throw new UserCastomException("Неверные данные");
         }
 
-         User user = userMapper.mapToUser(userDto);
-         User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(userMapper.mapToUser(userDto));
+        log.info("пользователь создан");
         return UserMapper.mapToUserDto(savedUser);
-
-//        if(userDto.getName() == null || userDto.getEmail() == null){
-//            throw new UserCastomException("Неверные данные");
-//        }
-//        User user = userRepository.save(userMapper.mapToUser(userDto));
-//        log.info("Пользователь создан");
-//        UserDto returnUserDto = userMapper.mapToUserDto(user);
-//        return returnUserDto;
     }
 
     @Override
     public HttpStatus delete(int userId) {
-        log.info("Пользователь удален");
         userRepository.deleteById(userId);
+        log.info("Пользователь удален");
         return HttpStatus.OK;
     }
 
     int a = 1;
+
     @Override
     public List<UserDto> getUser(List<Integer> ids, Integer from, Integer size) {
 
@@ -67,41 +61,5 @@ public class UserServiceImpl implements UserService {
                     .map(UserMapper::mapToUserDto)
                     .collect(Collectors.toList());
         }
-
-//        checkIds(ids);
-//        a++;
-//        if (ids == null && ids.length==0){
-//          throw new UserCastomException2("Неправильный формат ввода");
-//        }
-////            long[] array = Arrays.stream(ids).mapToLong(Long::parseLong).toArray();
-//        int[] array = Arrays.stream(ids).mapToInt(Integer::parseInt).toArray();
-//        List<UserDto> returnList = new ArrayList<>();
-//
-//        if (size != null) {
-//            Pageable page = PageRequest.of(from, size);
-//            returnList = userMapper.maptoAllUserDto(userRepository.findAllById(array,page));
-//        } else {
-//            for (int x : array) {
-//                returnList.add(userMapper.mapToUserDto(userRepository.findById(x).orElseThrow(() ->
-//                        new UserCastomException("Пользователь не найден"))));
-//            }
-//        }
-//        return returnList;
     }
-
-//    private void checkIds(String[] ids) {
-//        boolean exceptionFrom =false;
-//        try {
-//            for (String x : ids) {
-//                Long.parseLong(x);
-//            }
-//        } catch (NumberFormatException e) {
-//            exceptionFrom = true;
-//            throw new UserCastomException2("Input String cannot be parsed to Integer.");
-//        }
-//
-//        if (exceptionFrom == true){
-//            throw new UserCastomException2("Input String cannot be parsed to Integer.");
-//        }
-//    }
 }

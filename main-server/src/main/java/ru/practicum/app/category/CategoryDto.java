@@ -15,7 +15,6 @@ public class CategoryDto {
     private Integer id;
 
     @NotEmpty(message = "не может быть пустым")
-    @Size(min = 1, max = 25, message = "Nдолжно быть менее 25 символов")
+    @Size(min = 1, max = 25, message = "должно быть менее 25 символов")
     private String name;
-
 }

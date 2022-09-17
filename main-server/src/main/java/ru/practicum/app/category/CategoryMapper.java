@@ -28,5 +28,4 @@ public class CategoryMapper {
         }
         return returnList;
     }
-
 }

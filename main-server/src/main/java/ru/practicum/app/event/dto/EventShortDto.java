@@ -1,6 +1,7 @@
 package ru.practicum.app.event.dto;
 
-import ru.practicum.app.user.UserShortDto;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -8,24 +9,48 @@ import java.time.LocalDateTime;
  * Список идентификаторов событий входящих в подборку
  */
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventShortDto {
 
-    int id;
+    Integer id;
 
     String annotation;
 
-    int category; // todo id, name
+    Integer category; // todo id, name
 
-    int confirmedRequests;
+    String description;
 
-    LocalDateTime eventDate;
-
-    UserShortDto initiator;
-
-    boolean paid;
+    Location location;
 
     String title;
 
-    int views;
+//    Integer confirmedRequests;
+    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss") // TODO: 17.09.2022 //    дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента
+    LocalDateTime eventDate;
+
+//    UserShortDto initiator;
+
+    Boolean paid;
+
+    Integer participantLimit;
+
+    Boolean requestModeration;
+//    String title;
+//
+//    Integer views;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Location {
+
+        private Float lat;
+
+        private Float lon;
+    }
 
 }

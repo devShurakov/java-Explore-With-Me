@@ -2,21 +2,18 @@ package ru.practicum.app.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.app.category.Category;
-import ru.practicum.app.category.CategoryDto;
-import ru.practicum.app.category.CategoryServiceImpl;
 
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
 @RestController
-@RequestMapping(value = "/admin/users")
+@RequestMapping
+@Validated
 public class UserController {
 
     private final UserServiceImpl userService;
@@ -26,13 +23,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+
+    /***
+     *  Admin: Пользователи API для работы с пользователями
+     */
+    @PostMapping(value = "/admin/users")
     public UserDto create(@RequestBody @Valid UserDto userDto) {
         return userService.create(userDto);
     }
 
 
-    @GetMapping
+    @GetMapping(value = "/admin/users")
     public List<UserDto> getUser(@RequestParam("ids") List<Integer> ids,
                                  @RequestParam(required = false) Integer from,
                                  @RequestParam(required = false) Integer size) {
@@ -40,11 +41,8 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{userId}")
-    public HttpStatus delete(@PathVariable int userId) {
+    public HttpStatus delete(@PathVariable @NotNull int userId) {
         return userService.delete(userId);
     }
-
-
-
 }
 

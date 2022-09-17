@@ -6,27 +6,28 @@
     <parent>
         <groupId>ru.practicum</groupId>
         <artifactId>explore-with-me</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-<!--        <relativePath>pom.xml</relativePath>-->
+        <version>0.0.1-SNAPSHOT</version><!--        <relativePath>pom.xml</relativePath>-->
     </parent>
 
     <artifactId>stat-server</artifactId>
     <name>stat-server</name>
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -37,7 +38,6 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-
     </dependencies>
 
     <properties>

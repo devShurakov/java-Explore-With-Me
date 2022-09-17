@@ -13,7 +13,6 @@ public class UserMapper {
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
-
         return user;
     }
 
@@ -30,7 +29,6 @@ public class UserMapper {
         for (User user : users) {
             dtos.add(mapToUserDto(user));
         }
-
         return dtos;
     }
 

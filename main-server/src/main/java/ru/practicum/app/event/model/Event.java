@@ -1,7 +1,6 @@
 package ru.practicum.app.event.model;
 
 import ru.practicum.app.category.Category;
-import ru.practicum.app.location.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    Integer id;
 
     @Column(name = "annotation", nullable = false)
     String annotation;
@@ -31,7 +30,7 @@ public class Event {
     Category category;
 
     @Column(name = "confirmed_requests", nullable = false)
-    Integer confirmed_requests;
+    Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)
     LocalDateTime created;
@@ -46,10 +45,12 @@ public class Event {
     @JoinColumn(name = "initiator_id")
     User initiator;
 
-    @OneToOne
-    @JoinColumn(name = "location_lat", referencedColumnName = "lat")
-    @JoinColumn(name = "location_lon", referencedColumnName = "lon")
-    Location location;
+    @Column(name = "location_lat")
+    Float lat;
+
+    @Column(name = "location_lon")
+    Float lon;
+
 
     @Column(name = "paid", nullable = false)
     Boolean paid;

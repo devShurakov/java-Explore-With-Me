@@ -1,5 +1,5 @@
 package ru.practicum.app.event.model;
 
 public enum EventStatus {
-    PUBLISHED, IN_MODERATION, CANCELED
+    PUBLISHED, WAITING, IN_MODERATION, CANCELED
 }

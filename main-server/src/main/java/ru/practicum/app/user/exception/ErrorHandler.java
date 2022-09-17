@@ -14,7 +14,6 @@ import javax.validation.ConstraintViolationException;
 @ControllerAdvice
 public class ErrorHandler {
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response> handleException(MethodArgumentNotValidException e) {
         Response response = new Response(e.getMessage());
@@ -26,11 +25,13 @@ public class ErrorHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(UserCastomException.class)
     public ResponseEntity<Response> handleException3(UserCastomException e) {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @ExceptionHandler(UserCastomException2.class)
     public ResponseEntity<Response> handleException3(UserCastomException2 e) {
         Response response = new Response(e.getMessage());
@@ -42,16 +43,5 @@ public class ErrorHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public Map<String, String> dataIsNotValid(final MethodArgumentNotValidException e) {
-//        return Map.of("error", "invalid user data");
-//    }
-//
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public Map<String, String> dataIsNotValid(final ConstraintViolationException e) {
-//        return Map.of("error", "invalid item data");
-//    }
 
 }
