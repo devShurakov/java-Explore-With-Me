@@ -47,9 +47,9 @@ public class RequestServiceImpl {
                 .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
-        if (event.getConfirmedRequests().equals(RequestStatus.APPROVED.name()) && event.getConfirmedRequests().equals(RequestStatus.CANCELED.APPROVED.name())) {
-            throw new RequestCustomException("подтвержденное или отмененное событие не может быть подтверждено");
-        }
+//        if (event.getConfirmedRequests().equals(RequestStatus.APPROVED.name()) && event.getConfirmedRequests().equals(RequestStatus.CANCELED.APPROVED.name())) {
+//            throw new RequestCustomException("подтвержденное или отмененное событие не может быть подтверждено");
+//        }
 
         Request request = new Request();
         request.setRequester(user);
