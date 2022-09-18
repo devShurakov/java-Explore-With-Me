@@ -34,7 +34,7 @@ services:
     depends_on:
       - db2
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/statistic
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/statistic
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
