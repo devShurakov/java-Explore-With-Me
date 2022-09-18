@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
   main-server:
@@ -27,14 +27,29 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
 
-#  stat-server:
-#
-#  stats-db:
-#    image: postgres:14-alpine
-#
-#  ewm-service:
-#    ports:
-#      - "9090:9090"
-#
-#  ewm-db:
-#    image: postgres:14-alpine
+  stat-server:
+    build: ./stat-server
+    container_name: stat-server
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db2
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/statistic
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: iamroot
+      TZ: "Europe/Moscow"
+    restart: always
+
+  db2:
+    image: postgres:13.7-alpine
+    container_name: statistic
+    ports:
+      - "6432:5432"
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: exploreWithMe
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: iamroot
+
