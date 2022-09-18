@@ -3,22 +3,22 @@ version: '3.8'
 services:
   main-server:
     build: ./main-server
-    container_name: main-server
+    container_name: main_server
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - db_main
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/exploreWithMe
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
 
-  db:
-    image: postgres
-    container_name: explore_With_Me
+  db_main:
+    image: postgres:13.7-alpine
+    container_name: db_main
     ports:
-      - "6432:5432"
+      - "6541:5432"
     volumes:
       - /var/lib/postgresql/data/
     environment:
@@ -28,23 +28,22 @@ services:
 
   stat-server:
     build: ./stat-server
-    container_name: stat-server
+    container_name: stat_server
     ports:
       - "9090:9090"
     depends_on:
-      - db2
+      - db_statistic
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/statistic
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/statistic
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
-    restart: always
 
-  db2:
-    image: postgres
-    container_name: statistic
+  db_statistic:
+    image: postgres:13.7-alpine
+    container_name: db_statistic
     ports:
-      - "6433:5432"
+      - "6543:5432"
     volumes:
       - /var/lib/postgresql/data/
     environment:
