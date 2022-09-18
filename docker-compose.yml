@@ -34,7 +34,7 @@ services:
     depends_on:
       - db2
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/statistic
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/statistic
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
@@ -44,7 +44,7 @@ services:
     image: postgres:13.7-alpine
     container_name: statistic
     ports:
-      - "6432:5432"
+      - "6433:5433"
     volumes:
       - /var/lib/postgresql/data/
     environment:
