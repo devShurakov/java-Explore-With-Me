@@ -45,12 +45,10 @@ public class UserServiceImpl implements UserService {
         return HttpStatus.OK;
     }
 
-    int a = 1;
-
     @Override
     public List<UserDto> getUser(List<Integer> ids, Integer from, Integer size) {
 
-        if (!ids.isEmpty()) {
+        if (ids != null && !ids.isEmpty()) {
             return userRepository.findAllById(ids).stream()
                     .map(UserMapper::mapToUserDto)
                     .collect(Collectors.toList());

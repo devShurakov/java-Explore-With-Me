@@ -52,8 +52,9 @@ public class CategoryServiceImpl {
     }
 
     public Page<Category> getCategories(int from, int size) {
-        Pageable page = PageRequest.of(from, size);
-        Page<Category> catList = categoryRepository.findAll(page);
+        int page = from / size;
+        Pageable pegable = PageRequest.of(page, size);
+        Page<Category> catList = categoryRepository.findAll(pegable);
         log.info("категория получена");
         return catList;
     }

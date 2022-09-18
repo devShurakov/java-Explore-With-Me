@@ -40,7 +40,7 @@ public class UserController {
         return userService.getUser(ids, from, size);
     }
 
-    @DeleteMapping(value = "/{userId}")
+    @DeleteMapping(value = "admin/users/{userId}")
     public HttpStatus delete(@PathVariable @NotNull int userId) {
         return userService.delete(userId);
     }

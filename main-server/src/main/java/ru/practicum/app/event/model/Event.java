@@ -4,6 +4,7 @@ import ru.practicum.app.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.practicum.app.request.model.Request;
 import ru.practicum.app.user.User;
 
 import javax.persistence.*;
@@ -25,12 +26,14 @@ public class Event {
     @Column(name = "annotation", nullable = false)
     String annotation;
 
-//    @JsonDeserialize(using = SubCategoryDeserializer.class)
+    //    @JsonDeserialize(using = SubCategoryDeserializer.class)
     @ManyToOne
     @JoinColumn(name = "id", referencedColumnName = "category_id", nullable = false) // TODO: 17.09.2022  category_id
     Category category;
 
     @Column(name = "confirmed_requests", nullable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "id", referencedColumnName = "confirmedRequests_шв", nullable = false) // TODO: 17.09.2022  исправить
     Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)

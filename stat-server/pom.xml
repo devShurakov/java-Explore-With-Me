@@ -12,7 +12,15 @@
     <artifactId>stat-server</artifactId>
     <name>stat-server</name>
 
+
+
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
