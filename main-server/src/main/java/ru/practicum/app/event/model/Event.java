@@ -4,7 +4,6 @@ import ru.practicum.app.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.app.request.model.Request;
 import ru.practicum.app.user.User;
 
 import javax.persistence.*;
