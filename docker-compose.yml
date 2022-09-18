@@ -13,7 +13,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
-    restart: always
 
   db:
     image: postgres:13.7-alpine
@@ -39,7 +38,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
       TZ: "Europe/Moscow"
-    restart: always
+#    restart: always
 
   db2:
     image: postgres:13.7-alpine
@@ -49,7 +48,7 @@ services:
     volumes:
       - /var/lib/postgresql/data/
     environment:
-      POSTGRES_DB: exploreWithMe
+      POSTGRES_DB: statistic
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
 
