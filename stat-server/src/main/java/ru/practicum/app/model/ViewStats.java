@@ -1,4 +1,4 @@
-package model;
+package ru.practicum.app.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
