@@ -9,10 +9,12 @@ services:
     depends_on:
       - db_main
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/exploreWithMe
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: iamroot
-      TZ: "Europe/Moscow"
+      - DB_NAME=exploreWithMe
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iamroot
+      - DB_HOST=db_main
+      - DB_PORT=5432
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_main:5432/exploreWithMe
 
   db_main:
     image: postgres:13.7-alpine
@@ -34,10 +36,12 @@ services:
     depends_on:
       - db_statistic
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/statistic
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: iamroot
-      TZ: "Europe/Moscow"
+      - DB_NAME=statistic
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iamroot
+      - DB_HOST=db_main
+      - DB_PORT=5432
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_statistic:5432/statistic
 
   db_statistic:
     image: postgres:13.7-alpine
