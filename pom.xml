@@ -14,7 +14,7 @@
 	<artifactId>explore-with-me</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Explore With Me</name>
+	<name>Explore_With_Me</name>
 
 	<properties>
 		<java.version>11</java.version>
@@ -59,6 +59,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>2.7.3</version>
 		</dependency>
 
 	</dependencies>

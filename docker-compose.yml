@@ -44,7 +44,7 @@ services:
     image: postgres
     container_name: statistic
     ports:
-      - "6433:5433"
+      - "6433:5432"
     volumes:
       - /var/lib/postgresql/data/
     environment:
