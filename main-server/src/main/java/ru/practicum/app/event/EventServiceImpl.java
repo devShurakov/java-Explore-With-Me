@@ -122,7 +122,8 @@ public class EventServiceImpl {
     public List<EventShortDto> getFilteredEvents(String text, List<String> categories, boolean paid,
                                                  LocalDateTime rangeStart, LocalDateTime rangeEnd,
                                                  boolean onlyAvailable, String sort, Integer from, Integer size) {
-    return new ArrayList<>();
+//    List<Event> = eventRepository.customFinder(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        return new ArrayList<>();
     }
 
     public User findUserById(int userId) {

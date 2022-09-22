@@ -7,6 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class CategoryServiceImpl {
@@ -51,12 +53,13 @@ public class CategoryServiceImpl {
         log.info("категория удалена");
     }
 
-    public Page<Category> getCategories(int from, int size) {
+    public List<CategoryDto> getCategories(int from, int size) {
         int page = from / size;
         Pageable pegable = PageRequest.of(page, size);
         Page<Category> catList = categoryRepository.findAll(pegable);
+        List<Category> categoryList = catList.getContent();
         log.info("категория получена");
-        return catList;
+        return categoryMapper.mapAllToCategoryDto(categoryList);
     }
 
     public CategoryDto getCategoryById(int catId) {

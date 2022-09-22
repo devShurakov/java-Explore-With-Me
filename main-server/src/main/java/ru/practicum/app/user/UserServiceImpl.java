@@ -46,18 +46,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getUser(List<Integer> ids, Integer from, Integer size) {
+    public List<UserDto> getUser(List<String> ids, Integer from, Integer size) {
+        List<Integer> ids2 = new ArrayList<>();
+        if (!isNumber(ids)) {
+            throw new UserCastomException("не может быть преобразовано в число");
+        }
+        for (String x : ids) {
+            ids2.add(Integer.valueOf(x));
+        }
 
-        if (ids != null && !ids.isEmpty()) {
-            return userRepository.findAllById(ids).stream()
+        if (ids != null || !ids.isEmpty()) {
+            log.info("Пользователь  получен");
+            return userRepository.findAllById(ids2).stream()
+                    .map(UserMapper::mapToUserDto)
+                    .collect(Collectors.toList());
+        } else if (ids == null || ids.isEmpty() || ids.isEmpty() && from == null) {
+            log.info("Пользователь  получен");
+            return userRepository.findAll().stream()
                     .map(UserMapper::mapToUserDto)
                     .collect(Collectors.toList());
         } else {
             int page = from / size;
             Pageable pageable = PageRequest.of(page, size);
+            log.info("Пользователь  получен");
             return userRepository.findAll(pageable).stream()
                     .map(UserMapper::mapToUserDto)
                     .collect(Collectors.toList());
         }
     }
+
+    public boolean isNumber(List<String> ids) {
+        for (String x : ids) {
+            if (x == null || x.isEmpty()) return false;
+            for (int i = 0; i < x.length(); i++) {
+                if (!Character.isDigit(x.charAt(i))) return false;
+            }
+        }
+        return true;
+    }
+
 }

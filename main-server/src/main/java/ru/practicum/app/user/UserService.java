@@ -9,5 +9,5 @@ public interface UserService {
 
     HttpStatus delete(int userId);
 
-    List<UserDto> getUser(List<Integer> ids, Integer from, Integer size);
+    List<UserDto> getUser(List<String> ids, Integer from, Integer size);
 }

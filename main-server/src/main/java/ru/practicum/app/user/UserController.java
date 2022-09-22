@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 
 
 @RestController
@@ -34,15 +36,17 @@ public class UserController {
 
 
     @GetMapping(value = "/admin/users")
-    public List<UserDto> getUser(@RequestParam("ids") List<Integer> ids,
+    public List<UserDto> getUser(@RequestParam(value = "ids", defaultValue = "0") List<String> ids,
                                  @RequestParam(required = false) Integer from,
                                  @RequestParam(required = false) Integer size) {
-        return userService.getUser(ids, from, size);
+            return userService.getUser(ids, from, size);
     }
 
     @DeleteMapping(value = "admin/users/{userId}")
     public HttpStatus delete(@PathVariable @NotNull int userId) {
         return userService.delete(userId);
     }
+
+
 }
 

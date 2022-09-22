@@ -2,13 +2,13 @@ package ru.practicum.app.category;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @RestController
@@ -41,7 +41,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/categories")
-    public Page<Category> getCategories(@RequestParam(defaultValue = "0") int from,
+    public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") int from,
                                         @RequestParam(defaultValue = "10") int size) {
         return categoryService.getCategories(from, size);
     }
