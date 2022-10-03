@@ -1,6 +1,5 @@
 package ru.practicum.app.category;
 
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class CategoryMapper {
 
     public static CategoryDto mapToCategoryDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(category.getId()); // TODO: 17.09.2022 вернуть
+        categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
         return categoryDto;
     }

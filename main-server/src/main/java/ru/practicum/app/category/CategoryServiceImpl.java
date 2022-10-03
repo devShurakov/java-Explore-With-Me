@@ -1,12 +1,15 @@
 package ru.practicum.app.category;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Service
@@ -28,14 +31,17 @@ public class CategoryServiceImpl {
         if (categoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }
-
-        Category category = categoryRepository.save(categoryMapper.mapToCategory(categoryDto));
-        log.info("категория создана");
-        return categoryMapper.mapToCategoryDto(category);
+        try {
+            Category category = categoryRepository.save(categoryMapper.mapToCategory(categoryDto));
+            log.info("категория создана");
+            return categoryMapper.mapToCategoryDto(category);
+        } catch (DataIntegrityViolationException | ConstraintViolationException e) {
+            throw new CategoryCastomException("Такая категория уже существует");
+        }
     }
 
     public CategoryDto update(CategoryDto categoryDto) {
-        if (categoryDto.getId() == null && categoryDto.getId() == 0) {
+        if (categoryDto.getId() == null && categoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }
 
@@ -49,11 +55,14 @@ public class CategoryServiceImpl {
     }
 
     public void delete(int id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> {
+            throw new CategoryCastomException(String.format("такой категории не сущетствует", id));
+        });
         categoryRepository.deleteById(id);
         log.info("категория удалена");
     }
 
-    public List<CategoryDto> getCategories(int from, int size) {
+    public List<CategoryDto> getCategories(@Min(0) int from, @Min(1) int size) {
         int page = from / size;
         Pageable pegable = PageRequest.of(page, size);
         Page<Category> catList = categoryRepository.findAll(pegable);

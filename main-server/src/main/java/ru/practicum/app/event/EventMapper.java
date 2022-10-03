@@ -2,12 +2,6 @@ package ru.practicum.app.event;
 
 import org.springframework.stereotype.Component;
 import ru.practicum.app.category.Category;
-import ru.practicum.app.event.dto.EventFullDto;
-import ru.practicum.app.event.dto.EventShortDto;
-import ru.practicum.app.event.dto.NewEventDto;
-import ru.practicum.app.event.dto.UpdateEventRequest;
-import ru.practicum.app.event.model.Event;
-import ru.practicum.app.event.model.EventStatus;
 import ru.practicum.app.user.User;
 
 import java.time.LocalDateTime;
@@ -32,7 +26,7 @@ public class EventMapper {
         event.setPublishedOn(LocalDateTime.now()); // TODO: 17.09.2022  время публикации
         event.setInitiator(initiator);
         event.setRequestModeration(newEventDto.getRequestModeration());
-        event.setStatus(EventStatus.WAITING);
+        event.setStatus(EventStatus.PENDING);
         event.setTitle(newEventDto.getTitle());
         event.setViews(0);
         return event;

@@ -4,17 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.event.EventRepository;
-import ru.practicum.app.event.model.Event;
-import ru.practicum.app.request.dto.ParticipationRequestDto;
-import ru.practicum.app.request.model.Request;
-import ru.practicum.app.request.model.RequestStatus;
+import ru.practicum.app.event.OperationException;
+import ru.practicum.app.event.Event;
 import ru.practicum.app.user.User;
 import ru.practicum.app.user.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,7 +42,7 @@ public class RequestServiceImpl {
                 .findById(userId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
         Event event = eventRepository
-                .findById(eventId)
+                .findById((long) eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
         if (event.getStatus().name().equals(RequestStatus.APPROVED.name()) && event.getStatus().name().equals(RequestStatus.CANCELED.name())) {
@@ -60,11 +58,23 @@ public class RequestServiceImpl {
         return new ParticipationRequestDto();
     }
 
-    public ParticipationRequestDto cancelRequest(ParticipationRequestDto participationRequestDto) {
-        return new ParticipationRequestDto();
+    public List<ParticipationRequestDto> getRequest(Integer userId) {
+        return requestRepository.findAllByRequester(userId)
+                .stream()
+                .map(RequestMapper::mapToParticipationRequestDto)
+                .collect(Collectors.toList());
     }
 
-    public List<ParticipationRequestDto> getRequest(int userId) {
-        return new ArrayList<>();
+    public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
+        Request request = requestRepository.findById(requestId).orElseThrow(); //// TODO: 03.10.2022 бросить исключение
+        if (!userId.equals(request.getRequester())) {
+            String message = "Только создатель может отменить запрос";
+            log.warn("ForbiddenOperationException at RequestServiceImpl.cancelRequest: {}", message);
+            throw new OperationException(message);
+        }
+        request.setStatus(RequestStatus.CANCELED);
+        Request cancelledRequest = requestRepository.save(request);
+        log.info("RequestServiceImpl.cancelRequest: request {} successfully cancelled", request.getId());
+        return requestMapper.mapToParticipationRequestDto(cancelledRequest);
     }
 }

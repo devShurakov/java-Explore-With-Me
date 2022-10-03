@@ -2,13 +2,10 @@ package ru.practicum.app.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
@@ -27,10 +24,13 @@ public class UserController {
 
 
     /***
-     *  Admin: Пользователи API для работы с пользователями
+     *  Admin: Пользователи. API для работы с пользователями
+     *  - добавление нового польщователя
+     *  - получение списка пользователей
+     *  - удаление пользователя
      */
     @PostMapping(value = "/admin/users")
-    public UserDto create(@RequestBody @Valid UserDto userDto) {
+    public UserDto create(@RequestBody UserDto userDto) {
         return userService.create(userDto);
     }
 
@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @DeleteMapping(value = "admin/users/{userId}")
-    public HttpStatus delete(@PathVariable @NotNull int userId) {
-        return userService.delete(userId);
+    public void delete(@PathVariable @NotNull int userId) throws EntryNotFoundException {
+        userService.delete(userId);
     }
 
 

@@ -2,9 +2,9 @@ package ru.practicum.app.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -39,10 +39,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public HttpStatus delete(int userId) {
-        userRepository.deleteById(userId);
-        log.info("Пользователь удален");
-        return HttpStatus.OK;
+    public void delete(int userId) throws EntryNotFoundException {
+        try {
+            userRepository.deleteById(userId);
+            log.info("Пользователь удален");
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntryNotFoundException("Несуществующий пользователь с id: " + userId);
+        }
+
     }
 
     @Override

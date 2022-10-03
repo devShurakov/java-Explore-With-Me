@@ -3,9 +3,7 @@ package ru.practicum.app.request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.app.request.dto.ParticipationRequestDto;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,8 +40,9 @@ public class RequestController {
 
     //Отмена своего запроса на участие в событии
     @PatchMapping(value = "/users/{userId}/requests")
-    public ParticipationRequestDto cancelRequest(@RequestBody @Valid ParticipationRequestDto participationRequestDto) {
-        return requestService.cancelRequest(participationRequestDto);
+    public ParticipationRequestDto cancelRequest(@PathVariable Integer userId,
+                                                 @PathVariable Integer requestId) {
+        return requestService.cancelRequest(userId, requestId);
     }
 
 }

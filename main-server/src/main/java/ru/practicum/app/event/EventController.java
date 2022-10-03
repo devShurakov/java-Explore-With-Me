@@ -3,15 +3,12 @@ package ru.practicum.app.event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.app.event.dto.EventFullDto;
-import ru.practicum.app.event.dto.EventShortDto;
-import ru.practicum.app.event.dto.NewEventDto;
-import ru.practicum.app.event.dto.UpdateEventRequest;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.time.LocalDateTime;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 
@@ -38,8 +35,8 @@ public class EventController {
 
     // Добавление нового события
     @PostMapping(value = "/users/{userId}/events")
-    public EventShortDto create(@PathVariable(value = "userId") int userId,
-                                @RequestBody @Valid NewEventDto newEventDto) {
+    public EventShortDto create(@PathVariable int userId,
+                                @RequestBody NewEventDto newEventDto) {
         return eventService.create(userId, newEventDto);
     }
 
@@ -68,7 +65,7 @@ public class EventController {
     //Получение полной информации о событии добавленном текущим пользователем
     @GetMapping(value = "/users/{userId}/events/{eventId}")
     public EventFullDto getOwnerFullInfoEvents(@PathVariable(value = "userId") int userId,
-                                                @PathVariable(value = "eventId") int eventId) {
+                                               @PathVariable(value = "eventId") int eventId) {
         return eventService.getOwnerFullInfoEvents(userId, eventId);
     }
 
@@ -76,25 +73,63 @@ public class EventController {
      *  - Публичный API для работы с событиями:
      *  - Получение событий с возможностью фильтрации
      *  - Получение подробной информации об опубликованном событии по его идентификатору
+     *  - редактирование события
      */
 
     @GetMapping(value = "/events")
     public List<EventShortDto> getFilteredEvents(@RequestParam(required = false) String text,
-                                                 @RequestParam(required = false) List<String> categories,
-                                                 @RequestParam(required = false) boolean paid,
-                                                 @RequestParam(required = false) LocalDateTime rangeStart,
-                                                 @RequestParam(required = false) LocalDateTime rangeEnd,
-                                                 @RequestParam(required = false) boolean onlyAvailable,
+                                                 @RequestParam(required = false) int[] categories,
+                                                 @RequestParam(required = false) Boolean paid,
+                                                 @RequestParam(required = false) String rangeStart,
+                                                 @RequestParam(required = false) String rangeEnd,
+                                                 @RequestParam(defaultValue = "false") boolean onlyAvailable,
                                                  @RequestParam(required = false) String sort,
-                                                 @RequestParam(required = false) @Positive Integer from,
-                                                 @RequestParam(required = false) @Positive Integer size) {
-        return eventService.getFilteredEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+                                                 @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+                                                 @Positive @RequestParam(defaultValue = "10") int size,
+                                                 HttpServletRequest request) {
+        return eventService.getFilteredEvents(request, text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
     //Получение полной информации о событии добавленном текущим пользователем
     @GetMapping(value = "/events/{eventId}")
     public EventFullDto getFullInfoEvents(@PathVariable(value = "eventId") int eventId) {
         return eventService.getFullInfoEvents(eventId);
+    }
+
+
+    /*** Admin: События. API для работы с событиями
+     * - поиск событий
+     * - редактирование события
+     * - публикация события
+     * - отклонить событие
+     */
+    @GetMapping("admin/events") // TODO: 03.10.2022 не работает
+    public List<EventFullDto> getEventsAdmin(@RequestParam int[] users,
+                                             @RequestParam String[] states,
+                                             @RequestParam int[] categories,
+                                             @RequestParam String rangeStart,
+                                             @RequestParam String rangeEnd,
+                                             @RequestParam int from,
+                                             @RequestParam int size) {
+//        log.info("Администратор запросил список событий с параметрами users={}, states={}, categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
+//                users, states, categories, rangeStart, rangeEnd, from, size);
+        return eventService.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
+    }
+
+    @PutMapping(value = "/admin/events/{eventId}")
+    public EventFullDto updateEvent(@PathVariable int eventId,
+                                    @RequestBody AdminUpdateEventRequest adminUpdateEventRequest) {
+        return eventService.updateEvent(eventId, adminUpdateEventRequest);
+    }
+
+    @PatchMapping(value = "/admin/events/{eventId}/publish")
+    public EventFullDto publishEvent(@PathVariable int eventId) {
+        return eventService.publishEvent(eventId);
+    }
+
+    @PatchMapping(value = "/admin/events/{eventId}/reject")
+    public EventFullDto rejectEvent(@PathVariable int eventId) {
+        return eventService.rejectEvent(eventId);
     }
 
 }
