@@ -145,7 +145,7 @@ public class EventServiceImpl {
 //        int page = from / size;
 //        Pageable pageable = PageRequest.of(page, size);
         Pageable pageable = PageRequest.of(from / size, size);
-        List<Event> eventsList = eventRepository.findAllByInitiatorId( userId, pageable);
+        List<Event> eventsList = eventRepository.findAllByInitiatorId(userId, pageable);
         List<EventShortDto> eventsShortDtoList = eventMapper.mapAlltoShortDto(eventsList);
         log.info("получен список событий пользователя");
         return eventsShortDtoList;
@@ -172,7 +172,7 @@ public class EventServiceImpl {
                                                  String rangeStart, String rangeEnd,
                                                  boolean onlyAvailable, String sort, Integer from, Integer size) {
         //отправка информации на сервер статистики
-      //sendStatistic(request); // TODO: 02.10.2022 отправка на сервер статистики
+        //sendStatistic(request); // TODO: 02.10.2022 отправка на сервер статистики
         LocalDateTime dateStart = rangeStart == null || rangeStart.isEmpty() ?
                 LocalDateTime.now() :
                 LocalDateTime.parse(rangeStart, formatter);
@@ -216,40 +216,42 @@ public class EventServiceImpl {
 
     public List<EventFullDto> getEventsAdmin(int[] users,
                                              String[] states, int[] categories, String rangeStart, String rangeEnd, int from, int size) {
-    return new ArrayList<>(); // TODO: 02.10.2022
+        return new ArrayList<>(); // TODO: 02.10.2022
     }
 
     public EventFullDto updateEvent(int eventId, AdminUpdateEventRequest adminUpdateEventRequest) {
 
-            Event event = eventRepository.findById( eventId)
-                    .orElseThrow(() -> new UserCastomException("событие не найдено"));
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new UserCastomException("событие не найдено"));
 //
 //            if (!userId.equals(event.getInitiator().getId())) {
 //                String message = "Only initiator can update event.";
 //                log.warn("ForbiddenOperationException at EventServiceImpl.updateEvent: {}", message);
 //                throw new ForbiddenOperationException(message);
 //            }
-            EventStatus state = event.getStatus();
-            if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
-                String message = "Только события со статусом pending или canceled может быть изменено";
-                log.warn("ForbiddenOperationException at EventServiceImpl.updateEvent: {}", message);
-                throw new OperationException(message);
-            }
-            if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());
-            if (adminUpdateEventRequest.getAnnotation() != null) event.setAnnotation(adminUpdateEventRequest.getAnnotation());
-            if (adminUpdateEventRequest.getDescription() != null) event.setDescription(adminUpdateEventRequest.getDescription());
-            if (adminUpdateEventRequest.getEventDate() != null) event.setEventDate(adminUpdateEventRequest.getEventDate());
-            if (adminUpdateEventRequest.getPaid() != null) event.setPaid(adminUpdateEventRequest.getPaid());
-            if (adminUpdateEventRequest.getCategory() != null) {
-                event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
-            }
-            if (adminUpdateEventRequest.getParticipantLimit() != null) {
-                event.setParticipantLimit(adminUpdateEventRequest.getParticipantLimit());
-            }
-            event.setStatus(EventStatus.PENDING); //PENDING
-            Event updatedEvent = eventRepository.save(event);
-            log.info("EventServiceImpl.updateEvent: event {} successfully updated", event.getEvent_id());
-            return eventMapper.mapToFullEventDto(updatedEvent);
+        EventStatus state = event.getStatus();
+        if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
+            String message = "Только события со статусом pending или canceled может быть изменено";
+            log.warn("ForbiddenOperationException at EventServiceImpl.updateEvent: {}", message);
+            throw new OperationException(message);
+        }
+        if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());
+        if (adminUpdateEventRequest.getAnnotation() != null)
+            event.setAnnotation(adminUpdateEventRequest.getAnnotation());
+        if (adminUpdateEventRequest.getDescription() != null)
+            event.setDescription(adminUpdateEventRequest.getDescription());
+        if (adminUpdateEventRequest.getEventDate() != null) event.setEventDate(adminUpdateEventRequest.getEventDate());
+        if (adminUpdateEventRequest.getPaid() != null) event.setPaid(adminUpdateEventRequest.getPaid());
+        if (adminUpdateEventRequest.getCategory() != null) {
+            event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
+        }
+        if (adminUpdateEventRequest.getParticipantLimit() != null) {
+            event.setParticipantLimit(adminUpdateEventRequest.getParticipantLimit());
+        }
+        event.setStatus(EventStatus.PENDING); //PENDING
+        Event updatedEvent = eventRepository.save(event);
+        log.info("EventServiceImpl.updateEvent: event {} successfully updated", event.getEventId());
+        return eventMapper.mapToFullEventDto(updatedEvent);
     }
 
     public EventFullDto publishEvent(Integer eventId) {
@@ -268,23 +270,23 @@ public class EventServiceImpl {
         }
         event.setStatus(EventStatus.PUBLISHED);
         Event publishedEvent = eventRepository.save(event);
-        log.info("EventServiceImpl.publishEvent: event {} successfully published", event.getEvent_id());
+        log.info("EventServiceImpl.publishEvent: event {} successfully published", event.getEventId());
         return eventMapper.mapToFullEventDto(publishedEvent);
     }
 
     public EventFullDto rejectEvent(int eventId) {
-            Event event = eventRepository.findById( eventId)
-                    .orElseThrow(() -> new UserCastomException("событие не найдено"));
-            if (!EventStatus.PENDING.equals(event.getStatus())) {
-                String message = "Только события в статусе pending  могут быть опубликованы.";
-                log.warn("ForbiddenOperationException at EventServiceImpl.rejectEvent: {}", message);
-                throw new OperationException(message);
-            }
-            event.setStatus(EventStatus.CANCELED);
-            Event rejectedEvent = eventRepository.save(event);
-            log.info("EventServiceImpl.rejectEvent: event {} successfully rejected", event.getEvent_id());
-            return eventMapper.mapToFullEventDto(rejectedEvent);
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new UserCastomException("событие не найдено"));
+        if (!EventStatus.PENDING.equals(event.getStatus())) {
+            String message = "Только события в статусе pending  могут быть опубликованы.";
+            log.warn("ForbiddenOperationException at EventServiceImpl.rejectEvent: {}", message);
+            throw new OperationException(message);
         }
+        event.setStatus(EventStatus.CANCELED);
+        Event rejectedEvent = eventRepository.save(event);
+        log.info("EventServiceImpl.rejectEvent: event {} successfully rejected", event.getEventId());
+        return eventMapper.mapToFullEventDto(rejectedEvent);
+    }
 
     public List<EventShortDto> getEventsByIds(List<Integer> ids) {
         return eventRepository.findAllById(ids)

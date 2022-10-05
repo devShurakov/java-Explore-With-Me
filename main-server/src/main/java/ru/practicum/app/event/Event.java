@@ -22,7 +22,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    Integer event_id;
+    Integer eventId;
 
     @Column(name = "annotation", nullable = false)
     String annotation;

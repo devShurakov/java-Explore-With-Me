@@ -2,12 +2,7 @@ package ru.practicum.app.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-import ru.practicum.app.category.Category;
-import ru.practicum.app.location.Location;
-import ru.practicum.app.user.User;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 

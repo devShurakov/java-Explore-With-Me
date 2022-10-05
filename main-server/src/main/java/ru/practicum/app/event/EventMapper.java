@@ -1,11 +1,9 @@
 package ru.practicum.app.event;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.app.category.Category;
 import ru.practicum.app.user.User;
 import ru.practicum.app.user.UserShortDto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ public class EventMapper {
 
     public Event mapToEvent(User initiator, NewEventDto newEventDto) {
         Event event = new Event();
-        event.setEvent_id(null);
+        event.setEventId(null);
 
         event.setAnnotation(newEventDto.getAnnotation());
 //        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
@@ -48,9 +46,9 @@ public class EventMapper {
     public EventShortDto mapToEventShortDto(Event event) {
         EventShortDto eventShortDto = new EventShortDto();
 
-        eventShortDto.setId(event.getEvent_id());
+        eventShortDto.setId(event.getEventId());
         eventShortDto.setAnnotation(event.getAnnotation());
-        eventShortDto.setCategory(event.getCategory().getCategory_id());
+        eventShortDto.setCategory(event.getCategory().getCategoryId());
         eventShortDto.setDescription(event.getDescription());
         eventShortDto.setLocation(new EventShortDto.Location(event.getLat(), event.getLon()));
         eventShortDto.setTitle(event.getTitle());
@@ -65,9 +63,9 @@ public class EventMapper {
     public UpdateEventRequest mapToUpdateEventRequest(Event event) {
         UpdateEventRequest updateEventRequest = new UpdateEventRequest();
 
-        updateEventRequest.setId(event.getEvent_id());
+        updateEventRequest.setId(event.getEventId());
         updateEventRequest.setAnnotation(event.getAnnotation());
-        updateEventRequest.setCategory(event.getCategory().getCategory_id());
+        updateEventRequest.setCategory(event.getCategory().getCategoryId());
         updateEventRequest.setDescription(event.getDescription());
         updateEventRequest.setEventDate(event.getEventDate());
         updateEventRequest.setPaid(event.getPaid());
@@ -79,9 +77,9 @@ public class EventMapper {
     public EventFullDto mapToFullEventDto(Event event) {
         EventFullDto eventFullDto = new EventFullDto();
 
-        eventFullDto.setId(event.getEvent_id());
+        eventFullDto.setId(event.getEventId());
         eventFullDto.setAnnotation(event.getAnnotation());
-        eventFullDto.setCategory(new EventFullDto.Category(event.getCategory().getCategory_id(), event.getCategory().getName()));
+        eventFullDto.setCategory(new EventFullDto.Category(event.getCategory().getCategoryId(), event.getCategory().getName()));
         eventFullDto.setConfirmedRequests(event.getConfirmedRequests());
         eventFullDto.setCreated(event.getCreated());
         eventFullDto.setDescription(event.getDescription());
