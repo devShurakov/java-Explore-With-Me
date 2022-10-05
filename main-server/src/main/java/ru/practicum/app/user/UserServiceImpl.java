@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 //                    .collect(Collectors.toList());
 //        }
     }
+
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {
         return userRepository.findUsersByIdIn(ids)
