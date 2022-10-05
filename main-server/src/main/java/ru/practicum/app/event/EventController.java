@@ -78,7 +78,7 @@ public class EventController {
      */
 
     @GetMapping(value = "/events")
-    public List<EventShortDto> getFilteredEvents(@RequestParam(required = false) String text,
+    public List<EventShortDto> getEvents(@RequestParam(required = false) String text,
                                                  @RequestParam(required = false) int[] categories,
                                                  @RequestParam(required = false) Boolean paid,
                                                  @RequestParam(required = false) String rangeStart,
@@ -88,7 +88,23 @@ public class EventController {
                                                  @PositiveOrZero @RequestParam(defaultValue = "0") int from,
                                                  @Positive @RequestParam(defaultValue = "10") int size,
                                                  HttpServletRequest request) {
-        return eventService.getFilteredEvents(request, text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        return eventService.getEvents(request, text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+//    }
+
+//    @GetMapping("/events")
+//    public List<EventShortDto> getEvents(@RequestParam(required = false) String text,
+//                                         @RequestParam(required = false) Integer categoryId,
+//                                         @RequestParam(required = false) Boolean paid,
+//                                         @RequestParam(required = false) String rangeStart,
+//                                         @RequestParam(required = false) String rangeEnd,
+//                                         @RequestParam(required = false) Boolean onlyAvailable,
+//                                         @RequestParam(required = false) String sort,
+//                                         @RequestParam(defaultValue = "0", required = false) Integer from,
+//                                         @RequestParam(defaultValue = "10", required = false) Integer size,
+//                                         HttpServletRequest request) {
+//        log.debug("Публичный запрос на просмотр всех событий.");
+
+//        return eventService.getEvents(text, categoryId, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     //Получение полной информации о событии добавленном текущим пользователем
@@ -104,18 +120,18 @@ public class EventController {
      * - публикация события
      * - отклонить событие
      */
-    @GetMapping("admin/events") // TODO: 03.10.2022 не работает
-    public List<EventFullDto> getEventsAdmin(@RequestParam int[] users,
-                                             @RequestParam String[] states,
-                                             @RequestParam int[] categories,
-                                             @RequestParam String rangeStart,
-                                             @RequestParam String rangeEnd,
-                                             @RequestParam int from,
-                                             @RequestParam int size) {
-//        log.info("Администратор запросил список событий с параметрами users={}, states={}, categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
-//                users, states, categories, rangeStart, rangeEnd, from, size);
-        return eventService.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
-    }
+//    @GetMapping("admin/events") // TODO: 03.10.2022 не работает
+//    public List<EventFullDto> getEventsAdmin(@RequestParam int[] users,
+//                                             @RequestParam String[] states,
+//                                             @RequestParam int[] categories,
+//                                             @RequestParam String rangeStart,
+//                                             @RequestParam String rangeEnd,
+//                                             @RequestParam int from,
+//                                             @RequestParam int size) {
+////        log.info("Администратор запросил список событий с параметрами users={}, states={}, categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
+////                users, states, categories, rangeStart, rangeEnd, from, size);
+//        return eventService.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
+//    }
 
     @PutMapping(value = "/admin/events/{eventId}")
     public EventFullDto updateEvent(@PathVariable int eventId,

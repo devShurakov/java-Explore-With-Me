@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
@@ -34,14 +36,16 @@ public class RequestController {
 
     //Получение информации о заявках текущего пользователя на участие в чужих событиях
     @GetMapping(value = "/users/{userId}/requests")
-    public List<ParticipationRequestDto> getRequest(@RequestParam (value = "userId")  int userId) {
+    public List<RequestDto> getRequest(@PathVariable(value = "userId") int userId) {
+//        if(userId==null) return request.
         return requestService.getRequest(userId);
     }
 
     //Отмена своего запроса на участие в событии
-    @PatchMapping(value = "/users/{userId}/requests")
-    public ParticipationRequestDto cancelRequest(@PathVariable Integer userId,
-                                                 @PathVariable Integer requestId) {
+    @PatchMapping(value = "/users/{userId}/requests/{requestId}/cancel")
+    public ParticipationRequestDto cancelRequest(@PathVariable(value = "userId") int userId,
+                                                 @PathVariable(value = "requestId") @NotNull int requestId) {
+//        if(requestId == null) throw new RequestCustomException("Ошибка данных");
         return requestService.cancelRequest(userId, requestId);
     }
 

@@ -10,9 +10,10 @@ import ru.practicum.app.user.User;
 import ru.practicum.app.user.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
+import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -58,23 +59,26 @@ public class RequestServiceImpl {
         return new ParticipationRequestDto();
     }
 
-    public List<ParticipationRequestDto> getRequest(Integer userId) {
-        return requestRepository.findAllByRequester(userId)
-                .stream()
-                .map(RequestMapper::mapToParticipationRequestDto)
-                .collect(Collectors.toList());
+    public List<RequestDto> getRequest(Integer userId) {
+
+        List<Request> requestList = requestRepository.findAllByRequester(userId);
+        List<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
+        return listToReturn;
+//        return requestRepository.findAllByRequester(userId)
+//                .stream()
+//                .map(RequestMapper::mapToRequestDto)
+//                .collect(Collectors.toList());
     }
 
     public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
         Request request = requestRepository.findById(requestId).orElseThrow(); //// TODO: 03.10.2022 бросить исключение
         if (!userId.equals(request.getRequester().getId())) {
             String message = "Только создатель может отменить запрос";
-            log.warn("ForbiddenOperationException at RequestServiceImpl.cancelRequest: {}", message);
             throw new OperationException(message);
         }
+
         request.setStatus(RequestStatus.CANCELED);
         Request cancelledRequest = requestRepository.save(request);
-        log.info("RequestServiceImpl.cancelRequest: request {} successfully cancelled", request.getId());
         return requestMapper.mapToParticipationRequestDto(cancelledRequest);
     }
 }

@@ -2,6 +2,9 @@ package ru.practicum.app.request;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class RequestMapper {
     public static ParticipationRequestDto mapToParticipationRequestDto(Request cancelledRequest) {
@@ -14,11 +17,19 @@ public class RequestMapper {
         );
     }
 
-//    public List <ParticipationRequestDto> mapAllToParticipationRequestDto(Request request) {
-//        List<ParticipationRequestDto> usersDtoList = new ArrayList<>();
-//        for (Request req : request) {
-//            usersDtoList.add(mapToParticipationRequestDto(req));
-//        }
-//        return usersDtoList;
-//    }
+    public static RequestDto mapToRequestDto(Request request) {
+        return new RequestDto(request.getId(),
+                request.getEvent(),
+                request.getCreated(),
+                request.getRequester().getId());
+    }
+
+    public List<RequestDto> mappAlltoRequestDto(List<Request> requestList) {
+        List<RequestDto> returnList = new ArrayList<>();
+        for (Request requests : requestList) {
+            returnList.add(mapToRequestDto(requests));
+        }
+        return returnList;
+    }
+
 }

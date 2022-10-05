@@ -82,51 +82,6 @@ public class EventServiceImpl {
         return updatedEvent;
     }
 
-    /*    @Override
-    public EventFullDto updateEvent(EventUpdateDto eventUpdateDto, int userId) {
-        getUserOrThrow(userId); //проверка наличия пользователя
-        Event eventToUpdate = getEventOrThrow(eventUpdateDto.getEventId());
-        checkEventInitiator(eventToUpdate, userId);
-        Category updatedCategory = new Category();
-        if (eventUpdateDto.getCategory() != null) {
-            updatedCategory = getCategoryOrThrow(eventUpdateDto.getCategory());
-        }
-        if (eventToUpdate.getState().equals(EventState.PUBLISHED)) {
-            throw new ConditionsNotMetException("Нельзя изменить опубликованное событие");
-        }
-        LocalDateTime eventDate = LocalDateTime.parse(eventUpdateDto.getEventDate(), formatter);
-        if (eventDate.equals(LocalDateTime.now().plusHours(2))) {
-            throw new ConditionsNotMetException("Дата события не может быть раньше, чем через два часа");
-        }
-        if (eventToUpdate.getState().equals(EventState.CANCELED)) {
-            eventToUpdate.setState(EventState.PENDING);
-        }
-        Event updatedEvent = EventMapper.dtoToUpdateEvent(eventUpdateDto, updatedCategory);
-        if (updatedEvent.getAnnotation() != null) {
-            eventToUpdate.setAnnotation(updatedEvent.getAnnotation());
-        }
-        if (updatedEvent.getCategory() != null) {
-            eventToUpdate.setCategory(updatedEvent.getCategory());
-        }
-        if (updatedEvent.getDescription() != null) {
-            eventToUpdate.setDescription(updatedEvent.getDescription());
-        }
-        if (updatedEvent.getEventDate() != null) {
-            eventToUpdate.setEventDate(LocalDateTime.parse(eventUpdateDto.getEventDate(), formatter));
-        }
-        if (updatedEvent.getIsPaid() != null) {
-            eventToUpdate.setIsPaid(eventUpdateDto.getPaid());
-        }
-        if (updatedEvent.getParticipantLimit() != null) {
-            eventToUpdate.setParticipantLimit(eventUpdateDto.getParticipantLimit());
-        }
-        if (updatedEvent.getTitle() != null) {
-            eventToUpdate.setTitle(eventToUpdate.getTitle());
-        }
-        eventRepository.save(eventToUpdate);
-        return EventMapper.eventToFullDto(eventToUpdate, eventToUpdate.getRequests(), getStatForEvent(eventToUpdate.getId()));
-    }*/
-
     public EventFullDto cancelEvent(int userId, int eventId) {
         Event event = findEventById(eventId);
         User user = findUserById(userId);
@@ -168,7 +123,7 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(findEventById(eventId));
     }
 
-    public List<EventShortDto> getFilteredEvents(HttpServletRequest request, String text, int[] categories, Boolean paid,
+    public List<EventShortDto> getEvents(HttpServletRequest request, String text, int[] categories, Boolean paid,
                                                  String rangeStart, String rangeEnd,
                                                  boolean onlyAvailable, String sort, Integer from, Integer size) {
         //отправка информации на сервер статистики
@@ -213,11 +168,36 @@ public class EventServiceImpl {
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
     }
 
+//    public List<EventShortDto> getEvents(String text,
+//                                         Integer categoryId,
+//                                         Boolean paid,
+//                                         String rangeStart,
+//                                         String rangeEnd,
+//                                         Boolean onlyAvailable,
+//                                         String sort,
+//                                         Integer from,
+//                                         Integer size,
+//                                         HttpServletRequest request) {
 
-    public List<EventFullDto> getEventsAdmin(int[] users,
-                                             String[] states, int[] categories, String rangeStart, String rangeEnd, int from, int size) {
-        return new ArrayList<>(); // TODO: 02.10.2022
-    }
+//        Stats stats = new Stats(0,
+//                "explore-with-me",
+//                request.getRequestURI(),
+//                request.getRemoteAddr(),
+//                LocalDateTime.now());
+//
+//
+//        client.saveRequest(stats);
+
+//        return eventRepository.findAll().stream()
+//                .map(EventMapper::mapToEventShortDto)
+//                .collect(Collectors.toList());
+//    }
+
+
+//    public List<EventFullDto> getEventsAdmin(int[] users,
+//                                             String[] states, int[] categories, String rangeStart, String rangeEnd, int from, int size) {
+//        return new ArrayList<>(); // TODO: 02.10.2022
+//    }
 
     public EventFullDto updateEvent(int eventId, AdminUpdateEventRequest adminUpdateEventRequest) {
 
