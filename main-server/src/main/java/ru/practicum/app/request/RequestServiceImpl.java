@@ -10,10 +10,8 @@ import ru.practicum.app.user.User;
 import ru.practicum.app.user.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
-import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Slf4j
