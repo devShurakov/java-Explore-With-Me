@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
             ids2.add(Integer.valueOf(x));
         }
 
-        if (ids != null || !ids.isEmpty()) {
+        if (ids != null) {
             log.info("Пользователь  получен");
             return userRepository.findAllById(ids2).stream()
                     .map(UserMapper::mapToUserDto)

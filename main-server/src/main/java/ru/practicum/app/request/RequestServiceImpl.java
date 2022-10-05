@@ -67,7 +67,7 @@ public class RequestServiceImpl {
 
     public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
         Request request = requestRepository.findById(requestId).orElseThrow(); //// TODO: 03.10.2022 бросить исключение
-        if (!userId.equals(request.getRequester())) {
+        if (!userId.equals(request.getRequester().getId())) {
             String message = "Только создатель может отменить запрос";
             log.warn("ForbiddenOperationException at RequestServiceImpl.cancelRequest: {}", message);
             throw new OperationException(message);
