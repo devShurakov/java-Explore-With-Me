@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,34 +48,45 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public List<UserDto> getUser(List<String> ids, Integer from, Integer size) {
-        List<Integer> ids2 = new ArrayList<>();
-        if (!isNumber(ids)) {
-            throw new UserCastomException("не может быть преобразовано в число");
-        }
-        for (String x : ids) {
-            ids2.add(Integer.valueOf(x));
-        }
+    public List<UserDto> getUser(Integer from, Integer size) {
+        return userRepository.findAll(PageRequest.of(from / size, size))
+                .stream()
+                .map(UserMapper::mapToUserDto)
+                .collect(Collectors.toList());
 
-        if (ids != null) {
-            log.info("Пользователь  получен");
-            return userRepository.findAllById(ids2).stream()
-                    .map(UserMapper::mapToUserDto)
-                    .collect(Collectors.toList());
-        } else if (ids == null || ids.isEmpty() || ids.isEmpty() && from == null) {
-            log.info("Пользователь  получен");
-            return userRepository.findAll().stream()
-                    .map(UserMapper::mapToUserDto)
-                    .collect(Collectors.toList());
-        } else {
-            int page = from / size;
-            Pageable pageable = PageRequest.of(page, size);
-            log.info("Пользователь  получен");
-            return userRepository.findAll(pageable).stream()
-                    .map(UserMapper::mapToUserDto)
-                    .collect(Collectors.toList());
-        }
+//        List<Integer> ids2 = new ArrayList<>();
+//        if (!isNumber(ids)) {
+//            throw new UserCastomException("не может быть преобразовано в число");
+//        }
+//        for (String x : ids) {
+//            ids2.add(Integer.valueOf(x));
+//        }
+//
+//        if (ids != null || !ids.isEmpty()) {
+//            log.info("Пользователь  получен");
+//            return userRepository.findAllById(ids2).stream()
+//                    .map(UserMapper::mapToUserDto)
+//                    .collect(Collectors.toList());
+//        } else if (ids == null || ids.isEmpty() || ids.isEmpty() && from == null) {
+//            log.info("Пользователь  получен");
+//            return userRepository.findAll().stream()
+//                    .map(UserMapper::mapToUserDto)
+//                    .collect(Collectors.toList());
+//        } else {
+//            int page = from / size;
+//            Pageable pageable = PageRequest.of(page, size);
+//            log.info("Пользователь  получен");
+//            return userRepository.findAll(pageable).stream()
+//                    .map(UserMapper::mapToUserDto)
+//                    .collect(Collectors.toList());
+//        }
+    }
+    @Override
+    public List<UserDto> getUsersById(Set<Integer> ids) {
+        return userRepository.findUsersByIdIn(ids)
+                .stream()
+                .map(UserMapper::mapToUserDto)
+                .collect(Collectors.toList());
     }
 
     public boolean isNumber(List<String> ids) {

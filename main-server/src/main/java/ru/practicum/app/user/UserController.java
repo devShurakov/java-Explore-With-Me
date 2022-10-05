@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 
@@ -36,10 +37,11 @@ public class UserController {
 
 
     @GetMapping(value = "/admin/users")
-    public List<UserDto> getUser(@RequestParam(value = "ids", defaultValue = "0") List<String> ids,
+    public List<UserDto> getUser(@RequestParam(value = "ids", defaultValue = "0") Set<Integer> ids,
                                  @RequestParam(required = false) Integer from,
                                  @RequestParam(required = false) Integer size) {
-            return userService.getUser(ids, from, size);
+        if (ids != null && !ids.isEmpty()) return userService.getUsersById(ids);
+            return userService.getUser(from, size);
     }
 
     @DeleteMapping(value = "admin/users/{userId}")
