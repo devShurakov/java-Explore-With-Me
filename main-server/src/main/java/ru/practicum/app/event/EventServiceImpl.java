@@ -44,8 +44,12 @@ public class EventServiceImpl {
 
     public EventShortDto create(int userId, NewEventDto newEventDto) {
         User user = findUserById(userId);
-        Event event = eventRepository.save(eventMapper.mapToEvent(user, newEventDto));
-        EventShortDto eventShortDto = eventMapper.mapToEventShortDto(event);
+        Event event = eventMapper.mapToEvent(user, newEventDto);
+        Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
+
+        event.setCategory(category);
+        Event eventToReturn = eventRepository.save(event);
+        EventShortDto eventShortDto = eventMapper.mapToEventShortDto(eventToReturn);
         log.info("создано новое событие {}", newEventDto.getTitle());
         return eventShortDto;
     }
@@ -138,9 +142,10 @@ public class EventServiceImpl {
 
     public List<EventShortDto> getOwnerEvents(int userId, Integer from, Integer size) {
         findUserById(userId);
-        int page = from / size;
-        Pageable pageable = PageRequest.of(page, size);
-        List<Event> eventsList = eventRepository.findAllByInitiator_Id((long) userId, pageable);
+//        int page = from / size;
+//        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(from / size, size);
+        List<Event> eventsList = eventRepository.findAllByInitiatorId( userId, pageable);
         List<EventShortDto> eventsShortDtoList = eventMapper.mapAlltoShortDto(eventsList);
         log.info("получен список событий пользователя");
         return eventsShortDtoList;
@@ -153,7 +158,7 @@ public class EventServiceImpl {
         findUserById(userId);
         findEventById(eventId);
         Event ownerEvent = eventRepository
-                .findById((long) eventId)
+                .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
         log.info("получена полная информация о событии пользователя");
         return eventMapper.mapToFullEventDto(ownerEvent);
@@ -204,7 +209,7 @@ public class EventServiceImpl {
 
     public Event findEventById(int eventId) {
         return eventRepository
-                .findById((long) eventId)
+                .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
     }
 
@@ -216,7 +221,7 @@ public class EventServiceImpl {
 
     public EventFullDto updateEvent(int eventId, AdminUpdateEventRequest adminUpdateEventRequest) {
 
-            Event event = eventRepository.findById((long) eventId)
+            Event event = eventRepository.findById( eventId)
                     .orElseThrow(() -> new UserCastomException("событие не найдено"));
 //
 //            if (!userId.equals(event.getInitiator().getId())) {
@@ -243,12 +248,12 @@ public class EventServiceImpl {
             }
             event.setStatus(EventStatus.PENDING); //PENDING
             Event updatedEvent = eventRepository.save(event);
-            log.info("EventServiceImpl.updateEvent: event {} successfully updated", event.getId());
+            log.info("EventServiceImpl.updateEvent: event {} successfully updated", event.getEvent_id());
             return eventMapper.mapToFullEventDto(updatedEvent);
     }
 
     public EventFullDto publishEvent(Integer eventId) {
-        Event event = eventRepository.findById(Long.valueOf(eventId))
+        Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
         if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
@@ -263,12 +268,12 @@ public class EventServiceImpl {
         }
         event.setStatus(EventStatus.PUBLISHED);
         Event publishedEvent = eventRepository.save(event);
-        log.info("EventServiceImpl.publishEvent: event {} successfully published", event.getId());
+        log.info("EventServiceImpl.publishEvent: event {} successfully published", event.getEvent_id());
         return eventMapper.mapToFullEventDto(publishedEvent);
     }
 
     public EventFullDto rejectEvent(int eventId) {
-            Event event = eventRepository.findById((long) eventId)
+            Event event = eventRepository.findById( eventId)
                     .orElseThrow(() -> new UserCastomException("событие не найдено"));
             if (!EventStatus.PENDING.equals(event.getStatus())) {
                 String message = "Только события в статусе pending  могут быть опубликованы.";
@@ -277,11 +282,11 @@ public class EventServiceImpl {
             }
             event.setStatus(EventStatus.CANCELED);
             Event rejectedEvent = eventRepository.save(event);
-            log.info("EventServiceImpl.rejectEvent: event {} successfully rejected", event.getId());
+            log.info("EventServiceImpl.rejectEvent: event {} successfully rejected", event.getEvent_id());
             return eventMapper.mapToFullEventDto(rejectedEvent);
         }
 
-    public List<EventShortDto> getEventsByIds(List<Long> ids) {
+    public List<EventShortDto> getEventsByIds(List<Integer> ids) {
         return eventRepository.findAllById(ids)
                 .stream()
                 .map(eventMapper::mapToEventShortDto)

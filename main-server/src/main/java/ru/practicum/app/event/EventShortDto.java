@@ -2,6 +2,7 @@ package ru.practicum.app.event;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.practicum.app.user.UserShortDto;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,8 @@ public class EventShortDto {
 
     private Integer category; // todo id, name
 
+    private Integer confirmedRequests;
+
     private String description;
 
     private Location location;
@@ -30,13 +33,13 @@ public class EventShortDto {
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss") // TODO: 17.09.2022 //    дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента
     private LocalDateTime eventDate;
 
-//    UserShortDto initiator;
+    UserShortDto initiator;
 
     private Boolean paid;
 
-    private Integer participantLimit;
+//    private Integer participantLimit;
 
-    private Boolean requestModeration;
+//    private Boolean requestModeration;
 //    String title;
 //
     Integer views;

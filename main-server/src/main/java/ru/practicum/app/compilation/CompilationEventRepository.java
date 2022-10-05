@@ -11,7 +11,7 @@ import java.util.List;
 public interface CompilationEventRepository extends JpaRepository<CompilationEvent, Integer> {
     @Query("SELECT ce.compilation FROM CompilationEvent AS ce " +
             "WHERE ce.compilation = :compId")
-    List<Long> findCompilationEventIds(Integer compId);
+    List<Integer> findCompilationEventIds(Integer compId);
 
     @Transactional
     void deleteByCompilationAndEvent(Integer compId, Integer eventId);

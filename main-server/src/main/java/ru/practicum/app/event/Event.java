@@ -1,5 +1,6 @@
 package ru.practicum.app.event;
 
+import lombok.Builder;
 import ru.practicum.app.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,7 @@ import ru.practicum.app.user.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,22 +18,20 @@ import java.time.LocalDateTime;
 @Table(name = "events")
 public class Event {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    Integer id;
+    Integer event_id;
 
     @Column(name = "annotation", nullable = false)
     String annotation;
 
-    //    @JsonDeserialize(using = SubCategoryDeserializer.class)
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "category_id", nullable = false) // TODO: 17.09.2022  category_id
+    @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
     @Column(name = "confirmed_requests", nullable = false)
-//    @ManyToOne
-//    @JoinColumn(name = "id", referencedColumnName = "confirmedRequests_шв", nullable = false) // TODO: 17.09.2022  исправить
     Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)
@@ -45,7 +44,7 @@ public class Event {
     LocalDateTime eventDate;
 
     @OneToOne
-    @JoinColumn(name = "initiator_id", nullable = false) // TODO: 17.09.2022  initiator_id
+    @JoinColumn(name = "initiator_id", nullable = false)
     User initiator;
 
     @Column(name = "location_lat", nullable = false)

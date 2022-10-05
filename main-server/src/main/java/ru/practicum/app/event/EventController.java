@@ -35,9 +35,9 @@ public class EventController {
 
     // Добавление нового события
     @PostMapping(value = "/users/{userId}/events")
-    public EventShortDto create(@PathVariable int userId,
+    public EventShortDto create(@PathVariable(value = "userId") int userId,
                                 @RequestBody NewEventDto newEventDto) {
-        return eventService.create(userId, newEventDto);
+        return eventService.create(Math.toIntExact(userId), newEventDto);
     }
 
     //изменение события добавленного текущим пользователем
@@ -56,10 +56,11 @@ public class EventController {
 
     //Получение событий, добавленных текущим пользователем
     @GetMapping(value = "/users/{userId}/events")
-    public List<EventShortDto> getOwnerEvents(@PathVariable(value = "userId") int userId,
-                                              @RequestParam(required = false) @Positive Integer from,
-                                              @RequestParam(required = false) @Positive Integer size) {
-        return eventService.getOwnerEvents(userId, from, size);
+    public List<EventShortDto> getOwnerEvents(@PathVariable(value = "userId") String userId,
+                                              @RequestParam(required = false) @Positive int from,
+                                              @RequestParam(required = false) @Positive int size) {
+
+        return eventService.getOwnerEvents(Integer.parseInt(userId), from, size);
     }
 
     //Получение полной информации о событии добавленном текущим пользователем

@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -26,12 +24,12 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/admin/categories")
-    public CategoryDto create(@RequestBody @Valid CategoryDto categoryDto) {
-        return categoryService.create(categoryDto);
+    public CategoryDto create(@RequestBody NewCategoryDto newCategoryDto) {
+        return categoryService.create(newCategoryDto);
     }
 
     @PatchMapping(value = "/admin/categories")
-    public CategoryDto update(@RequestBody @Valid CategoryDto categoryDto) {
+    public CategoryDto update(@RequestBody CategoryDto categoryDto) {
         return categoryService.update(categoryDto);
     }
 

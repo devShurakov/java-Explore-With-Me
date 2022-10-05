@@ -42,7 +42,7 @@ public class RequestServiceImpl {
                 .findById(userId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
         Event event = eventRepository
-                .findById((long) eventId)
+                .findById( eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
         if (event.getStatus().name().equals(RequestStatus.APPROVED.name()) && event.getStatus().name().equals(RequestStatus.CANCELED.name())) {

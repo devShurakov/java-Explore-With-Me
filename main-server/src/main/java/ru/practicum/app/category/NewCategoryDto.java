@@ -1,16 +1,12 @@
-package ru.practicum.app.user;
+package ru.practicum.app.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserShortDto {
-
-    int id;
-
+@NoArgsConstructor
+public class NewCategoryDto {
     String name;
-
 }

@@ -93,7 +93,7 @@ public class CompilationServiceImpl {
     }
 
     private List<EventShortDto> getCompilationEvents(Integer compId) {
-        List<Long> ids = compilationEventRepository.findCompilationEventIds(compId);
+        List<Integer> ids = compilationEventRepository.findCompilationEventIds(compId);
         return eventService.getEventsByIds(ids);
     }
 }

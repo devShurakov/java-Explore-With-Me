@@ -27,20 +27,20 @@ public class CategoryServiceImpl {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryDto create(CategoryDto categoryDto) {
-        if (categoryDto.getName() == null) {
+    public CategoryDto create(NewCategoryDto newCategoryDto) {
+        if (newCategoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }
         try {
-            Category category = categoryRepository.save(categoryMapper.mapToCategory(categoryDto));
+            Category category = categoryRepository.save(categoryMapper.mapNewToCategory(newCategoryDto));
             log.info("категория создана");
-            return categoryMapper.mapToCategoryDto(category);
+            return categoryMapper.mapNewToCategoryDto(category);
         } catch (DataIntegrityViolationException | ConstraintViolationException e) {
             throw new CategoryCastomException("Такая категория уже существует");
         }
     }
 
-    public CategoryDto update(CategoryDto categoryDto) {
+    public CategoryDto  update(CategoryDto categoryDto) {
         if (categoryDto.getId() == null && categoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }
@@ -55,7 +55,7 @@ public class CategoryServiceImpl {
     }
 
     public void delete(int id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> {
+        categoryRepository.findById(id).orElseThrow(() -> {
             throw new CategoryCastomException(String.format("такой категории не сущетствует", id));
         });
         categoryRepository.deleteById(id);

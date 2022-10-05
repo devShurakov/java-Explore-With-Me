@@ -3,27 +3,40 @@ package ru.practicum.app.event;
 import org.springframework.stereotype.Component;
 import ru.practicum.app.category.Category;
 import ru.practicum.app.user.User;
+import ru.practicum.app.user.UserShortDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class EventMapper {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public Event mapToEvent(User initiator, NewEventDto newEventDto) {
         Event event = new Event();
+        event.setEvent_id(null);
 
         event.setAnnotation(newEventDto.getAnnotation());
-        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
+//        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
+//        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
         event.setConfirmedRequests(0); // TODO: 17.09.2022   требуется ли вносить для всех
-        event.setCreated(newEventDto.getCreatedOn());
+//        event.setCreated(newEventDto.getCreatedOn());
         event.setDescription(newEventDto.getDescription());
         event.setEventDate(newEventDto.getEventDate());
+//        event.setCreated(newEventDto.getCreatedOn());
+        event.setCreated(LocalDateTime.now());
+
+//        event.setEventDate(LocalDateTime.from(LocalDate.parse(newEventDto.getEventDate(), formatter)));
         event.setLat(newEventDto.getLocation().getLat());// TODO: 17.09.2022  location
         event.setLon(newEventDto.getLocation().getLon());
         event.setPaid(newEventDto.getPaid());
         event.setParticipantLimit(newEventDto.getParticipantLimit());
         event.setPublishedOn(LocalDateTime.now()); // TODO: 17.09.2022  время публикации
+//        event.setPublishedOn(newEventDto.getPublishedOn()); // TODO: 17.09.2022  время публикации
         event.setInitiator(initiator);
         event.setRequestModeration(newEventDto.getRequestModeration());
         event.setStatus(EventStatus.PENDING);
@@ -35,25 +48,26 @@ public class EventMapper {
     public EventShortDto mapToEventShortDto(Event event) {
         EventShortDto eventShortDto = new EventShortDto();
 
-        eventShortDto.setId(event.getId());
+        eventShortDto.setId(event.getEvent_id());
         eventShortDto.setAnnotation(event.getAnnotation());
-        eventShortDto.setCategory(event.getCategory().getId());
+        eventShortDto.setCategory(event.getCategory().getCategory_id());
         eventShortDto.setDescription(event.getDescription());
         eventShortDto.setLocation(new EventShortDto.Location(event.getLat(), event.getLon()));
         eventShortDto.setTitle(event.getTitle());
         eventShortDto.setEventDate(event.getEventDate());
         eventShortDto.setPaid(event.getPaid());
-        eventShortDto.setParticipantLimit(event.getParticipantLimit());
-        eventShortDto.setRequestModeration(event.getRequestModeration());
+        eventShortDto.setInitiator(new UserShortDto(event.getInitiator().getId(),event.getInitiator().getName()));
+//        eventShortDto.setParticipantLimit(event.getParticipantLimit());
+//        eventShortDto.setRequestModeration(event.getRequestModeration());
         return eventShortDto;
     }
 
     public UpdateEventRequest mapToUpdateEventRequest(Event event) {
         UpdateEventRequest updateEventRequest = new UpdateEventRequest();
 
-        updateEventRequest.setId(event.getId());
+        updateEventRequest.setId(event.getEvent_id());
         updateEventRequest.setAnnotation(event.getAnnotation());
-        updateEventRequest.setCategory(event.getCategory().getId());
+        updateEventRequest.setCategory(event.getCategory().getCategory_id());
         updateEventRequest.setDescription(event.getDescription());
         updateEventRequest.setEventDate(event.getEventDate());
         updateEventRequest.setPaid(event.getPaid());
@@ -65,9 +79,9 @@ public class EventMapper {
     public EventFullDto mapToFullEventDto(Event event) {
         EventFullDto eventFullDto = new EventFullDto();
 
-        eventFullDto.setId(event.getId());
+        eventFullDto.setId(event.getEvent_id());
         eventFullDto.setAnnotation(event.getAnnotation());
-        eventFullDto.setCategory(new EventFullDto.Category(event.getCategory().getId(), event.getCategory().getName()));
+        eventFullDto.setCategory(new EventFullDto.Category(event.getCategory().getCategory_id(), event.getCategory().getName()));
         eventFullDto.setConfirmedRequests(event.getConfirmedRequests());
         eventFullDto.setCreated(event.getCreated());
         eventFullDto.setDescription(event.getDescription());

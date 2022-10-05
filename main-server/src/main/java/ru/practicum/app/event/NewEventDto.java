@@ -1,7 +1,11 @@
 package ru.practicum.app.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.practicum.app.category.Category;
+import ru.practicum.app.location.Location;
+import ru.practicum.app.user.User;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -19,28 +23,36 @@ public class NewEventDto {
     private String annotation;
 
     @NotNull
-    private Category category;
+    private Integer category;
 
-    private User initiator;
+//    @NotNull
+//    private Category category;
+//
+//    private User initiator;
+//
+//    @NotNull
+//    private Location location;
+//    @NotNull
+//    private NewEventDto.Category category;
+
+//    private NewEventDto.User initiator;
 
     @NotNull
-    private Location location;
+    private NewEventDto.Location location;
 
     @NotNull
     private String title;
 
+//    @NotNull
+//    private Integer confirmedRequests;
+
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime createdOn;
+
     @NotNull
-    private Integer confirmedRequests;
+    private String description;
 
-    @Future // TODO: 17.09.2022 сделать на два + часа позднее
-    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdOn;
-
-    @NotNull
-    private  String description;
-
-    @Future // TODO: 17.09.2022 сделать на два часа позднее
-    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 
     @NotNull
@@ -51,18 +63,22 @@ public class NewEventDto {
 
     @NotNull
     private Boolean requestModeration;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime publishedOn;
 
-    @Builder
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Category {
+//    private Integer views;
 
-        private Integer id;
-
-        private String name;
-    }
+//    @Builder
+//    @Getter
+//    @Setter
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    public static class Category {
+//
+//        private Integer id;
+//
+//        private String name;
+//    }
 
     @Builder
     @Getter

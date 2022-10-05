@@ -8,7 +8,7 @@ public class RequestMapper {
         return new ParticipationRequestDto(
                 cancelledRequest.getId(),
                 cancelledRequest.getCreated(),
-                cancelledRequest.getEvent().getId(),
+                cancelledRequest.getEvent().getEvent_id(),
                 cancelledRequest.getRequester().getId(),
                 cancelledRequest.getStatus().toString()
         );
