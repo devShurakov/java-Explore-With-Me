@@ -22,10 +22,10 @@ public class CompilationEvent {
 
     @Column(name = "event_id")
     private Integer event;
-
-    @Column(name = "title", nullable = false)
-    String title;
-
-    @Column(name = "pinned", nullable = false)
-    Boolean pinned;
+//
+//    @Column(name = "title", nullable = false)
+//    String title;
+//
+//    @Column(name = "pinned", nullable = false)
+//    Boolean pinned;
 }

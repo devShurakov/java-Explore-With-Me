@@ -53,33 +53,6 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(UserMapper::mapToUserDto)
                 .collect(Collectors.toList());
-
-//        List<Integer> ids2 = new ArrayList<>();
-//        if (!isNumber(ids)) {
-//            throw new UserCastomException("не может быть преобразовано в число");
-//        }
-//        for (String x : ids) {
-//            ids2.add(Integer.valueOf(x));
-//        }
-//
-//        if (ids != null || !ids.isEmpty()) {
-//            log.info("Пользователь  получен");
-//            return userRepository.findAllById(ids2).stream()
-//                    .map(UserMapper::mapToUserDto)
-//                    .collect(Collectors.toList());
-//        } else if (ids == null || ids.isEmpty() || ids.isEmpty() && from == null) {
-//            log.info("Пользователь  получен");
-//            return userRepository.findAll().stream()
-//                    .map(UserMapper::mapToUserDto)
-//                    .collect(Collectors.toList());
-//        } else {
-//            int page = from / size;
-//            Pageable pageable = PageRequest.of(page, size);
-//            log.info("Пользователь  получен");
-//            return userRepository.findAll(pageable).stream()
-//                    .map(UserMapper::mapToUserDto)
-//                    .collect(Collectors.toList());
-//        }
     }
 
     @Override
