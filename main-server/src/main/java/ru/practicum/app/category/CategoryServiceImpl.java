@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.practicum.app.exception.CategoryCastomException;
 
 import javax.validation.constraints.Min;
 import java.util.List;

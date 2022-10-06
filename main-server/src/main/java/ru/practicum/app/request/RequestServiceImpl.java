@@ -1,20 +1,24 @@
 package ru.practicum.app.request;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.event.EventRepository;
-import ru.practicum.app.event.OperationException;
+import ru.practicum.app.exception.OperationException;
 import ru.practicum.app.event.Event;
+import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.user.User;
-import ru.practicum.app.user.UserCastomException;
+import ru.practicum.app.exception.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class RequestServiceImpl {
 
     private final RequestRepository requestRepository;
@@ -69,7 +73,13 @@ public class RequestServiceImpl {
     }
 
     public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
-        Request request = requestRepository.findById(requestId).orElseThrow(); //// TODO: 03.10.2022 бросить исключение
+        userRepository.findById(userId).orElseThrow(() -> {
+            throw new RequestCustomException("пользователь не найдена");
+        });
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> {
+                    throw new RequestCustomException("заявка не найдена");
+                }); //// TODO: 03.10.2022 бросить исключение
         if (!userId.equals(request.getRequester().getId())) {
             String message = "Только создатель может отменить запрос";
             throw new OperationException(message);
@@ -78,5 +88,25 @@ public class RequestServiceImpl {
         request.setStatus(RequestStatus.CANCELED);
         Request cancelledRequest = requestRepository.save(request);
         return requestMapper.mapToParticipationRequestDto(cancelledRequest);
+    }
+
+    public ParticipationRequestDto acceptRequestByUser(Integer userId, Integer eventId, Integer reqId) {
+        Request req = requestRepository.findById(reqId).orElseThrow();
+        req.setStatus(RequestStatus.APPROVED);
+        requestRepository.save(req); //todo
+        return requestMapper.mapToParticipationRequestDto(req);
+//        requestRepository.setStateById("ACCEPTED", reqId);
+    }
+
+    public void rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
+
+        requestRepository.setStateById("REJECTED", reqId);
+    }
+
+    public List<RequestDto> getRequestByUser(Integer userId, Integer eventId) {
+
+        List<Request> requests = requestRepository.getRequestByUser(userId, eventId);
+
+        return requests.stream().map(RequestMapper::mapToRequestDto).collect(Collectors.toList());
     }
 }

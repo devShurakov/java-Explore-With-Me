@@ -1,5 +1,7 @@
 package ru.practicum.app.user;
 
+import ru.practicum.app.exception.EntryNotFoundException;
+
 import java.util.List;
 import java.util.Set;
 

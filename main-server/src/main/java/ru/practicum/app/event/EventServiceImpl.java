@@ -7,11 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.category.Category;
 import ru.practicum.app.category.CategoryRepository;
+import ru.practicum.app.exception.OperationException;
 import ru.practicum.app.user.User;
-import ru.practicum.app.user.UserCastomException;
+import ru.practicum.app.exception.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -123,38 +125,41 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(findEventById(eventId));
     }
 
-    public List<EventShortDto> getEvents(HttpServletRequest request, String text, int[] categories, Boolean paid,
-                                                 String rangeStart, String rangeEnd,
-                                                 boolean onlyAvailable, String sort, Integer from, Integer size) {
-        //отправка информации на сервер статистики
-        //sendStatistic(request); // TODO: 02.10.2022 отправка на сервер статистики
-        LocalDateTime dateStart = rangeStart == null || rangeStart.isEmpty() ?
-                LocalDateTime.now() :
-                LocalDateTime.parse(rangeStart, formatter);
-        LocalDateTime dateEnd = rangeEnd == null || rangeEnd.isEmpty() ?
-                null : LocalDateTime.parse(rangeEnd, formatter);
 
-        Set<Integer> categorySet = categories == null ?
-                new HashSet<>() : Arrays.stream(categories).boxed().collect(Collectors.toSet());
 
-        List<Event> events = eventRepository.findEventsByParams(
-                text != null && !text.isEmpty(), "%" + text + "%", !categorySet.isEmpty(),
-                categorySet, paid != null, paid,
-                dateEnd == null, dateStart, dateEnd == null ? dateStart : dateEnd,
-                onlyAvailable, PageRequest.of(from / size, size)
-        );
 
-        List<EventShortDto> eventShortDtos = eventMapper.mapAlltoShortDto(events);
-
-        switch (sort) {
-            case ("VIEWS"):
-                eventShortDtos.sort(Comparator.comparing(EventShortDto::getViews));
-                break;
-            case ("EVENT_DATE"):
-                eventShortDtos.sort(Comparator.comparing(EventShortDto::getEventDate));
-        }
-        return eventShortDtos;
-    }
+//    public List<EventShortDto> getEvents(HttpServletRequest request, String text, int[] categories, Boolean paid,
+//                                                 String rangeStart, String rangeEnd,
+//                                                 boolean onlyAvailable, String sort, Integer from, Integer size) {
+//        //отправка информации на сервер статистики
+//        //sendStatistic(request); // TODO: 02.10.2022 отправка на сервер статистики
+//        LocalDateTime dateStart = rangeStart == null || rangeStart.isEmpty() ?
+//                LocalDateTime.now() :
+//                LocalDateTime.parse(rangeStart, formatter);
+//        LocalDateTime dateEnd = rangeEnd == null || rangeEnd.isEmpty() ?
+//                null : LocalDateTime.parse(rangeEnd, formatter);
+//
+//        Set<Integer> categorySet = categories == null ?
+//                new HashSet<>() : Arrays.stream(categories).boxed().collect(Collectors.toSet());
+//
+//        List<Event> events = eventRepository.findEventsByParams(
+//                text != null && !text.isEmpty(), "%" + text + "%", !categorySet.isEmpty(),
+//                categorySet, paid != null, paid,
+//                dateEnd == null, dateStart, dateEnd == null ? dateStart : dateEnd,
+//                onlyAvailable, PageRequest.of(from / size, size)
+//        );
+//
+//        List<EventShortDto> eventShortDtos = eventMapper.mapAlltoShortDto(events);
+//
+//        switch (sort) {
+//            case ("VIEWS"):
+//                eventShortDtos.sort(Comparator.comparing(EventShortDto::getViews));
+//                break;
+//            case ("EVENT_DATE"):
+//                eventShortDtos.sort(Comparator.comparing(EventShortDto::getEventDate));
+//        }
+//        return eventShortDtos;
+//    }
 
     public User findUserById(int userId) {
         return userRepository
@@ -275,4 +280,71 @@ public class EventServiceImpl {
                 .collect(Collectors.toList());
     }
 
+
+    public Collection<EventFullDto> getEventByAdmin(List<Long> users, List<String> statesStr, List<Long> categories, String rangeStart, String rangeEnd, int from, int size) {
+        LocalDateTime start;
+        LocalDateTime end;
+        boolean isUsers = users.isEmpty() ? false : true;
+        boolean isCat = categories.isEmpty() ? false : true;
+        boolean isState = statesStr.isEmpty() ? false : true;
+
+        if (rangeStart.isEmpty()) {
+            start = LocalDateTime.now();
+        } else {
+            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        if (rangeEnd.isEmpty()) {
+            end = LocalDateTime.now().minusYears(100);
+        } else {
+            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+
+        return eventRepository.findByAdmin(isUsers, users, isState, statesStr, isCat, categories, start, end, PageRequest.of(from, size))
+                .stream()
+                .map(eventMapper::mapToFullEventDto)
+                .collect(Collectors.toList());
+    }
+
+    public Collection<EventShortDto> getFilteredEvents(String text,
+                                               List<Long> categories,
+                                               Boolean paid,
+                                               String rangeStart,
+                                               String rangeEnd,
+                                               Boolean onlyAvailable,
+                                               EventSortValues sort,
+                                               int from,
+                                               int size) {
+        LocalDateTime start;
+        LocalDateTime end;
+        Boolean isCategories = categories.isEmpty() ? false : true;
+
+        if (rangeStart.isEmpty()) {
+            start = LocalDateTime.now();
+        } else {
+            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        if (rangeEnd.isEmpty()) {
+            end = LocalDateTime.now().minusYears(100);
+        } else {
+            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        if (text != null) {
+            text.toLowerCase();
+        }
+        var events = eventRepository.find(text, isCategories, categories, paid, start, end, onlyAvailable, PageRequest.of(from, size));
+
+        if (sort != null) {
+            if (sort == EventSortValues.EVENT_DATE) {
+                events.stream().sorted(Comparator.comparing(Event::getEventDate));
+            }
+            if (sort == EventSortValues.VIEWS) {
+                events.stream().sorted(Comparator.comparing(Event::getEventDate));
+            }
+        }
+
+
+        return events.stream()
+                .map(event -> eventMapper.mapToEventShortDto(event))
+                .collect(Collectors.toList());
+    }
 }

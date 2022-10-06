@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.practicum.app.category.CategoryCastomException;
-import ru.practicum.app.user.EntryNotFoundException;
-import ru.practicum.app.user.UserCastomException;
-import ru.practicum.app.user.UserCastomException2;
+import ru.practicum.app.exception.CategoryCastomException;
+import ru.practicum.app.exception.EntryNotFoundException;
+import ru.practicum.app.exception.UserCastomException;
+import ru.practicum.app.exception.UserCastomException2;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -100,5 +101,25 @@ public class ErrorHandler {
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 ));
     }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Response onValidationException(ValidationException exception) {
+//        log.error(exception.getMessage());
+        return new Response(
+                "Only pending or canceled events can be changed",
+                "For the requested operation the conditions are not met.",
+                HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                ));
+
+//        "message": "Only pending or canceled events can be changed",
+//                "reason": "For the requested operation the conditions are not met.",
+//                "status": "400 BAD_REQUEST",
+//                "timestamp": "yyyy-MM-dd HH:mm:ss"
+
+    }
+
+
 
 }

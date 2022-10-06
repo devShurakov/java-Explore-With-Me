@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.practicum.app.exception.EntryNotFoundException;
+import ru.practicum.app.exception.UserCastomException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,12 +50,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public List<UserDto> getUser(Integer from, Integer size) {
-        return userRepository.findAll(PageRequest.of(from / size, size))
-                .stream()
-                .map(UserMapper::mapToUserDto)
-                .collect(Collectors.toList());
+    public List<UserDto> getAllUsers(List<Integer> ids, int from, int size) {
+        Collection<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
+
+        return userMapper.maptoAllUserDto(userCollection);
     }
+
+//    public List<UserDto> getUser(Integer from, Integer size) {
+//        return userRepository.findAll(PageRequest.of(from / size, size))
+//                .stream()
+//                .map(UserMapper::mapToUserDto)
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {

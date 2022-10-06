@@ -1,4 +1,4 @@
-package ru.practicum.app.category;
+package ru.practicum.app.exception;
 
 public class CategoryAlredyExceprion extends Throwable {
     public CategoryAlredyExceprion(String message) {

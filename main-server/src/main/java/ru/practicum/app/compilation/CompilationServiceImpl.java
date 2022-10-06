@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.app.event.EventRepository;
 import ru.practicum.app.event.EventServiceImpl;
 import ru.practicum.app.event.EventShortDto;
+import ru.practicum.app.exception.CompilationNotFoundException;
 
 import javax.persistence.*;
 import javax.validation.Valid;
