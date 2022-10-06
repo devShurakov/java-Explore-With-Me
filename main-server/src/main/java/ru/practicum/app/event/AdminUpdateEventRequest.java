@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.app.category.CategoryDto;
+import ru.practicum.app.location.Location;
 import ru.practicum.app.user.UserShortDto;
 
 import java.time.LocalDateTime;
@@ -13,35 +14,43 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminUpdateEventRequest {
 
-    Integer id;
+//    Integer id;
 
     String annotation;
 
     Integer category;
 
-    CategoryDto confirmedRequests;
-
-    String createdOn;
-
     String description;
 
     LocalDateTime eventDate;
 
-    UserShortDto initiator;
-
-    String location; //todo
+    Location location; //todo
 
     Boolean paid;
 
     Integer participantLimit;
 
-    String publishedOn;
-
     Boolean requestModeration;
-
-    String state;
 
     String title;
 
-    Integer views;
+//    CategoryDto confirmedRequests;
+//
+//    String createdOn;
+//
+//
+//    UserShortDto initiator;
+//
+////    String location; //todo
+//
+//
+//    String publishedOn;
+//
+////    Boolean requestModeration;
+//
+//    String state;
+
+//    String title;
+//
+//    Integer views;
 }

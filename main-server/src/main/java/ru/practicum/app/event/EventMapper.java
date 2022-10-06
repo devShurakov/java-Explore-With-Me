@@ -90,10 +90,11 @@ public class EventMapper {
         eventFullDto.setPublishedOn(event.getPublishedOn());
         eventFullDto.setInitiator(new EventFullDto.Initiator(
                 event.getInitiator().getId(),
-                event.getInitiator().getName())
+                event.getInitiator().getName(),
+                event.getInitiator().getEmail())
         );
         eventFullDto.setRequestModeration(event.getRequestModeration());
-        eventFullDto.setStatus(event.getStatus());
+        eventFullDto.setState(event.getStatus());
         eventFullDto.setTitle(event.getTitle());
         eventFullDto.setViews(event.getViews());
         return eventFullDto;

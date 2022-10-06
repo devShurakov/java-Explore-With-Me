@@ -117,7 +117,6 @@ public class EventServiceImpl {
         Event ownerEvent = eventRepository
                 .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
-        log.info("получена полная информация о событии пользователя");
         return eventMapper.mapToFullEventDto(ownerEvent);
     }
 
@@ -170,7 +169,6 @@ public class EventServiceImpl {
         }
         event.setStatus(EventStatus.PENDING); //PENDING
         Event updatedEvent = eventRepository.save(event);
-        log.info("EventServiceImpl.updateEvent: event {} successfully updated", event.getEventId());
         return eventMapper.mapToFullEventDto(updatedEvent);
     }
 
@@ -180,17 +178,14 @@ public class EventServiceImpl {
 
         if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
             String message = "Только события которые начинаются на час больше текущенго времени могут быть опубликованы.";
-            log.warn("ForbiddenOperationException at EventServiceImpl.publishEvent: {}", message);
             throw new OperationException(message);
         }
         if (!EventStatus.PENDING.equals(event.getStatus())) {
             String message = "Только события в статусе pending  могут быть опубликованы.";
-            log.warn("ForbiddenOperationException at EventServiceImpl.publishEvent: {}", message);
             throw new OperationException(message);
         }
         event.setStatus(EventStatus.PUBLISHED);
         Event publishedEvent = eventRepository.save(event);
-        log.info("EventServiceImpl.publishEvent: event {} successfully published", event.getEventId());
         return eventMapper.mapToFullEventDto(publishedEvent);
     }
 
@@ -199,12 +194,10 @@ public class EventServiceImpl {
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
         if (!EventStatus.PENDING.equals(event.getStatus())) {
             String message = "Только события в статусе pending  могут быть опубликованы.";
-            log.warn("ForbiddenOperationException at EventServiceImpl.rejectEvent: {}", message);
             throw new OperationException(message);
         }
         event.setStatus(EventStatus.CANCELED);
         Event rejectedEvent = eventRepository.save(event);
-        log.info("EventServiceImpl.rejectEvent: event {} successfully rejected", event.getEventId());
         return eventMapper.mapToFullEventDto(rejectedEvent);
     }
 

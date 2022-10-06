@@ -37,7 +37,7 @@ public class EventFullDto {
 
     Boolean requestModeration;
 
-    EventStatus status;
+    EventStatus state;
 
     String title;
 
@@ -53,6 +53,7 @@ public class EventFullDto {
         private Integer id;
 
         private String name;
+
     }
 
     @Getter
@@ -65,6 +66,8 @@ public class EventFullDto {
         private Integer id;
 
         private String name;
+
+        private String email;
     }
 
     @Getter
