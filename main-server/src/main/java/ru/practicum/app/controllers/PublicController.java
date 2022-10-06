@@ -11,11 +11,8 @@ import ru.practicum.app.compilation.CompilationServiceImpl;
 import ru.practicum.app.event.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -83,6 +80,7 @@ public class PublicController {
     public EventFullDto getFullInfoEvents(@PathVariable(value = "eventId") int eventId) {
         return eventService.getFullInfoEvents(eventId);
     }
+
     @GetMapping(value = "/events")
     public Collection<EventShortDto> getFilteredEvents(
             @RequestParam(required = false) String text,

@@ -56,13 +56,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.maptoAllUserDto(userCollection);
     }
 
-//    public List<UserDto> getUser(Integer from, Integer size) {
-//        return userRepository.findAll(PageRequest.of(from / size, size))
-//                .stream()
-//                .map(UserMapper::mapToUserDto)
-//                .collect(Collectors.toList());
-//    }
-
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {
         return userRepository.findUsersByIdIn(ids)

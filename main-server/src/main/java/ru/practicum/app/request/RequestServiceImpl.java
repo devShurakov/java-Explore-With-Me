@@ -58,7 +58,9 @@ public class RequestServiceImpl {
         request.setCreated(LocalDateTime.now());
         request.setStatus(RequestStatus.PENDING);
         log.info("создан запрос");
-        return new ParticipationRequestDto();
+//        requestRepository.save(request);
+
+        return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
     public List<RequestDto> getRequest(Integer userId) {

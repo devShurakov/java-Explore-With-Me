@@ -131,6 +131,11 @@ public class AdminController {
         return eventService.rejectEvent(eventId);
     }
 
+//    @PatchMapping(value = "/admin/events/{eventId}/reject")
+//    public Event rejectEvent(@PathVariable int eventId) {
+//        return eventService.rejectEvent(eventId);
+//    }
+
     @GetMapping(value = "/admin/events")
     public Collection<EventFullDto> getEventByAdmin(
             @RequestParam(required = false) List<Long> users,

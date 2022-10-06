@@ -107,12 +107,22 @@ public class PrivateController {
         return requestService.cancelRequest(userId, requestId);
     }
 
+
+
+
+    //todo doing NOW
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/confirm")
     public ParticipationRequestDto acceptRequestByUser(@PathVariable Integer userId,
                                                        @PathVariable Integer eventId,
                                                        @PathVariable Integer reqId) {
         return requestService.acceptRequestByUser(userId, eventId, reqId);
     }
+
+
+
+
+
+
 
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/reject")
     public void rejectRequestByUser(@PathVariable Integer userId,
