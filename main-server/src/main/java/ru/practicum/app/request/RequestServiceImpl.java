@@ -57,23 +57,15 @@ public class RequestServiceImpl {
         request.setEvent(event);
         request.setCreated(LocalDateTime.now());
         request.setStatus(RequestStatus.PENDING);
-        log.info("создан запрос");
-//        requestRepository.save(request);
-
         return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
     public List<RequestDto> getRequest(Integer userId) {
 
 
-
         List<Request> requestList = requestRepository.findAllByRequester(userId);
         List<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
         return listToReturn;
-//        return requestRepository.findAllByRequester(userId)
-//                .stream()
-//                .map(RequestMapper::mapToRequestDto)
-//                .collect(Collectors.toList());
     }
 
     public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
@@ -83,7 +75,7 @@ public class RequestServiceImpl {
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> {
                     throw new RequestCustomException("заявка не найдена");
-                }); //// TODO: 03.10.2022 бросить исключение
+                });
         if (!userId.equals(request.getRequester().getId())) {
             String message = "Только создатель может отменить запрос";
             throw new OperationException(message);
@@ -99,7 +91,6 @@ public class RequestServiceImpl {
         req.setStatus(RequestStatus.APPROVED);
         requestRepository.save(req); //todo
         return requestMapper.mapToParticipationRequestDto(req);
-//        requestRepository.setStateById("ACCEPTED", reqId);
     }
 
     public void rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {

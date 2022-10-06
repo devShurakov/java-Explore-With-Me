@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class NewEventDto {
 
-//    private Integer id;
     @NotNull
     @Size(min = 20, max = 2000)
     private String annotation;
@@ -34,17 +33,6 @@ public class NewEventDto {
     @Size(min = 3, max = 120)
     private String title;
 
-//    @Builder
-//    @Getter
-//    @Setter
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class User {
-//
-//        private Integer id;
-//
-//        private String name;
-//    }
 
     @Getter
     @Setter

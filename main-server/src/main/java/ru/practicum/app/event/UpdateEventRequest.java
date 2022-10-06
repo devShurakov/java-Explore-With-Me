@@ -19,7 +19,7 @@ public class UpdateEventRequest {
 
     private String annotation;
 
-    private Integer category; // TODO: 17.09.2022   id, name
+    private Integer category;
 
     private String description;
 
@@ -27,11 +27,9 @@ public class UpdateEventRequest {
 
     private String title;
 
-    //    Integer confirmedRequests;
+
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
-
-//    UserShortDto initiator;
 
     private Boolean paid;
 

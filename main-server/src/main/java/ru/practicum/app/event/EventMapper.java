@@ -19,22 +19,15 @@ public class EventMapper {
         event.setEventId(null);
 
         event.setAnnotation(newEventDto.getAnnotation());
-//        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
-//        event.setCategory(new Category(newEventDto.getCategory().getId(), newEventDto.getCategory().getName()));
-        event.setConfirmedRequests(0); // TODO: 17.09.2022   требуется ли вносить для всех
-//        event.setCreated(newEventDto.getCreatedOn());
+        event.setConfirmedRequests(0);
         event.setDescription(newEventDto.getDescription());
         event.setEventDate(newEventDto.getEventDate());
-//        event.setCreated(newEventDto.getCreatedOn());
         event.setCreated(LocalDateTime.now());
-
-//        event.setEventDate(LocalDateTime.from(LocalDate.parse(newEventDto.getEventDate(), formatter)));
-        event.setLat(newEventDto.getLocation().getLat());// TODO: 17.09.2022  location
+        event.setLat(newEventDto.getLocation().getLat());
         event.setLon(newEventDto.getLocation().getLon());
         event.setPaid(newEventDto.getPaid());
         event.setParticipantLimit(newEventDto.getParticipantLimit());
-        event.setPublishedOn(LocalDateTime.now()); // TODO: 17.09.2022  время публикации
-//        event.setPublishedOn(newEventDto.getPublishedOn()); // TODO: 17.09.2022  время публикации
+        event.setPublishedOn(LocalDateTime.now());
         event.setInitiator(initiator);
         event.setRequestModeration(newEventDto.getRequestModeration());
         event.setStatus(EventStatus.PENDING);
@@ -54,9 +47,7 @@ public class EventMapper {
         eventShortDto.setTitle(event.getTitle());
         eventShortDto.setEventDate(event.getEventDate());
         eventShortDto.setPaid(event.getPaid());
-        eventShortDto.setInitiator(new UserShortDto(event.getInitiator().getId(),event.getInitiator().getName()));
-//        eventShortDto.setParticipantLimit(event.getParticipantLimit());
-//        eventShortDto.setRequestModeration(event.getRequestModeration());
+        eventShortDto.setInitiator(new UserShortDto(event.getInitiator().getId(), event.getInitiator().getName()));
         return eventShortDto;
     }
 

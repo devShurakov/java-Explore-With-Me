@@ -8,13 +8,6 @@ import java.util.List;
 @Component
 public class CategoryMapper {
 
-//    public Category mapToCategory(CategoryDto categoryDto) {
-//        Category category = new Category();
-////        category.setId(categoryDto.getId()); // TODO: 17.09.2022 вернуть
-//        category.setName(categoryDto.getName());
-//        return category;
-//    }
-
     public static CategoryDto mapToCategoryDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getCategoryId());

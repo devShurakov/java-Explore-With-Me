@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminUpdateEventRequest {
 
-//    Integer id;
-
     String annotation;
 
     Integer category;
@@ -22,7 +20,7 @@ public class AdminUpdateEventRequest {
 
     LocalDateTime eventDate;
 
-    Location location; //todo
+    Location location;
 
     Boolean paid;
 
@@ -32,23 +30,4 @@ public class AdminUpdateEventRequest {
 
     String title;
 
-//    CategoryDto confirmedRequests;
-//
-//    String createdOn;
-//
-//
-//    UserShortDto initiator;
-//
-////    String location; //todo
-//
-//
-//    String publishedOn;
-//
-////    Boolean requestModeration;
-//
-//    String state;
-
-//    String title;
-//
-//    Integer views;
 }

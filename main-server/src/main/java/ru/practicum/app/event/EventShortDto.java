@@ -29,19 +29,13 @@ public class EventShortDto {
 
     private String title;
 
-//    Integer confirmedRequests;
-    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss") // TODO: 17.09.2022 //    дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента
+    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 
     UserShortDto initiator;
 
     private Boolean paid;
 
-//    private Integer participantLimit;
-
-//    private Boolean requestModeration;
-//    String title;
-//
     Integer views;
 
     @Getter

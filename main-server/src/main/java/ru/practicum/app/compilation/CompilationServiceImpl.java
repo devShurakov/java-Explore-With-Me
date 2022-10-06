@@ -53,51 +53,7 @@ public class CompilationServiceImpl {
         return CompilationMapper.mapToCompilationDto(compilation, getCompilationEvents(compId));
     }
 
-//    public class NewCompilationDto {
-//        private String title;
-//        private Boolean pinned;
-//        private List<Integer> events;
-
-//    @Entity
-//    @Table(name = "compilation_event")
-//    @Data
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public class CompilationEvent {
-//        @Id
-//        @GeneratedValue(strategy = GenerationType.IDENTITY)
-//        private Integer id;
-//        @Column(name = "compilation_id")
-//        private Integer compilation;
-//        @Column(name = "event_id")
-//        private Integer event;
-//        @Column(name = "title", nullable = false)
-//        String title;
-//        @Column(name = "pinned", nullable = false)
-//        Boolean pinned;
-
-
     public CompilationDto addCompilation(@Valid NewCompilationDto newCompilationDto) {
-//
-//        List<Event> events = new ArrayList<>();
-//
-//        for (Integer eventId : newCompilationDto.getEvents()) {
-//            events.add(eventRepository.findById(eventId).get());
-//        }
-//
-//        Compilation compilation = new Compilation();
-//        compilation.setTitle(newCompilationDto.getTitle());
-//        compilation.setPinned(newCompilationDto.getPinned());
-//        compilationRepository.save(compilation);
-//
-//        for (Event eventId : events) {
-//            CompilationEvent compilationEvent = new CompilationEvent(null, compId, eventId, null, null);
-//            compilationEventRepository.save(compilationEvent);
-//        }
-//
-//
-//        return CompilationMapper.toCompilationDto(compilation);
-
 
         Compilation compilation = compilationMapper.mapToCompilation(newCompilationDto);
         Compilation addedCompilation = compilationRepository.save(compilation);
@@ -115,7 +71,6 @@ public class CompilationServiceImpl {
             throw new CompilationNotFoundException("подборка не найдена");
         }
         compilationRepository.deleteById(compId);
-//        compilationEventRepository.deleteById(compId);
 
     }
 

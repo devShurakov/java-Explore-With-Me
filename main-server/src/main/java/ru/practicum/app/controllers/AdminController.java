@@ -131,11 +131,6 @@ public class AdminController {
         return eventService.rejectEvent(eventId);
     }
 
-//    @PatchMapping(value = "/admin/events/{eventId}/reject")
-//    public Event rejectEvent(@PathVariable int eventId) {
-//        return eventService.rejectEvent(eventId);
-//    }
-
     @GetMapping(value = "/admin/events")
     public Collection<EventFullDto> getEventByAdmin(
             @RequestParam(required = false) List<Long> users,
@@ -165,28 +160,12 @@ public class AdminController {
     public List<UserDto> getUser(@RequestParam(required = false) List<Integer> ids,
                                  @RequestParam(defaultValue = "0") Integer from,
                                  @RequestParam(defaultValue = "10") Integer size) {
-//        if (ids != null && !ids.isEmpty()) return userService.getUsersById(ids);
-        return userService.getAllUsers(ids,from, size);
+        return userService.getAllUsers(ids, from, size);
     }
 
     @DeleteMapping(value = "admin/users/{userId}")
     public void deleteUser(@PathVariable @NotNull int userId) throws EntryNotFoundException {
         userService.delete(userId);
     }
-
-//    @GetMapping
-//    public List<EventShortDto> getEvents(@RequestParam(required = false) String text,
-//                                         @RequestParam(required = false) int[] categories,
-//                                         @RequestParam(required = false) Boolean isPaid,
-//                                         @RequestParam(required = false) String rangeStart,
-//                                         @RequestParam(required = false) String rangeEnd,
-//                                         @RequestParam(defaultValue = "false") boolean onlyAvailable,
-//                                         @RequestParam(required = false) EventSortValues sort,
-//                                         @PositiveOrZero @RequestParam(defaultValue = "0") int from,
-//                                         @Positive @RequestParam(defaultValue = "10") int size,
-//                                         HttpServletRequest request) {
-//        return eventService.getEvents(request, text, categories, isPaid, rangeStart, rangeEnd, onlyAvailable,
-//                sort.name(), from, size);
-//    }
 
 }
