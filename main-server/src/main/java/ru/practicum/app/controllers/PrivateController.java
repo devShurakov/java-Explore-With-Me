@@ -26,7 +26,7 @@ public class PrivateController {
     private final RequestServiceImpl requestService;
 
     @Autowired
-    public PrivateController(EventServiceImpl eventService,RequestServiceImpl requestService) {
+    public PrivateController(EventServiceImpl eventService, RequestServiceImpl requestService) {
         this.eventService = eventService;
         this.requestService = requestService;
     }
@@ -41,9 +41,9 @@ public class PrivateController {
      */
 
     @PostMapping(value = "/users/{userId}/events")
-    public EventShortDto create(@PathVariable(value = "userId") int userId,
-                                @RequestBody NewEventDto newEventDto) {
-        return eventService.create(Math.toIntExact(userId), newEventDto);
+    public EventFullDto create(@PathVariable Integer userId,
+                               @RequestBody NewEventDto newEventDto) {
+        return eventService.create(userId, newEventDto);
     }
 
     @PatchMapping(value = "/users/{userId}/events")
@@ -100,8 +100,6 @@ public class PrivateController {
     }
 
 
-
-
     //todo doing NOW
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/confirm")
     public ParticipationRequestDto acceptRequestByUser(@PathVariable Integer userId,
@@ -109,11 +107,6 @@ public class PrivateController {
                                                        @PathVariable Integer reqId) {
         return requestService.acceptRequestByUser(userId, eventId, reqId);
     }
-
-
-
-
-
 
 
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/reject")

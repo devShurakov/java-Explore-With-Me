@@ -44,15 +44,14 @@ public class EventServiceImpl {
         this.categoryRepository = categoryRepository;
     }
 
-    public EventShortDto create(int userId, NewEventDto newEventDto) {
+    public EventFullDto create(int userId, NewEventDto newEventDto) {
         User user = findUserById(userId);
         Event event = eventMapper.mapToEvent(user, newEventDto);
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
 
         event.setCategory(category);
         Event eventToReturn = eventRepository.save(event);
-        EventShortDto eventShortDto = eventMapper.mapToEventShortDto(eventToReturn);
-        log.info("создано новое событие {}", newEventDto.getTitle());
+        EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
         return eventShortDto;
     }
 

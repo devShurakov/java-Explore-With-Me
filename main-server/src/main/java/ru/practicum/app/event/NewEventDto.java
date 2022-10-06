@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Builder
@@ -12,80 +13,38 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class NewEventDto {
 
-    private Integer id;
-
+//    private Integer id;
     @NotNull
+    @Size(min = 20, max = 2000)
     private String annotation;
-
     @NotNull
     private Integer category;
-
-//    @NotNull
-//    private Category category;
-//
-//    private User initiator;
-//
-//    @NotNull
-//    private Location location;
-//    @NotNull
-//    private NewEventDto.Category category;
-
-//    private NewEventDto.User initiator;
-
-    @NotNull
-    private NewEventDto.Location location;
-
-    @NotNull
-    private String title;
-
-//    @NotNull
-//    private Integer confirmedRequests;
-
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime createdOn;
-
+    @Size(min = 20, max = 7000)
     @NotNull
     private String description;
-
+    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
-
     @NotNull
+    private Location location;
     private Boolean paid;
-
-    @NotNull
     private Integer participantLimit;
-
-    @NotNull
     private Boolean requestModeration;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime publishedOn;
-
-//    private Integer views;
+    @NotNull
+    @Size(min = 3, max = 120)
+    private String title;
 
 //    @Builder
 //    @Getter
 //    @Setter
 //    @NoArgsConstructor
 //    @AllArgsConstructor
-//    public static class Category {
+//    public static class User {
 //
 //        private Integer id;
 //
 //        private String name;
 //    }
-
-    @Builder
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class User {
-
-        private Integer id;
-
-        private String name;
-    }
 
     @Getter
     @Setter

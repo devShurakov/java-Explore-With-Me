@@ -8,12 +8,15 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
+    //    @Query("select r from Request r where r.requester.id = ?1")
     @Query("select r from Request r where r.requester.id = ?1")
     List<Request> findAllByRequester(Integer userId);
+
 
     @Transactional
     @Modifying
     @Query("update Request r set r.status = ?1 where r.id = ?2")
+
     void setStateById(String status, Integer reqId);
 
     @Query("select r from Request r where r.requester.id = ?1")

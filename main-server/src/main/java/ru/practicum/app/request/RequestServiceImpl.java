@@ -65,6 +65,8 @@ public class RequestServiceImpl {
 
     public List<RequestDto> getRequest(Integer userId) {
 
+
+
         List<Request> requestList = requestRepository.findAllByRequester(userId);
         List<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
         return listToReturn;
