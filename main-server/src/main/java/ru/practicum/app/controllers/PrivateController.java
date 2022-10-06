@@ -40,28 +40,24 @@ public class PrivateController {
      *  - Получение полной информации о событии добавленном текущим пользователем
      */
 
-    // Добавление нового события
     @PostMapping(value = "/users/{userId}/events")
     public EventShortDto create(@PathVariable(value = "userId") int userId,
                                 @RequestBody NewEventDto newEventDto) {
         return eventService.create(Math.toIntExact(userId), newEventDto);
     }
 
-    //изменение события добавленного текущим пользователем
     @PatchMapping(value = "/users/{userId}/events")
     public UpdateEventRequest update(@PathVariable(value = "userId") int userId,
                                      @RequestBody @Valid UpdateEventRequest updateEventRequest) {
         return eventService.update(userId, updateEventRequest);
     }
 
-    // Отмена события добавленного пользователем
     @PatchMapping(value = "/users/{userId}/events/{eventId}")
     public EventFullDto cancelEvent(@PathVariable(value = "userId") int userId,
                                     @PathVariable(value = "eventId") int eventId) {
         return eventService.cancelEvent(userId, eventId);
     }
 
-    //Получение событий, добавленных текущим пользователем
     @GetMapping(value = "/users/{userId}/events")
     public List<EventShortDto> getOwnerEvents(@PathVariable(value = "userId") String userId,
                                               @RequestParam(required = false) @Positive int from,
@@ -70,7 +66,6 @@ public class PrivateController {
         return eventService.getOwnerEvents(Integer.parseInt(userId), from, size);
     }
 
-    //Получение полной информации о событии добавленном текущим пользователем
     @GetMapping(value = "/users/{userId}/events/{eventId}")
     public EventFullDto getOwnerFullInfoEvents(@PathVariable(value = "userId") int userId,
                                                @PathVariable(value = "eventId") int eventId) {
@@ -92,14 +87,11 @@ public class PrivateController {
         return requestService.create(userId, eventId);
     }
 
-    //Получение информации о заявках текущего пользователя на участие в чужих событиях
     @GetMapping(value = "/users/{userId}/requests")
     public List<RequestDto> getRequest(@PathVariable(value = "userId") int userId) {
-//        if(userId==null) return request.
         return requestService.getRequest(userId);
     }
 
-    //Отмена своего запроса на участие в событии
     @PatchMapping(value = "/users/{userId}/requests/{requestId}/cancel")
     public ParticipationRequestDto cancelRequest(@PathVariable(value = "userId") Integer userId,
                                                  @PathVariable(value = "requestId", required = false) @NotNull Integer requestId) throws ValidationException {

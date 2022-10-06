@@ -99,8 +99,6 @@ public class EventServiceImpl {
 
     public List<EventShortDto> getOwnerEvents(int userId, Integer from, Integer size) {
         findUserById(userId);
-//        int page = from / size;
-//        Pageable pageable = PageRequest.of(page, size);
         Pageable pageable = PageRequest.of(from / size, size);
         List<Event> eventsList = eventRepository.findAllByInitiatorId(userId, pageable);
         List<EventShortDto> eventsShortDtoList = eventMapper.mapAlltoShortDto(eventsList);
@@ -151,7 +149,6 @@ public class EventServiceImpl {
         EventStatus state = event.getStatus();
         if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
             String message = "Только события со статусом pending или canceled может быть изменено";
-            log.warn("ForbiddenOperationException at EventServiceImpl.updateEvent: {}", message);
             throw new OperationException(message);
         }
         if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());

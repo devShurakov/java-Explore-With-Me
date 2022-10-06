@@ -3,9 +3,7 @@ package ru.practicum.app.event;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.app.category.CategoryDto;
 import ru.practicum.app.location.Location;
-import ru.practicum.app.user.UserShortDto;
 
 import java.time.LocalDateTime;
 
