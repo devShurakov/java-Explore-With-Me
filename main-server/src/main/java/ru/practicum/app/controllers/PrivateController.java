@@ -110,10 +110,10 @@ public class PrivateController {
 
 
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/reject")
-    public void rejectRequestByUser(@PathVariable Integer userId,
+    public ParticipationRequestDto rejectRequestByUser(@PathVariable Integer userId,
                                     @PathVariable Integer eventId,
                                     @PathVariable Integer reqId) {
-        requestService.rejectRequestByUser(userId, eventId, reqId);
+        return requestService.rejectRequestByUser(userId, eventId, reqId);
     }
 
     @GetMapping("/users/{userId}/events/{eventId}/requests")

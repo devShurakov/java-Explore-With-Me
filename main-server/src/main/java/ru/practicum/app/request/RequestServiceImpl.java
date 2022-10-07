@@ -88,15 +88,23 @@ public class RequestServiceImpl {
 
     public ParticipationRequestDto acceptRequestByUser(Integer userId, Integer eventId, Integer reqId) {
         Request req = requestRepository.findById(reqId).orElseThrow();
-        req.setStatus(RequestStatus.APPROVED);
+        req.setStatus(RequestStatus.CONFIRMED);
         requestRepository.save(req); //todo
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
-    public void rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
-
-        requestRepository.setStateById("REJECTED", reqId);
+    public ParticipationRequestDto rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
+        Request req = requestRepository.findById(reqId).orElseThrow();
+        req.setStatus(RequestStatus.REJECTED);
+        requestRepository.save(req); //todo
+        return requestMapper.mapToParticipationRequestDto(req);
     }
+
+
+//    public void rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
+//
+//        requestRepository.setStateById("REJECTED", reqId);
+//    }
 
     public List<RequestDto> getRequestByUser(Integer userId, Integer eventId) {
 
