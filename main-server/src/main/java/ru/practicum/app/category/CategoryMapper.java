@@ -10,7 +10,7 @@ public class CategoryMapper {
 
     public static CategoryDto mapToCategoryDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(category.getCategoryId());
+//        categoryDto.setId(category.getCategoryId());
         categoryDto.setName(category.getName());
         return categoryDto;
     }

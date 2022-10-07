@@ -1,5 +1,6 @@
 package ru.practicum.app.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import ru.practicum.app.user.User;
 
@@ -19,10 +20,12 @@ public class EventFullDto {
 
     Integer confirmedRequests;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime created;
 
     String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime eventDate;
 
     User initiator;
@@ -33,6 +36,7 @@ public class EventFullDto {
 
     Integer participantLimit;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime publishedOn;
 
     Boolean requestModeration;

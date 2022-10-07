@@ -33,6 +33,7 @@ public class CategoryServiceImpl {
             throw new CategoryCastomException("данные введены неверно");
         }
         try {
+//            newCategoryDto.setId(null);
             Category category = categoryRepository.save(categoryMapper.mapNewToCategory(newCategoryDto));
             log.info("категория создана");
             return categoryMapper.mapNewToCategoryDto(category);

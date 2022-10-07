@@ -27,7 +27,6 @@ public class UpdateEventRequest {
 
     private String title;
 
-
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 

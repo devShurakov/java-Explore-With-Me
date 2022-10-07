@@ -1,10 +1,13 @@
 package ru.practicum.app.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.app.location.Location;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,12 +15,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminUpdateEventRequest {
 
+    @NotNull
+    @Size(min = 20, max = 2100)
     String annotation;
 
+    @NotNull
     Integer category;
 
+    @Size(min = 20, max = 5000)
+    @NotNull
     String description;
 
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime eventDate;
 
     Location location;
@@ -28,6 +38,8 @@ public class AdminUpdateEventRequest {
 
     Boolean requestModeration;
 
+    @NotNull
+    @Size(min = 3, max = 120)
     String title;
 
 }

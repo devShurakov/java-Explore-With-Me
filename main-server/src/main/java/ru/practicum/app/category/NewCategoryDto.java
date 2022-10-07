@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class NewCategoryDto {
-    Integer id;
+//    Integer id;
     String name;
 }
