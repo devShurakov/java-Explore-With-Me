@@ -1,8 +1,10 @@
 package ru.practicum.app.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /***
@@ -14,37 +16,53 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateEventRequest {
 
-
     private Integer id;
-
+    @NotNull
+    @Size(min = 20, max = 2000)
     private String annotation;
-
+    @NotNull
     private Integer category;
-
+    @Size(min = 20, max = 7000)
+    @NotNull
     private String description;
-
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime eventDate;
+    @NotNull
     private Location location;
-
+    private Boolean paid;
+    private Integer participantLimit;
+    private Boolean requestModeration;
+    @NotNull
+    @Size(min = 3, max = 120)
     private String title;
 
-    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
-
-    private Boolean paid;
-
-    private Integer participantLimit;
-
-    private Boolean requestModeration;
-
-    @Getter
-    @Setter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
+    @Data
     public static class Location {
-
-        private Float lat;
-
-        private Float lon;
+        private final double lat;
+        private final double lon;
     }
+
+//    private Integer id;
+//    @NotNull
+//    @Size(min = 20, max = 2000)
+//    private String annotation;
+//    @NotNull
+//    private Integer category;
+//    @Size(min = 20, max = 7000)
+//    @NotNull
+//    private String description;
+//
+//    @NotNull
+//    @Size(min = 3, max = 120)
+//    private String title;
+//
+//    @NotNull
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime eventDate;
+//
+//    private Boolean paid;
+//
+//    private Integer participantLimit;
+
 }

@@ -2,7 +2,6 @@ package ru.practicum.app.event;
 
 import org.springframework.stereotype.Component;
 import ru.practicum.app.user.User;
-import ru.practicum.app.user.UserShortDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +16,6 @@ public class EventMapper {
     public Event mapToEvent(User initiator, NewEventDto newEventDto) {
         Event event = new Event();
         event.setEventId(null);
-
         event.setAnnotation(newEventDto.getAnnotation());
         event.setConfirmedRequests(0);
         event.setDescription(newEventDto.getDescription());
@@ -41,13 +39,16 @@ public class EventMapper {
 
         eventShortDto.setId(event.getEventId());
         eventShortDto.setAnnotation(event.getAnnotation());
-        eventShortDto.setCategory(event.getCategory().getCategoryId());
+        eventShortDto.setCategory(new EventShortDto.Category(event.getCategory().getCategoryId(),
+                event.getCategory().getName()));
+//        eventShortDto.setCategory(event.getCategory().getCategoryId());
         eventShortDto.setDescription(event.getDescription());
-        eventShortDto.setLocation(new EventShortDto.Location(event.getLat(), event.getLon()));
+//        eventShortDto.setLocation(new EventShortDto.Location(event.getLat(), event.getLon()));
         eventShortDto.setTitle(event.getTitle());
         eventShortDto.setEventDate(event.getEventDate());
-        eventShortDto.setPaid(event.getPaid());
-        eventShortDto.setInitiator(new UserShortDto(event.getInitiator().getId(), event.getInitiator().getName()));
+//        eventShortDto.setPaid(event.getPaid());
+        eventShortDto.setInitiator(new EventShortDto.User(event.getInitiator().getId(), event.getInitiator().getName(),
+                event.getInitiator().getEmail()));
         return eventShortDto;
     }
 
@@ -56,7 +57,7 @@ public class EventMapper {
 
         updateEventRequest.setId(event.getEventId());
         updateEventRequest.setAnnotation(event.getAnnotation());
-        updateEventRequest.setCategory(event.getCategory().getCategoryId());
+//        updateEventRequest.setCategory(event.getCategory().getCategoryId());
         updateEventRequest.setDescription(event.getDescription());
         updateEventRequest.setEventDate(event.getEventDate());
         updateEventRequest.setPaid(event.getPaid());

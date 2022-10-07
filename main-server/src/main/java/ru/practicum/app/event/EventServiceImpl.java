@@ -55,7 +55,7 @@ public class EventServiceImpl {
         return eventShortDto;
     }
 
-    public UpdateEventRequest update(int userId, UpdateEventRequest updateEventRequest) {
+    public EventFullDto update(int userId, UpdateEventRequest updateEventRequest) {
         Event event = findEventById(updateEventRequest.getId());
 
         if (userId != event.getInitiator().getId()) {
@@ -77,9 +77,9 @@ public class EventServiceImpl {
 
         eventRepository.save(event);
 
-        UpdateEventRequest updatedEvent = eventMapper.mapToUpdateEventRequest(event);
+//        UpdateEventRequest updatedEvent = eventMapper.mapToUpdateEventRequest(event);
+        EventFullDto updatedEvent = eventMapper.mapToFullEventDto(event);
 
-        log.info("Событие с id: {} обновлено", updateEventRequest.getId());
         return updatedEvent;
     }
 

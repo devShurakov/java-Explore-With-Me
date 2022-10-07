@@ -23,10 +23,6 @@ public class RequestMapper {
                 request.getRequester().getId(),
                 request.getStatus(),
                 request.getCreated());
-//        return new RequestDto(request.getId(),
-//                request.getEvent(),
-//                request.getCreated(),
-//                request.getRequester().getId());
     }
 
     public List<RequestDto> mappAlltoRequestDto(List<Request> requestList) {

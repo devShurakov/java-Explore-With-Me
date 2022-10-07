@@ -17,9 +17,9 @@ public class RequestDto {
 
     private Integer id;
     @NotNull
-    private Integer eventId;
+    private Integer event;
     @NotNull
-    private Integer requesterId;
+    private Integer requester;
     private RequestStatus status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created;

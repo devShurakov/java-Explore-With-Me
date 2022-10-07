@@ -10,7 +10,6 @@ import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.request.RequestDto;
 import ru.practicum.app.request.RequestServiceImpl;
 
-import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -48,8 +47,8 @@ public class PrivateController {
     }
 
     @PatchMapping(value = "/users/{userId}/events")
-    public UpdateEventRequest update(@PathVariable(value = "userId") int userId,
-                                     @RequestBody @Valid UpdateEventRequest updateEventRequest) {
+    public EventFullDto update(@PathVariable(value = "userId") int userId,
+                               @RequestBody UpdateEventRequest updateEventRequest) {
         return eventService.update(userId, updateEventRequest);
     }
 

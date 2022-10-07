@@ -1,8 +1,7 @@
 package ru.practicum.app.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-import ru.practicum.app.user.UserShortDto;
 
 import java.time.LocalDateTime;
 
@@ -19,35 +18,65 @@ public class EventShortDto {
 
     private String annotation;
 
-    private Integer category; // todo id, name
+    private Category category; // todo id, name
+//    private Integer category; // todo id, name
 
-    private Integer confirmedRequests;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime eventDate;
+
+    User initiator;
+
+//    private Integer confirmedRequests;
 
     private String description;
 
-    private Location location;
+//    private Location location;
 
     private String title;
 
-    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
+//
+//    private Boolean paid;
+//
+//    Integer views;
 
-    UserShortDto initiator;
-
-    private Boolean paid;
-
-    Integer views;
+//    @Getter
+//    @Setter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    public static class Location {
+//
+//        private Float lat;
+//
+//        private Float lon;
+//    }
 
     @Getter
     @Setter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Location {
+    public static class Category {
 
-        private Float lat;
+        private Integer id;
 
-        private Float lon;
+        private String name;
+
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User {
+
+        private Integer id;
+
+        private String name;
+
+        private String email;
+
     }
 
 }
