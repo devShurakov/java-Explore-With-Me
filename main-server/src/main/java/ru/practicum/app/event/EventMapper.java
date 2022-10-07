@@ -34,6 +34,36 @@ public class EventMapper {
         return event;
     }
 
+    public Event mapFromNewEvent(NewEventDto newEventDto) {
+        Event event = new Event();
+        event.setEventId(null);
+        event.setAnnotation(newEventDto.getAnnotation());
+        event.setDescription(newEventDto.getDescription());
+        event.setLat(newEventDto.getLocation().getLat());
+        event.setLon(newEventDto.getLocation().getLon());
+        event.setTitle(newEventDto.getTitle());
+        event.setEventDate(newEventDto.getEventDate());
+        event.setPaid(newEventDto.getPaid());
+        event.setParticipantLimit(newEventDto.getParticipantLimit());
+        event.setRequestModeration(newEventDto.getRequestModeration());
+
+
+//        event.setConfirmedRequests(0);
+//        event.setEventDate(newEventDto.getEventDate());
+//        event.setCreated(LocalDateTime.now());
+//        event.setLat(newEventDto.getLocation().getLat());
+//        event.setLon(newEventDto.getLocation().getLon());
+//        event.setPaid(newEventDto.getPaid());
+//        event.setParticipantLimit(newEventDto.getParticipantLimit());
+//        event.setPublishedOn(LocalDateTime.now());
+//        event.setInitiator(initiator);
+//        event.setRequestModeration(newEventDto.getRequestModeration());
+//        event.setStatus(EventStatus.PENDING);
+//        event.setTitle(newEventDto.getTitle());
+//        event.setViews(0);
+        return event;
+    }
+
     public EventShortDto mapToEventShortDto(Event event) {
         EventShortDto eventShortDto = new EventShortDto();
 

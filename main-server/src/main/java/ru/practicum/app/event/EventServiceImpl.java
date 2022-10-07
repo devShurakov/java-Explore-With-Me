@@ -46,10 +46,12 @@ public class EventServiceImpl {
 
     public EventFullDto create(int userId, NewEventDto newEventDto) {
         User user = findUserById(userId);
-        Event event = eventMapper.mapToEvent(user, newEventDto);
+//        Event event = eventMapper.mapToEvent(user, newEventDto);
+        Event event = eventMapper.mapFromNewEvent(newEventDto);
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
-
         event.setCategory(category);
+        event.setInitiator(user);
+
         Event eventToReturn = eventRepository.save(event);
         EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
         return eventShortDto;
