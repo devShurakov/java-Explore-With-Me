@@ -13,6 +13,7 @@ import ru.practicum.app.exception.UserCastomException;
 import ru.practicum.app.user.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,11 +61,10 @@ public class RequestServiceImpl {
         return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
-    public List<RequestDto> getRequest(Integer userId) {
+    public Collection<RequestDto> getRequest(Integer userId) {
 
-
-        List<Request> requestList = requestRepository.findAllByRequester(userId);
-        List<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
+        List<Request> requestList = requestRepository.findAllByRequesterId(userId);
+        Collection<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
         return listToReturn;
     }
 

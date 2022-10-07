@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 
-    @Transactional
-    @Query("select r from Request r where r.requester.id = ?1")
-    List<Request> findAllByRequester(Integer userId);
+//    @Transactional
+//    @Query("select r from Request r where r.requester.id = ?1")
+    List<Request> findAllByRequesterId(Integer userId);
 
 
     @Transactional

@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -88,7 +89,7 @@ public class PrivateController {
     }
 
     @GetMapping(value = "/users/{userId}/requests")
-    public List<RequestDto> getRequest(@PathVariable(value = "userId") int userId) {
+    public Collection<RequestDto> getRequest(@PathVariable(value = "userId") int userId) {
         return requestService.getRequest(userId);
     }
 
