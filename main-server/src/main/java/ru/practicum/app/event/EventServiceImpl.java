@@ -153,18 +153,25 @@ public class EventServiceImpl {
             throw new OperationException(message);
         }
         if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());
-        if (adminUpdateEventRequest.getAnnotation() != null)
+        if (adminUpdateEventRequest.getLocation() != null) event.setLon(adminUpdateEventRequest.getLocation().getLon());
+        if (adminUpdateEventRequest.getLocation() != null) event.setLat(adminUpdateEventRequest.getLocation().getLat());
+
+        if (adminUpdateEventRequest.getAnnotation() != null)//
             event.setAnnotation(adminUpdateEventRequest.getAnnotation());
-        if (adminUpdateEventRequest.getDescription() != null)
+        if (adminUpdateEventRequest.getDescription() != null)//
             event.setDescription(adminUpdateEventRequest.getDescription());
-        if (adminUpdateEventRequest.getEventDate() != null) event.setEventDate(adminUpdateEventRequest.getEventDate());
+        if (adminUpdateEventRequest.getEventDate() != null) event.setEventDate(adminUpdateEventRequest.getEventDate());//
         if (adminUpdateEventRequest.getPaid() != null) event.setPaid(adminUpdateEventRequest.getPaid());
-        if (adminUpdateEventRequest.getCategory() != null) {
-            event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
+        if (adminUpdateEventRequest.getCategory() != null)//
+        {event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
         }
         if (adminUpdateEventRequest.getParticipantLimit() != null) {
             event.setParticipantLimit(adminUpdateEventRequest.getParticipantLimit());
         }
+        if (adminUpdateEventRequest.getRequestModeration() != null) {
+            event.setRequestModeration(adminUpdateEventRequest.getRequestModeration());
+        }
+
         event.setStatus(EventStatus.PENDING); //PENDING
         Event updatedEvent = eventRepository.save(event);
         return eventMapper.mapToFullEventDto(updatedEvent);

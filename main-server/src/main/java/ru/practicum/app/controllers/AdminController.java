@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping(path = "/admin")
 @Slf4j
 public class AdminController {
 
@@ -50,17 +50,17 @@ public class AdminController {
      * - удаление категорий
      ***/
 
-    @PostMapping(value = "/admin/categories")
+    @PostMapping(value = "/categories")
     public CategoryDto create(@RequestBody NewCategoryDto newCategoryDto) {
         return categoryService.create(newCategoryDto);
     }
 
-    @PatchMapping(value = "/admin/categories")
+    @PatchMapping(value = "/categories")
     public CategoryDto update(@RequestBody CategoryDto categoryDto) {
         return categoryService.update(categoryDto);
     }
 
-    @DeleteMapping(value = "/admin/categories/{catId}")
+    @DeleteMapping(value = "/categories/{catId}")
     public void delete(@PathVariable(value = "catId") @NotNull int catId) {
         categoryService.delete(catId);
     }
@@ -76,34 +76,34 @@ public class AdminController {
      ***/
 
 
-    @PostMapping("/admin/compilations")
+    @PostMapping("/compilations")
     public CompilationDto addCompilation(@RequestBody NewCompilationDto newCompilationDto) {
         return compilationService.addCompilation(newCompilationDto);
     }
 
-    @DeleteMapping("/admin/compilations/{compId}")
+    @DeleteMapping("/compilations/{compId}")
     public void deleteCompilationById(@PathVariable Integer compId) {
         compilationService.deleteCompilationById(compId);
     }
 
-    @PatchMapping("/admin/compilations/{compId}/events/{eventId}")
+    @PatchMapping("/compilations/{compId}/events/{eventId}")
     public void addEventToCompilation(@PathVariable Integer compId,
                                       @PathVariable Integer eventId) {
         compilationService.addEventToCompilation(compId, eventId);
     }
 
-    @DeleteMapping("/admin/compilations/{compId}/events/{eventId}")
+    @DeleteMapping("/compilations/{compId}/events/{eventId}")
     public void deleteEventFromCompilation(@PathVariable Integer compId,
                                            @PathVariable Integer eventId) {
         compilationService.deleteEventFromCompilation(compId, eventId);
     }
 
-    @PatchMapping("/admin/compilations/{compId}/pin")
+    @PatchMapping("/compilations/{compId}/pin")
     public void pinCompilation(@PathVariable Integer compId) {
         compilationService.pinCompilation(compId);
     }
 
-    @DeleteMapping("/admin/compilations/{compId}/pin")
+    @DeleteMapping("/compilations/{compId}/pin")
     public void unpinCompilation(@PathVariable Integer compId) {
         compilationService.unpinCompilation(compId);
     }
@@ -115,23 +115,23 @@ public class AdminController {
      * - отклонить событие
      */
 
-    @PutMapping(value = "/admin/events/{eventId}")
+    @PutMapping(value = "/events/{eventId}")
     public EventFullDto updateEvent(@PathVariable int eventId,
                                     @RequestBody AdminUpdateEventRequest adminUpdateEventRequest) {
         return eventService.updateEvent(eventId, adminUpdateEventRequest);
     }
 
-    @PatchMapping(value = "/admin/events/{eventId}/publish")
+    @PatchMapping(value = "/events/{eventId}/publish")
     public EventFullDto publishEvent(@PathVariable int eventId) {
         return eventService.publishEvent(eventId);
     }
 
-    @PatchMapping(value = "/admin/events/{eventId}/reject")
+    @PatchMapping(value = "/events/{eventId}/reject")
     public EventFullDto rejectEvent(@PathVariable int eventId) {
         return eventService.rejectEvent(eventId);
     }
 
-    @GetMapping(value = "/admin/events")
+    @GetMapping(value = "/events")
     public Collection<EventFullDto> getEventByAdmin(
             @RequestParam(required = false) List<Long> users,
             @RequestParam(required = false) List<String> states,
@@ -150,20 +150,20 @@ public class AdminController {
      *  - удаление пользователя
      */
 
-    @PostMapping(value = "/admin/users")
+    @PostMapping(value = "/users")
     public UserDto create(@RequestBody UserDto userDto) {
         return userService.create(userDto);
     }
 
 
-    @GetMapping(value = "/admin/users")
+    @GetMapping(value = "/users")
     public List<UserDto> getUser(@RequestParam(required = false) List<Integer> ids,
                                  @RequestParam(defaultValue = "0") Integer from,
                                  @RequestParam(defaultValue = "10") Integer size) {
         return userService.getAllUsers(ids, from, size);
     }
 
-    @DeleteMapping(value = "admin/users/{userId}")
+    @DeleteMapping(value = "/users/{userId}")
     public void deleteUser(@PathVariable @NotNull int userId) throws EntryNotFoundException {
         userService.delete(userId);
     }

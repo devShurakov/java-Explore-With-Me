@@ -1,9 +1,7 @@
 package ru.practicum.app.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.app.location.Location;
 
 import javax.validation.constraints.NotNull;
@@ -41,5 +39,17 @@ public class AdminUpdateEventRequest {
     @NotNull
     @Size(min = 3, max = 120)
     String title;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Location {
+
+        private Float lat;
+
+        private Float lon;
+    }
 
 }

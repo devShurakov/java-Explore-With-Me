@@ -45,6 +45,11 @@ public class PrivateController {
                                @RequestBody NewEventDto newEventDto) {
         return eventService.create(userId, newEventDto);
     }
+//
+//    @PostMapping
+//    public EventFullDto addEvent(@PathVariable long userId,
+//                                 @RequestBody @Valid EventInDto eventInDto) {
+//        return EventMapper.toEventFullDto(eventService.addEvent(EventMapper.toEvent(eventInDto), userId));
 
     @PatchMapping(value = "/users/{userId}/events")
     public EventFullDto update(@PathVariable(value = "userId") int userId,
