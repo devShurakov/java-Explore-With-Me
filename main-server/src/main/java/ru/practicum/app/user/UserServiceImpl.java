@@ -51,10 +51,25 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<UserDto> getAllUsers(List<Integer> ids, int from, int size) {
-        Collection<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
+        List<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
+
 
         return userMapper.maptoAllUserDto(userCollection);
     }
+
+//    public List<UserDto> getAllWithPagable(Integer from, Integer size) {
+//        Pageable page = PageRequest.of(from, size);
+//        Page<User> userCollection = userRepository.findAll(page);
+//
+//        return userMapper.maptoAllUserDto(userCollection);
+//    }
+
+//    public List<UserDto> getAllWithPagable(int from, int size) {
+//        Pageable page = PageRequest.of(from, size);
+//        Page<User> userCollection = userRepository.findAll(page);
+//
+//        return userMapper.maptoAllUserDto(userCollection);
+//    }
 
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {
@@ -73,5 +88,6 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
 
 }

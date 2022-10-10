@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.category.Category;
 import ru.practicum.app.category.CategoryRepository;
+import ru.practicum.app.exception.EventCanNotBeException;
 import ru.practicum.app.exception.OperationException;
 import ru.practicum.app.user.User;
 import ru.practicum.app.exception.UserCastomException;
@@ -45,6 +46,7 @@ public class EventServiceImpl {
     }
 
     public EventFullDto create(int userId, NewEventDto newEventDto) {
+        isDateAfterTwoHours(newEventDto.getEventDate());
         User user = findUserById(userId);
 //        Event event = eventMapper.mapToEvent(user, newEventDto);
         Event event = eventMapper.mapFromNewEvent(newEventDto);
@@ -56,6 +58,24 @@ public class EventServiceImpl {
         EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
         return eventShortDto;
     }
+
+    private boolean isDateAfterTwoHours(LocalDateTime date) {
+        if (date.isAfter(LocalDateTime.now().plusHours(2))) {
+            return true;
+        } else {
+            throw new EventCanNotBeException("Дата события не может быть раньше ");
+
+        }
+
+    }
+
+//    public Event create(Event event, long userId) {
+//        event.setEventId(null);
+//        isDateAfterTwoHours(event.getEventDate());
+//        event.setInitiator(userService.getUserById(userId));
+//        event.setCategory(categoryService.getCategoryById(event.getCategory().getId()));
+//        return eventRepository.save(event);
+//    }
 
     public EventFullDto update(int userId, UpdateEventRequest updateEventRequest) {
         Event event = findEventById(updateEventRequest.getId());
@@ -160,10 +180,11 @@ public class EventServiceImpl {
             event.setAnnotation(adminUpdateEventRequest.getAnnotation());
         if (adminUpdateEventRequest.getDescription() != null)//
             event.setDescription(adminUpdateEventRequest.getDescription());
-        if (adminUpdateEventRequest.getEventDate() != null) event.setEventDate(adminUpdateEventRequest.getEventDate());//
+        if (adminUpdateEventRequest.getEventDate() != null)
+            event.setEventDate(adminUpdateEventRequest.getEventDate());//
         if (adminUpdateEventRequest.getPaid() != null) event.setPaid(adminUpdateEventRequest.getPaid());
-        if (adminUpdateEventRequest.getCategory() != null)//
-        {event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
+        if (adminUpdateEventRequest.getCategory() != null) {
+            event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
         }
         if (adminUpdateEventRequest.getParticipantLimit() != null) {
             event.setParticipantLimit(adminUpdateEventRequest.getParticipantLimit());

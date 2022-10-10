@@ -1,6 +1,5 @@
 package ru.practicum.app.user;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +13,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserDto {
 
-    private Integer id;
+//    private Integer id;
 
-    @NotNull
+//    @NotNull
     @NotBlank(message = "не может быть пустым")
     private String name;
 
-    @NotNull
+//    @NotNull
     @NotBlank(message = "не может быть пустым")
     @Email
     private String email;

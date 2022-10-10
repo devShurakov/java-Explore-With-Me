@@ -3,7 +3,6 @@ package ru.practicum.app.user;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -18,13 +17,13 @@ public class UserMapper {
 
     public static UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
+//        userDto.setId(user.getId());
         userDto.setName(user.getName());
         userDto.setEmail(user.getEmail());
         return userDto;
     }
 
-    public static List<UserDto> maptoAllUserDto(Collection<User> users) {
+    public static List<UserDto> maptoAllUserDto(List<User> users) {
         List<UserDto> usersDtoList = new ArrayList<>();
         for (User user : users) {
             usersDtoList.add(mapToUserDto(user));
