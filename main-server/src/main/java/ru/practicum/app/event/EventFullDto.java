@@ -2,7 +2,6 @@ package ru.practicum.app.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import ru.practicum.app.user.User;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +27,7 @@ public class EventFullDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime eventDate;
 
-    User initiator;
+    UserShortDto initiator;
 
     Location location;
 
@@ -65,13 +64,13 @@ public class EventFullDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Initiator extends User {
+    public static class UserShortDto {
 
         private Integer id;
 
         private String name;
 
-        private String email;
+//        private String email;
     }
 
     @Getter

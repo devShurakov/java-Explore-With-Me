@@ -110,10 +110,10 @@ public class EventMapper {
         eventFullDto.setPaid(event.getPaid());
         eventFullDto.setParticipantLimit(event.getParticipantLimit());
         eventFullDto.setPublishedOn(event.getPublishedOn());
-        eventFullDto.setInitiator(new EventFullDto.Initiator(
+        eventFullDto.setInitiator(new EventFullDto.UserShortDto(
                 event.getInitiator().getId(),
-                event.getInitiator().getName(),
-                event.getInitiator().getEmail())
+                event.getInitiator().getName())
+//                event.getInitiator().getEmail())
         );
         eventFullDto.setRequestModeration(event.getRequestModeration());
         eventFullDto.setState(event.getStatus());
