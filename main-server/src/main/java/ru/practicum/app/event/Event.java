@@ -31,7 +31,8 @@ public class Event {
     @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
-    @Column(name = "confirmed_requests", nullable = false)
+    @Column(name = "confirmed_requests")
+//    @Column(name = "confirmed_requests", nullable = false)
     Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)

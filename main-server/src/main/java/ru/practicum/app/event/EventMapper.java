@@ -47,7 +47,11 @@ public class EventMapper {
         event.setParticipantLimit(newEventDto.getParticipantLimit());
         event.setRequestModeration(newEventDto.getRequestModeration());
 
-
+        event.setConfirmedRequests(0);
+        event.setCreated(LocalDateTime.now());
+        event.setStatus(EventStatus.PENDING);
+        event.setViews(0);
+        event.setPublishedOn(LocalDateTime.now());
 //        event.setConfirmedRequests(0);
 //        event.setEventDate(newEventDto.getEventDate());
 //        event.setCreated(LocalDateTime.now());
