@@ -29,14 +29,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDto create(UserDto userDto) {
-        if (userDto.getName() == null || userDto.getEmail() == null) {
+    public UserDto create(NewUserRequest newUserRequest) {
+        if (newUserRequest.getName() == null || newUserRequest.getEmail() == null) {
             throw new UserCastomException("Неверные данные");
         }
 
-        User savedUser = userRepository.save(userMapper.mapToUser(userDto));
+        User savedUser = userRepository.save(userMapper.mapFromNewUsertoUser(newUserRequest));
         log.info("пользователь создан");
-        return UserMapper.mapToUserDto(savedUser);
+        return userMapper.mapToUserDto(savedUser);
     }
 
     @Override

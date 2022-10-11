@@ -31,4 +31,10 @@ public class UserMapper {
         return usersDtoList;
     }
 
+    public User mapFromNewUsertoUser(NewUserRequest newUserRequest) {
+        User user = new User();
+        user.setName(newUserRequest.getName());
+        user.setEmail(newUserRequest.getEmail());
+        return user;
+    }
 }

@@ -11,6 +11,7 @@ import ru.practicum.app.compilation.CompilationServiceImpl;
 import ru.practicum.app.compilation.NewCompilationDto;
 import ru.practicum.app.event.*;
 import ru.practicum.app.exception.EntryNotFoundException;
+import ru.practicum.app.user.NewUserRequest;
 import ru.practicum.app.user.UserDto;
 import ru.practicum.app.user.UserServiceImpl;
 
@@ -151,8 +152,8 @@ public class AdminController {
      */
 
     @PostMapping(value = "/users")
-    public UserDto create(@RequestBody UserDto userDto) {
-        return userService.create(userDto);
+    public UserDto create(@RequestBody NewUserRequest newUserRequest) {
+        return userService.create(newUserRequest);
     }
 
 
