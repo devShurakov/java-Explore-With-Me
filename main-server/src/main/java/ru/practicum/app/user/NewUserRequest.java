@@ -1,7 +1,6 @@
 package ru.practicum.app.user;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
