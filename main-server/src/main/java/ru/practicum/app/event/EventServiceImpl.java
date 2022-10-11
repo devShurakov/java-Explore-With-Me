@@ -132,9 +132,9 @@ public class EventServiceImpl {
     }
 
     public EventFullDto getOwnerFullInfoEvents(int userId, int eventId) {
-        if (userId != eventId) {
-            throw new UserCastomException("Пользователь не является создателем события");
-        }
+//        if (userId != eventId) {
+//            throw new UserCastomException("Пользователь не является создателем события");
+//        }
         findUserById(userId);
         findEventById(eventId);
         Event ownerEvent = eventRepository.findByIdAndInitiator_Id(eventId, userId);
