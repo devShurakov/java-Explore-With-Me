@@ -16,32 +16,33 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateEventRequest {
 
-    private Integer id;
-    @NotNull
-    @Size(min = 20, max = 2000)
+
+//    @NotNull
+//    @Size(min = 20, max = 2000)
     private String annotation;
-    @NotNull
+//    @NotNull
     private Integer category;
-    @Size(min = 20, max = 7000)
-    @NotNull
+//    @Size(min = 20, max = 7000)
+//    @NotNull
     private String description;
-    @NotNull
+//    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
-    @NotNull
-    private Location location;
+    private Integer eventId;
+//    @NotNull
+//    private Location location;
     private Boolean paid;
     private Integer participantLimit;
-    private Boolean requestModeration;
-    @NotNull
-    @Size(min = 3, max = 120)
+//    private Boolean requestModeration;
+//    @NotNull
+//    @Size(min = 3, max = 120)
     private String title;
 
-    @Data
-    public static class Location {
-        private final double lat;
-        private final double lon;
-    }
+//    @Data
+//    public static class Location {
+//        private float lat;
+//        private float lon;
+//    }
 
 //    private Integer id;
 //    @NotNull

@@ -89,7 +89,7 @@ public class EventMapper {
     public UpdateEventRequest mapToUpdateEventRequest(Event event) {
         UpdateEventRequest updateEventRequest = new UpdateEventRequest();
 
-        updateEventRequest.setId(event.getEventId());
+        updateEventRequest.setEventId(event.getEventId());
         updateEventRequest.setAnnotation(event.getAnnotation());
 //        updateEventRequest.setCategory(event.getCategory().getCategoryId());
         updateEventRequest.setDescription(event.getDescription());

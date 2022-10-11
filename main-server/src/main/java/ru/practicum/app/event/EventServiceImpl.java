@@ -82,14 +82,14 @@ public class EventServiceImpl {
 //    }
 
     public EventFullDto update(int userId, UpdateEventRequest updateEventRequest) {
-        Event event = findEventById(updateEventRequest.getId());
+        Event event = findEventById(updateEventRequest.getEventId());
 
         if (userId != event.getInitiator().getId()) {
             throw new UserCastomException("Пользователь не является создателем события");
         }
 
         Category category = categoryRepository
-                .findById(updateEventRequest.getId())
+                .findById(updateEventRequest.getEventId())
                 .orElseThrow(() -> new UserCastomException("Категория не найдена"));
 
         event.setAnnotation(updateEventRequest.getAnnotation());
