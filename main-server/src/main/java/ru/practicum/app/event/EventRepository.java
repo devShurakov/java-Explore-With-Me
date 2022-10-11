@@ -5,13 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-
+    @Transactional//todo убрать возможно
     @Query(value = "SELECT * FROM events e " +
             "WHERE " +
             "(e.event_status in :states or :isStates = false ) and " +

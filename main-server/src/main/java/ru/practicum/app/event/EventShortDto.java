@@ -26,7 +26,7 @@ public class EventShortDto {
 
     User initiator;
 
-//    private Integer confirmedRequests;
+    private Integer confirmedRequests; //todo проверить добавил 11 октября
 
     private String description;
 

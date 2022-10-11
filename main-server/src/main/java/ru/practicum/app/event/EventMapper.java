@@ -36,7 +36,7 @@ public class EventMapper {
 
     public Event mapFromNewEvent(NewEventDto newEventDto) {
         Event event = new Event();
-        event.setEventId(null);
+//        event.setEventId(null);
         event.setAnnotation(newEventDto.getAnnotation());
         event.setDescription(newEventDto.getDescription());
         event.setLat(newEventDto.getLocation().getLat());

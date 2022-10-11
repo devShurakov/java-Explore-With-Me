@@ -10,6 +10,7 @@ import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.request.RequestDto;
 import ru.practicum.app.request.RequestServiceImpl;
 
+import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -41,9 +42,9 @@ public class PrivateController {
      */
 
     @PostMapping(value = "/users/{userId}/events")
-    public EventFullDto create(@PathVariable(value = "userId") Long userId,
-                               @RequestBody NewEventDto newEventDto) {
-        return eventService.create(Math.toIntExact(userId), newEventDto);
+    public EventFullDto create(@PathVariable(value = "userId") Integer userId,
+                               @RequestBody @Valid NewEventDto newEventDto) {
+        return eventService.create(userId, newEventDto);
     }
 
     @PatchMapping(value = "/users/{userId}/events")

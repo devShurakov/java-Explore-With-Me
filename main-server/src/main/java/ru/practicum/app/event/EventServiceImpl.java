@@ -48,7 +48,7 @@ public class EventServiceImpl {
     }
 
     public EventFullDto create(int userId, NewEventDto newEventDto) {
-        logger.trace("Method create started with argument={}",newEventDto);
+//        logger.trace("Method create started with argument={}",newEventDto);
         isDateAfterTwoHours(newEventDto.getEventDate());
         User user = findUserById(userId);
 //        Event event = eventMapper.mapToEvent(user, newEventDto);
@@ -56,10 +56,10 @@ public class EventServiceImpl {
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
         event.setCategory(category);
         event.setInitiator(user);
-        logger.trace("Method create вернул значение из репозитория",event);
+//        logger.trace("Method create вернул значение из репозитория",event);
         Event eventToReturn = eventRepository.save(event);
         EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
-        logger.trace("Method create готовиться вернуть данные");
+//        logger.trace("Method create готовиться вернуть данные");
         return eventShortDto;
     }
 

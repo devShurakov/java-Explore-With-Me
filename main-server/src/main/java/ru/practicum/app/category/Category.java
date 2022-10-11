@@ -14,7 +14,8 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id", updatable = false, unique = true)
+    @Column(name = "category_id", unique = true)
+//    @Column(name = "category_id", updatable = false, unique = true)
     private Integer categoryId;
 
     @Column(name = "name", nullable = false)
