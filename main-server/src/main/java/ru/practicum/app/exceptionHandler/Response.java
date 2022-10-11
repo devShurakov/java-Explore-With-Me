@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 public class Response {
 
     private String message;
+
     private String reason;
+
     private String status;
+
     private String timestamp;
 
     public Response(String message) {

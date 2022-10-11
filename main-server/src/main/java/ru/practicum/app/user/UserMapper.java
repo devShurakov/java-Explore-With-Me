@@ -8,13 +8,6 @@ import java.util.List;
 @Component
 public class UserMapper {
 
-    public static User mapToUser(UserDto userDto) {
-        User user = new User();
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        return user;
-    }
-
     public static UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());

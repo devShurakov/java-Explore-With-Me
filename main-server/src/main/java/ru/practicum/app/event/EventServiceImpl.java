@@ -30,11 +30,6 @@ public class EventServiceImpl {
     private final CategoryRepository categoryRepository;
     private final EventMapper eventMapper;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-    org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(EventServiceImpl.class);
-
-
     @Autowired
     public EventServiceImpl(EventRepository eventRepository,
                             UserRepository userRepository,
@@ -48,18 +43,14 @@ public class EventServiceImpl {
     }
 
     public EventFullDto create(int userId, NewEventDto newEventDto) {
-//        logger.trace("Method create started with argument={}",newEventDto);
         isDateAfterTwoHours(newEventDto.getEventDate());
         User user = findUserById(userId);
-//        Event event = eventMapper.mapToEvent(user, newEventDto);
         Event event = eventMapper.mapFromNewEvent(newEventDto);
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
         event.setCategory(category);
         event.setInitiator(user);
-//        logger.trace("Method create вернул значение из репозитория",event);
         Event eventToReturn = eventRepository.save(event);
         EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
-//        logger.trace("Method create готовиться вернуть данные");
         return eventShortDto;
     }
 
@@ -72,14 +63,6 @@ public class EventServiceImpl {
         }
 
     }
-
-//    public Event create(Event event, long userId) {
-//        event.setEventId(null);
-//        isDateAfterTwoHours(event.getEventDate());
-//        event.setInitiator(userService.getUserById(userId));
-//        event.setCategory(categoryService.getCategoryById(event.getCategory().getId()));
-//        return eventRepository.save(event);
-//    }
 
     public EventFullDto update(int userId, UpdateEventRequest updateEventRequest) {
         Event event = findEventById(updateEventRequest.getEventId());
@@ -103,7 +86,6 @@ public class EventServiceImpl {
 
         eventRepository.save(event);
 
-//        UpdateEventRequest updatedEvent = eventMapper.mapToUpdateEventRequest(event);
         EventFullDto updatedEvent = eventMapper.mapToFullEventDto(event);
 
         return updatedEvent;
@@ -132,15 +114,10 @@ public class EventServiceImpl {
     }
 
     public EventFullDto getOwnerFullInfoEvents(int userId, int eventId) {
-//        if (userId != eventId) {
-//            throw new UserCastomException("Пользователь не является создателем события");
-//        }
         findUserById(userId);
         findEventById(eventId);
         Event ownerEvent = eventRepository.findByIdAndInitiator_Id(eventId, userId);
-//        Event ownerEvent = eventRepository
-//                .findById(eventId)
-//                .orElseThrow(() -> new UserCastomException("пользователь не найден"));
+
         return eventMapper.mapToFullEventDto(ownerEvent);
     }
 
@@ -166,12 +143,7 @@ public class EventServiceImpl {
 
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
-//
-//            if (!userId.equals(event.getInitiator().getId())) {
-//                String message = "Only initiator can update event.";
-//                log.warn("ForbiddenOperationException at EventServiceImpl.updateEvent: {}", message);
-//                throw new ForbiddenOperationException(message);
-//            }
+
         EventStatus state = event.getStatus();
         if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
             String message = "Только события со статусом pending или canceled может быть изменено";
@@ -186,7 +158,7 @@ public class EventServiceImpl {
         if (adminUpdateEventRequest.getDescription() != null)//
             event.setDescription(adminUpdateEventRequest.getDescription());
         if (adminUpdateEventRequest.getEventDate() != null)
-            event.setEventDate(adminUpdateEventRequest.getEventDate());//
+            event.setEventDate(adminUpdateEventRequest.getEventDate());
         if (adminUpdateEventRequest.getPaid() != null) event.setPaid(adminUpdateEventRequest.getPaid());
         if (adminUpdateEventRequest.getCategory() != null) {
             event.setCategory(new Category(adminUpdateEventRequest.getCategory(), null));
@@ -198,7 +170,7 @@ public class EventServiceImpl {
             event.setRequestModeration(adminUpdateEventRequest.getRequestModeration());
         }
 
-        event.setStatus(EventStatus.PENDING); //PENDING
+        event.setStatus(EventStatus.PENDING);
         Event updatedEvent = eventRepository.save(event);
         return eventMapper.mapToFullEventDto(updatedEvent);
     }
@@ -294,7 +266,7 @@ public class EventServiceImpl {
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
 
-//        if (text != null) { //todo кка исправить ?
+//        if (text != null) {
 //            text.toLowerCase();
 //        }
 

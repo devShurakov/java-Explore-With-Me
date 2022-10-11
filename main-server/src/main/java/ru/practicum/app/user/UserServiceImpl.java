@@ -57,20 +57,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.maptoAllUserDto(userCollection);
     }
 
-//    public List<UserDto> getAllWithPagable(Integer from, Integer size) {
-//        Pageable page = PageRequest.of(from, size);
-//        Page<User> userCollection = userRepository.findAll(page);
-//
-//        return userMapper.maptoAllUserDto(userCollection);
-//    }
-
-//    public List<UserDto> getAllWithPagable(int from, int size) {
-//        Pageable page = PageRequest.of(from, size);
-//        Page<User> userCollection = userRepository.findAll(page);
-//
-//        return userMapper.maptoAllUserDto(userCollection);
-//    }
-
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {
         return userRepository.findUsersByIdIn(ids)
@@ -78,16 +64,5 @@ public class UserServiceImpl implements UserService {
                 .map(UserMapper::mapToUserDto)
                 .collect(Collectors.toList());
     }
-
-    public boolean isNumber(List<String> ids) {
-        for (String x : ids) {
-            if (x == null || x.isEmpty()) return false;
-            for (int i = 0; i < x.length(); i++) {
-                if (!Character.isDigit(x.charAt(i))) return false;
-            }
-        }
-        return true;
-    }
-
 
 }

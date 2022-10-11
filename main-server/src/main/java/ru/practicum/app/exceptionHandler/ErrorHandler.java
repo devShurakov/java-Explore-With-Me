@@ -32,29 +32,10 @@ public class ErrorHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(UserCastomException.class)
-//    public ResponseEntity<Response> handleException3(UserCastomException e) {
-//        Response response = new Response(e.getMessage());
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
-
-//    @ExceptionHandler(UserCastomException2.class)
-//    public ResponseEntity<Response> handleException3(UserCastomException2 e) {
-//        Response response = new Response(e.getMessage());
-//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//    }
-
-//    @ExceptionHandler(CategoryCastomException.class)
-//    public ResponseEntity<Response> handleException3(CategoryCastomException e) {
-//        Response response = new Response(e.getMessage());
-//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//    }
-
     @ResponseBody
     @ExceptionHandler(CategoryCastomException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response onValidationException(CategoryCastomException exception) {
-//        log.error(exception.getMessage());
         return new Response(
                 exception.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
@@ -67,7 +48,6 @@ public class ErrorHandler {
     @ExceptionHandler(UserCastomException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response onValidationException(UserCastomException exception) {
-//        log.error(exception.getMessage());
         return new Response(
                 exception.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
@@ -80,7 +60,6 @@ public class ErrorHandler {
     @ExceptionHandler(UserCastomException2.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response onValidationException(UserCastomException2 exception) {
-//        log.error(exception.getMessage());
         return new Response(
                 exception.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
@@ -93,7 +72,6 @@ public class ErrorHandler {
     @ExceptionHandler(EntryNotFoundException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response onValidationException(EntryNotFoundException exception) {
-//        log.error(exception.getMessage());
         return new Response(
                 exception.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
@@ -105,7 +83,6 @@ public class ErrorHandler {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response onValidationException(ValidationException exception) {
-//        log.error(exception.getMessage());
         return new Response(
                 "Only pending or canceled events can be changed",
                 "For the requested operation the conditions are not met.",
@@ -113,13 +90,7 @@ public class ErrorHandler {
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 ));
 
-//        "message": "Only pending or canceled events can be changed",
-//                "reason": "For the requested operation the conditions are not met.",
-//                "status": "400 BAD_REQUEST",
-//                "timestamp": "yyyy-MM-dd HH:mm:ss"
-
     }
-
 
 
 }

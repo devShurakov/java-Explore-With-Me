@@ -161,7 +161,6 @@ public class AdminController {
     public List<UserDto> getUser(@RequestParam(required = false) List<Integer> ids,
                                  @RequestParam(defaultValue = "0") Integer from,
                                  @RequestParam(defaultValue = "10") Integer size) {
-//    if(ids == null) return userService.getAllWithPagable(from, size);
         return userService.getAllUsers(ids, from, size);
     }
 

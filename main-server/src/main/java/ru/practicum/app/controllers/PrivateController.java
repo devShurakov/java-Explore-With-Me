@@ -81,7 +81,6 @@ public class PrivateController {
      *  - Отмена своего запроса на участие в событии
      */
 
-    //Добавление запроса от текущего пользователя на участие в событии
     @PostMapping(value = "/users/{userId}/requests")
     public ParticipationRequestDto create(@PathVariable(value = "userId") Integer userId,
                                           @RequestParam("eventId") Integer eventId) {
@@ -101,7 +100,6 @@ public class PrivateController {
     }
 
 
-    //todo doing NOW
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/confirm")
     public ParticipationRequestDto acceptRequestByUser(@PathVariable Integer userId,
                                                        @PathVariable Integer eventId,

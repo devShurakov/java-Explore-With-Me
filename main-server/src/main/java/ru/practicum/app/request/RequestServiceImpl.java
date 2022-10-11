@@ -100,12 +100,6 @@ public class RequestServiceImpl {
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
-
-//    public void rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
-//
-//        requestRepository.setStateById("REJECTED", reqId);
-//    }
-
     public List<RequestDto> getRequestByUser(Integer userId, Integer eventId) {
 
         List<Request> requests = requestRepository.getRequestByUser(userId, eventId);

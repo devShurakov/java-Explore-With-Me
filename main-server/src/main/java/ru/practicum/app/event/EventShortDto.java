@@ -18,40 +18,20 @@ public class EventShortDto {
 
     private String annotation;
 
-    private Category category; // todo id, name
-//    private Integer category; // todo id, name
+    private Category category;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 
-//    User initiator;
     UserShortDto initiator;
 
-    private Integer confirmedRequests; //todo проверить добавил 11 октября
+    private Integer confirmedRequests;
 
     private String description;
 
-//    private Location location;
+    private String title;
 
-    private String title; //todo не было
-
-
-//
-//    private Boolean paid;
-//
-private Integer views;
-
-//    @Getter
-//    @Setter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class Location {
-//
-//        private Float lat;
-//
-//        private Float lon;
-//    }
+    private Integer views;
 
     @Getter
     @Setter
@@ -66,21 +46,6 @@ private Integer views;
 
     }
 
-//    @Getter
-//    @Setter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class User {
-//
-//        private Integer id;
-//
-//        private String name;
-//
-//        private String email;
-//
-//    }
-
     @Getter
     @Setter
     @Builder
@@ -91,8 +56,6 @@ private Integer views;
         private Integer id;
 
         private String name;
-
-//        private String email;
 
     }
 

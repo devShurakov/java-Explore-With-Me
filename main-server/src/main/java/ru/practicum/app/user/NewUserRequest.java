@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-//@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewUserRequest {
 
-//    private Integer id;
 
     @NotBlank(message = "не может быть пустым")
     private String name;
