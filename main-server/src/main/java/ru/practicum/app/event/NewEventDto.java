@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class NewEventDto {
 
-    private Integer id;
+//    private Integer id;
     @NotNull
     @Size(min = 20, max = 2000)
     private String annotation;
