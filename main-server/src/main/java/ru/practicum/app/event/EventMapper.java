@@ -80,9 +80,12 @@ public class EventMapper {
 //        eventShortDto.setLocation(new EventShortDto.Location(event.getLat(), event.getLon()));
         eventShortDto.setTitle(event.getTitle());
         eventShortDto.setEventDate(event.getEventDate());
-//        eventShortDto.setPaid(event.getPaid());
-        eventShortDto.setInitiator(new EventShortDto.User(event.getInitiator().getId(), event.getInitiator().getName(),
-                event.getInitiator().getEmail()));
+        eventShortDto.setViews(event.getViews()); //todo
+        eventShortDto.setTitle(event.getTitle()); //todo
+//        eventShortDto.setInitiator(new EventShortDto.User(event.getInitiator().getId(), event.getInitiator().getName(),
+//                event.getInitiator().getEmail()));
+        eventShortDto.setInitiator(new EventShortDto.UserShortDto(event.getInitiator().getId(),
+                event.getInitiator().getName()));
         return eventShortDto;
     }
 

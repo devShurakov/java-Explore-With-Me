@@ -29,6 +29,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     List<Event> findAllByInitiatorId(Integer userId, Pageable pageable);
 
+    @Transactional//todo убрать возможно
+
     @Query(value = "SELECT * FROM events e " +
             "WHERE " +
             "(e.event_status = 'PUBLISHED') and " +
