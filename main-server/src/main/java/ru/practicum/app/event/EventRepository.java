@@ -49,8 +49,9 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Query(value = "SELECT * FROM events e " +
             "WHERE " +
-            "(e.event_id = eventId) and " +
-            "( e.initiator_id = userId",
+            "(e.event_id = :eventId) and " +
+            "(e.initiator_id = :userId)",
             nativeQuery = true)
     Event findByIdAndInitiator_Id(Integer eventId, Integer userId);
 }
+
