@@ -137,9 +137,10 @@ public class EventServiceImpl {
         }
         findUserById(userId);
         findEventById(eventId);
-        Event ownerEvent = eventRepository
-                .findById(eventId)
-                .orElseThrow(() -> new UserCastomException("пользователь не найден"));
+        Event ownerEvent = eventRepository.findByIdAndInitiator_Id(eventId, userId);
+//        Event ownerEvent = eventRepository
+//                .findById(eventId)
+//                .orElseThrow(() -> new UserCastomException("пользователь не найден"));
         return eventMapper.mapToFullEventDto(ownerEvent);
     }
 

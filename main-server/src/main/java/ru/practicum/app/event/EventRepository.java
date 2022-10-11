@@ -47,4 +47,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
                            Boolean onlyAvailable,
                            PageRequest pageRequest);
 
+    @Query(value = "SELECT * FROM events e " +
+            "WHERE " +
+            "(e.event_id = eventId) and " +
+            "( e.initiator_id = userId",
+            nativeQuery = true)
+    Event findByIdAndInitiator_Id(Integer eventId, Integer userId);
 }
