@@ -241,7 +241,7 @@ public class EventServiceImpl {
     }
 
     public Collection<EventShortDto> getFilteredEvents(String text,
-                                                       List<Long> categories,
+                                                       List<Integer> categories,
                                                        Boolean paid,
                                                        String rangeStart,
                                                        String rangeEnd,
