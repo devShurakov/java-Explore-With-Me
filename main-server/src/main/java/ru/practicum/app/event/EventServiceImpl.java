@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.category.Category;
 import ru.practicum.app.category.CategoryRepository;
@@ -267,7 +268,7 @@ public class EventServiceImpl {
         }
 
 //        if (text != null) {
-//            text.toLowerCase();
+//            text.toUpperCase();
 //        }
 
         var events = eventRepository.find(text, isCategories, categories, paid, start, end,
@@ -286,4 +287,7 @@ public class EventServiceImpl {
                 .map(event -> eventMapper.mapToEventShortDto(event))
                 .collect(Collectors.toList());
     }
+
+
+
 }

@@ -29,20 +29,36 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     List<Event> findAllByInitiatorId(Integer userId, Pageable pageable);
 
-    @Transactional
-    @Query(value = "SELECT * FROM events e " +
-            "WHERE " +
-            "(e.event_status = 'PUBLISHED')",
-            nativeQuery = true)
+//    @Transactional
+//    @Query(value = "SELECT * FROM events e " +
+//            "WHERE " +
+//            "(e.event_status = 'PUBLISHED')",
+//            nativeQuery = true)
+
+//    @Query("SELECT i FROM Item i " +
+//            "WHERE (UPPER(i.name)) LIKE UPPER(CONCAT('%', ?1, '%')) " +
+//            " OR (UPPER(i.description)) LIKE UPPER(CONCAT('%', ?1, '%'))" +
+//            " AND i.available = true"
+//    )
+
 //    @Query(value = "SELECT * FROM events e " +
 //            "WHERE " +
 //            "(e.event_status = 'PUBLISHED') and " +
 //            "((:isCategories = false) or (e.category_id in :categories) ) and " +
 //            "(e.event_date between :rangeStart and :rangeEnd) and" +
 //            "(e.participant_limit > confirmed_requests or :onlyAvailable is null ) and " +
-//            "((lower(e.annotation) like %:text% or lower(e.description) like %:text%) or :text is null) and " +
+//            "((upper(e.annotation) like UPPER(%:text%) or lower(e.description) like UPPER(%:text%)) or :text is null) and " +
 //            "(e.paid = :paid or :paid is null)",
 //            nativeQuery = true)
+@Query(value = "SELECT * FROM events e " +
+        "WHERE " +
+        "(e.event_status = 'PUBLISHED') and " +
+        "((:isCategories = false) or (e.category_id in :categories) ) and " +
+        "(e.event_date between :rangeStart and :rangeEnd) and" +
+        "(e.participant_limit > confirmed_requests or :onlyAvailable is null ) and " +
+        "(upper(e.annotation) like upper(CONCAT('%',:text,'%')) or upper(e.description) like upper(CONCAT('%',:text,'%')) or :text is null) and " +
+        "(e.paid = :paid or :paid is null)",
+        nativeQuery = true)
     List<Event> find(String text,
                      Boolean isCategories,
                      List<Integer> categories,
