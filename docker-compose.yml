@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  ewm-service:
+  main-server:
     build: ./main-server
     container_name: main_server
     ports:
@@ -14,6 +14,7 @@ services:
       - POSTGRES_PASSWORD=iamroot
       - DB_HOST=db_main
       - DB_PORT=5432
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_main:5432/exploreWithMe
 
   db_main:
     image: postgres:13.7-alpine
@@ -40,6 +41,8 @@ services:
       - POSTGRES_PASSWORD=iamroot
       - DB_HOST=db_statistic
       - DB_PORT=5432
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_statistic:5432/statistic
+
 
   db_statistic:
     image: postgres:13.7-alpine
