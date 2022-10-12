@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  ewm-service:
+  main-server:
     build: ./main-server
     container_name: main_server
     ports:
