@@ -29,6 +29,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
 
+  db_statistic:
+    image: postgres:13.7-alpine
+    container_name: db_statistic
+    ports:
+      - "6543:5432"
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: statistic
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: iamroot
+
   stat-server:
     build: ./stat-server
     container_name: stat_server
@@ -44,15 +56,15 @@ services:
       - DB_PORT=5432
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db_statistic:5432/statistic
 
-  db_statistic:
-    image: postgres:13.7-alpine
-    container_name: db_statistic
-    ports:
-      - "6543:5432"
-    volumes:
-      - /var/lib/postgresql/data/
-    environment:
-      POSTGRES_DB: statistic
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: iamroot
+#  db_statistic:
+#    image: postgres:13.7-alpine
+#    container_name: db_statistic
+#    ports:
+#      - "6543:5432"
+#    volumes:
+#      - /var/lib/postgresql/data/
+#    environment:
+#      POSTGRES_DB: statistic
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: iamroot
 
