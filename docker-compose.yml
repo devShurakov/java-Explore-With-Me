@@ -37,10 +37,10 @@ services:
     depends_on:
       - db_statistic
     environment:
-      - DB_NAME=statistic
+      - DB_NAME=db_statistic
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=iamroot
-      - DB_HOST=db_main
+      - DB_HOST=db_statistic
       - DB_PORT=5432
 
   db_statistic:
@@ -51,7 +51,12 @@ services:
     volumes:
       - /var/lib/postgresql/data/
     environment:
-      POSTGRES_DB: statistic
+#      - DB_NAME=db_statistic
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=iamroot
+#      - DB_HOST=db_main
+#      - DB_PORT=5432
+      POSTGRES_DB: db_statistic
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: iamroot
 
