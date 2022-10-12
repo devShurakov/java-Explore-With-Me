@@ -23,8 +23,8 @@ public class StatisticService {
         this.statisticRepository = statisticRepository;
     }
 
-    public void addHit(EndpointHit endpointHit) {
-        statisticRepository.save(endpointHit);
+    public EndpointHit addHit(EndpointHit endpointHit) {
+        return statisticRepository.save(endpointHit);
     }
 
     public Collection<ViewStats> getStatistic(String start, String end, List<String> uris, boolean uniq) {

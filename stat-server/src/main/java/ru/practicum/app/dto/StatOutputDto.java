@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class StatOutputDto {
     private String app;
     private String uri;
-    private int hits;
+    private Integer hits;
 }

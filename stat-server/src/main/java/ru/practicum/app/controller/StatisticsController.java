@@ -18,8 +18,8 @@ public class StatisticsController {
     }
 
     @PostMapping(path = "/hit")
-    public void addHit(@RequestBody EndpointHit endpointHit) {
-        statisticService.addHit(endpointHit);
+    public EndpointHit addHit(@RequestBody EndpointHit endpointHit) {
+        return statisticService.addHit(endpointHit);
     }
 
     @GetMapping(path = "/stats")
