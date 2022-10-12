@@ -1,16 +1,23 @@
 package ru.practicum.app.controllers;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.app.ConfigProperties;
 import ru.practicum.app.category.CategoryDto;
 import ru.practicum.app.category.CategoryServiceImpl;
 import ru.practicum.app.compilation.CompilationDto;
 import ru.practicum.app.compilation.CompilationServiceImpl;
 import ru.practicum.app.event.*;
+import ru.practicum.app.statistic.clients.EndpointHit;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +25,9 @@ import java.util.List;
 @RequestMapping
 @Slf4j
 public class PublicController {
+
+    URI uri;
+    HttpClient client = HttpClient.newHttpClient();
 
     private final EventServiceImpl eventService;
 
@@ -28,10 +38,12 @@ public class PublicController {
     @Autowired
     public PublicController(CategoryServiceImpl categoryService,
                             CompilationServiceImpl compilationService,
-                            EventServiceImpl eventService) {
+                            EventServiceImpl eventService,
+                            ConfigProperties configProperties) {
         this.categoryService = categoryService;
         this.compilationService = compilationService;
         this.eventService = eventService;
+        this.uri = URI.create(configProperties.getStatistic() + "/hit");
     }
 
     /***
@@ -77,7 +89,8 @@ public class PublicController {
      */
 
     @GetMapping(value = "/events/{eventId}")
-    public EventFullDto getFullInfoEvents(@PathVariable(value = "eventId") int eventId) {
+    public EventFullDto getFullInfoEvents(@PathVariable(value = "eventId") int eventId, HttpServletRequest request) {
+        sendStatistic(request);
         return eventService.getFullInfoEvents(eventId);
     }
 
@@ -92,8 +105,24 @@ public class PublicController {
             @RequestParam(required = false) EventSortValues sort,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size, HttpServletRequest request) {
-//        sendStatistic(request);
+        sendStatistic(request);
         return eventService.getFilteredEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+    }
+
+    private void sendStatistic(HttpServletRequest request) {
+        try {
+            HttpRequest statRequest = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .version(HttpClient.Version.HTTP_1_1)
+                    .header("Accept", "text/html")
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(EndpointHit.builder().app("explore").timestamp(LocalDateTime.now()).uri(request.getRequestURI()).ip(request.getRemoteAddr()).build().toString()))
+                    .build();
+            HttpResponse.BodyHandler<String> handler = HttpResponse.BodyHandlers.ofString();
+            client.send(statRequest, handler);
+        } catch (IOException | InterruptedException ex) {
+            log.error("Соединение с сервером статистики потеряно. Невозможно отправить данные.");
+        }
     }
 
 }

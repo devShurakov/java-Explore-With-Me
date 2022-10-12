@@ -8,6 +8,7 @@ services:
       - "8080:8080"
     depends_on:
       - db_main
+      - stat_server
     environment:
       - DB_NAME=exploreWithMe
       - POSTGRES_USER=postgres
