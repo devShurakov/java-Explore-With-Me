@@ -3,13 +3,13 @@ package ru.practicum.app.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.app.ConfigProperties;
+import ru.practicum.app.config.ConfigProperties;
 import ru.practicum.app.category.CategoryDto;
-import ru.practicum.app.category.CategoryServiceImpl;
+import ru.practicum.app.category.CategoryService;
 import ru.practicum.app.compilation.CompilationDto;
-import ru.practicum.app.compilation.CompilationServiceImpl;
+import ru.practicum.app.compilation.CompilationService;
 import ru.practicum.app.event.*;
-import ru.practicum.app.statistic.clients.EndpointHit;
+import ru.practicum.app.statistic.EndpointHit;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -29,16 +29,16 @@ public class PublicController {
     URI uri;
     HttpClient client = HttpClient.newHttpClient();
 
-    private final EventServiceImpl eventService;
+    private final EventService eventService;
 
-    private final CompilationServiceImpl compilationService;
+    private final CompilationService compilationService;
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public PublicController(CategoryServiceImpl categoryService,
-                            CompilationServiceImpl compilationService,
-                            EventServiceImpl eventService,
+    public PublicController(CategoryService categoryService,
+                            CompilationService compilationService,
+                            EventService eventService,
                             ConfigProperties configProperties) {
         this.categoryService = categoryService;
         this.compilationService = compilationService;

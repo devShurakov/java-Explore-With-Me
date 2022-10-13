@@ -24,7 +24,7 @@ public class StatisticsController {
 
     @PostMapping(value = "/hit")
     public void addHit(@RequestBody EndpointHit endpointHit) {
-        log.trace("addHit {}", endpointHit);
+        log.info("Сохранение информации о том, что к эндпоинту был запрос");
         statisticService.addHit(endpointHit);
     }
 
@@ -33,7 +33,7 @@ public class StatisticsController {
                                                @RequestParam String end,
                                                @RequestParam(required = false) List<String> uris,
                                                @RequestParam(defaultValue = "false") boolean unique) {
-        log.trace("getStatistics {}");
+        log.info("Получение статистики по посещениям");
         return statisticService.getStatistic(start, end, uris, unique);
     }
 }

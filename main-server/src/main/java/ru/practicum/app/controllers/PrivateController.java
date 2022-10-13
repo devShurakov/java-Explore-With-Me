@@ -8,6 +8,7 @@ import ru.practicum.app.event.*;
 import ru.practicum.app.request.ParticipationRequestDto;
 import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.request.RequestDto;
+import ru.practicum.app.request.RequestService;
 import ru.practicum.app.request.RequestServiceImpl;
 
 import javax.validation.Valid;
@@ -23,11 +24,11 @@ import java.util.List;
 public class PrivateController {
 
 
-    private final EventServiceImpl eventService;
-    private final RequestServiceImpl requestService;
+    private final EventService eventService;
+    private final RequestService requestService;
 
     @Autowired
-    public PrivateController(EventServiceImpl eventService, RequestServiceImpl requestService) {
+    public PrivateController(EventService eventService, RequestService requestService) {
         this.eventService = eventService;
         this.requestService = requestService;
     }

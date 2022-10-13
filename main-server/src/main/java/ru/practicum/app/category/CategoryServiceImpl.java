@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class CategoryServiceImpl {
+public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
 
@@ -28,12 +28,12 @@ public class CategoryServiceImpl {
         this.categoryRepository = categoryRepository;
     }
 
+    @Override
     public CategoryDto create(NewCategoryDto newCategoryDto) {
         if (newCategoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }
         try {
-//            newCategoryDto.setId(null);
             Category category = categoryRepository.save(categoryMapper.mapNewToCategory(newCategoryDto));
             log.info("категория создана");
             return categoryMapper.mapNewToCategoryDto(category);
@@ -42,6 +42,7 @@ public class CategoryServiceImpl {
         }
     }
 
+    @Override
     public CategoryDto  update(CategoryDto categoryDto) {
         if (categoryDto.getId() == null && categoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
@@ -56,6 +57,7 @@ public class CategoryServiceImpl {
         return categoryMapper.mapToCategoryDto(categoryRepository.save(category));
     }
 
+    @Override
     public void delete(int id) {
         categoryRepository.findById(id).orElseThrow(() -> {
             throw new CategoryCastomException(String.format("такой категории не сущетствует", id));
@@ -64,6 +66,7 @@ public class CategoryServiceImpl {
         log.info("категория удалена");
     }
 
+    @Override
     public List<CategoryDto> getCategories(@Min(0) int from, @Min(1) int size) {
         int page = from / size;
         Pageable pegable = PageRequest.of(page, size);
@@ -73,6 +76,7 @@ public class CategoryServiceImpl {
         return categoryMapper.mapAllToCategoryDto(categoryList);
     }
 
+    @Override
     public CategoryDto getCategoryById(int catId) {
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
             throw new CategoryCastomException(String.format("Такой категории не сущетствует", catId));

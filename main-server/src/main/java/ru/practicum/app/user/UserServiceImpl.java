@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
     public List<UserDto> getAllUsers(List<Integer> ids, int from, int size) {
         List<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
 

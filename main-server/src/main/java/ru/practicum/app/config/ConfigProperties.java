@@ -1,4 +1,4 @@
-package ru.practicum.app;
+package ru.practicum.app.config;
 
 import lombok.Getter;
 import lombok.Setter;

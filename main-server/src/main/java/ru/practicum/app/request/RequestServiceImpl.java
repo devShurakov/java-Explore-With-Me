@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class RequestServiceImpl {
+public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
 
@@ -41,6 +41,7 @@ public class RequestServiceImpl {
         this.userRepository = userRepository;
     }
 
+    @Override
     public ParticipationRequestDto create(int userId, int eventId) {
         User user = userRepository
                 .findById(userId)
@@ -61,6 +62,7 @@ public class RequestServiceImpl {
         return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
+    @Override
     public Collection<RequestDto> getRequest(Integer userId) {
 
         List<Request> requestList = requestRepository.findAllByRequesterId(userId);
@@ -68,6 +70,7 @@ public class RequestServiceImpl {
         return listToReturn;
     }
 
+    @Override
     public ParticipationRequestDto cancelRequest(Integer userId, Integer requestId) {
         userRepository.findById(userId).orElseThrow(() -> {
             throw new RequestCustomException("пользователь не найдена");
@@ -86,20 +89,23 @@ public class RequestServiceImpl {
         return requestMapper.mapToParticipationRequestDto(cancelledRequest);
     }
 
+    @Override
     public ParticipationRequestDto acceptRequestByUser(Integer userId, Integer eventId, Integer reqId) {
         Request req = requestRepository.findById(reqId).orElseThrow();
         req.setStatus(RequestStatus.CONFIRMED);
-        requestRepository.save(req); //todo
+        requestRepository.save(req);
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
+    @Override
     public ParticipationRequestDto rejectRequestByUser(Integer userId, Integer eventId, Integer reqId) {
         Request req = requestRepository.findById(reqId).orElseThrow();
         req.setStatus(RequestStatus.REJECTED);
-        requestRepository.save(req); //todo
+        requestRepository.save(req);
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
+    @Override
     public List<RequestDto> getRequestByUser(Integer userId, Integer eventId) {
 
         List<Request> requests = requestRepository.getRequestByUser(userId, eventId);

@@ -4,16 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.app.category.CategoryDto;
-import ru.practicum.app.category.CategoryServiceImpl;
+import ru.practicum.app.category.CategoryService;
 import ru.practicum.app.category.NewCategoryDto;
 import ru.practicum.app.compilation.CompilationDto;
-import ru.practicum.app.compilation.CompilationServiceImpl;
+import ru.practicum.app.compilation.CompilationService;
 import ru.practicum.app.compilation.NewCompilationDto;
 import ru.practicum.app.event.*;
 import ru.practicum.app.exception.EntryNotFoundException;
 import ru.practicum.app.user.NewUserRequest;
 import ru.practicum.app.user.UserDto;
-import ru.practicum.app.user.UserServiceImpl;
+import ru.practicum.app.user.UserService;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -24,19 +24,19 @@ import java.util.List;
 @Slf4j
 public class AdminController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
-    private final EventServiceImpl eventService;
+    private final EventService eventService;
 
-    private final CompilationServiceImpl compilationService;
+    private final CompilationService compilationService;
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public AdminController(CategoryServiceImpl categoryService,
-                           CompilationServiceImpl compilationService,
-                           EventServiceImpl eventService,
-                           UserServiceImpl userService) {
+    public AdminController(CategoryService categoryService,
+                           CompilationService compilationService,
+                           EventService eventService,
+                           UserService userService) {
         this.categoryService = categoryService;
         this.compilationService = compilationService;
         this.eventService = eventService;

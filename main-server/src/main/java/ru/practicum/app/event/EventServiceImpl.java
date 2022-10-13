@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class EventServiceImpl {
+public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
@@ -42,6 +42,7 @@ public class EventServiceImpl {
         this.categoryRepository = categoryRepository;
     }
 
+    @Override
     public EventFullDto create(int userId, NewEventDto newEventDto) {
         isDateAfterTwoHours(newEventDto.getEventDate());
         User user = findUserById(userId);
@@ -54,7 +55,8 @@ public class EventServiceImpl {
         return eventShortDto;
     }
 
-    private boolean isDateAfterTwoHours(LocalDateTime date) {
+    @Override
+    public boolean isDateAfterTwoHours(LocalDateTime date) {
         if (date.isAfter(LocalDateTime.now().plusHours(2))) {
             return true;
         } else {
@@ -64,6 +66,7 @@ public class EventServiceImpl {
 
     }
 
+    @Override
     public EventFullDto update(int userId, UpdateEventRequest updateEventRequest) {
         Event event = findEventById(updateEventRequest.getEventId());
 
@@ -91,6 +94,7 @@ public class EventServiceImpl {
         return updatedEvent;
     }
 
+    @Override
     public EventFullDto cancelEvent(int userId, int eventId) {
         Event event = findEventById(eventId);
         User user = findUserById(userId);
@@ -104,6 +108,7 @@ public class EventServiceImpl {
         return eventFullDto;
     }
 
+    @Override
     public List<EventShortDto> getOwnerEvents(int userId, Integer from, Integer size) {
         findUserById(userId);
         Pageable pageable = PageRequest.of(from / size, size);
@@ -113,6 +118,7 @@ public class EventServiceImpl {
         return eventsShortDtoList;
     }
 
+    @Override
     public EventFullDto getOwnerFullInfoEvents(int userId, int eventId) {
         findUserById(userId);
         findEventById(eventId);
@@ -121,34 +127,33 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(ownerEvent);
     }
 
+    @Override
     public EventFullDto getFullInfoEvents(int eventId) {
         return eventMapper.mapToFullEventDto(findEventById(eventId));
     }
 
-
+    @Override
     public User findUserById(int userId) {
         return userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
     }
 
+    @Override
     public Event findEventById(int eventId) {
         return eventRepository
                 .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
     }
 
-
+    @Override
     public EventFullDto updateEvent(int eventId, AdminUpdateEventRequest adminUpdateEventRequest) {
 
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
         EventStatus state = event.getStatus();
-//        if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
-//            String message = "Только события со статусом pending или canceled может быть изменено";
-//            throw new OperationException(message);
-//        }
+
         if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());
         if (adminUpdateEventRequest.getLocation() != null) event.setLon(adminUpdateEventRequest.getLocation().getLon());
         if (adminUpdateEventRequest.getLocation() != null) event.setLat(adminUpdateEventRequest.getLocation().getLat());
@@ -175,6 +180,7 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(updatedEvent);
     }
 
+    @Override
     public EventFullDto publishEvent(Integer eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
@@ -192,6 +198,7 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(publishedEvent);
     }
 
+    @Override
     public EventFullDto rejectEvent(int eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
@@ -204,6 +211,7 @@ public class EventServiceImpl {
         return eventMapper.mapToFullEventDto(rejectedEvent);
     }
 
+    @Override
     public List<EventShortDto> getEventsByIds(List<Integer> ids) {
         return eventRepository.findAllById(ids)
                 .stream()
@@ -211,7 +219,7 @@ public class EventServiceImpl {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
     public Collection<EventFullDto> getEventByAdmin(List<Long> users, List<String> statesStr, List<Long> categories,
                                                     String rangeStart, String rangeEnd, int from, int size) {
         LocalDateTime start;
@@ -240,6 +248,7 @@ public class EventServiceImpl {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Collection<EventShortDto> getFilteredEvents(String text,
                                                        List<Integer> categories,
                                                        Boolean paid,
@@ -265,10 +274,6 @@ public class EventServiceImpl {
             end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
-
-//        if (text != null) {
-//            text.toUpperCase();
-//        }
 
         var events = eventRepository.find(text, isCategories, categories, paid, start, end,
                 onlyAvailable, PageRequest.of(from, size));

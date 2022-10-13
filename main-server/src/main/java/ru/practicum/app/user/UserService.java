@@ -11,5 +11,6 @@ public interface UserService {
 
     void delete(int userId) throws EntryNotFoundException;
 
-    List<UserDto> getUsersById(Set<Integer> ids);
+    List<UserDto> getAllUsers(List<Integer> ids, int from, int size);
+
 }
