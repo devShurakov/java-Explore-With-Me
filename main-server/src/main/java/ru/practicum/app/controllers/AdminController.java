@@ -119,6 +119,7 @@ public class AdminController {
     @PutMapping(value = "/events/{eventId}")
     public EventFullDto updateEvent(@PathVariable int eventId,
                                     @RequestBody AdminUpdateEventRequest adminUpdateEventRequest) {
+        log.trace("Событие {} добавлено", adminUpdateEventRequest.getAnnotation());
         return eventService.updateEvent(eventId, adminUpdateEventRequest);
     }
 
