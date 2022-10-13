@@ -20,7 +20,7 @@ public class EventFullDto {
     private Integer confirmedRequests;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created;
+    private LocalDateTime createdOn;
 
     private String description;
 

@@ -51,7 +51,7 @@ public class EventMapper {
         eventFullDto.setAnnotation(event.getAnnotation());
         eventFullDto.setCategory(new EventFullDto.Category(event.getCategory().getCategoryId(), event.getCategory().getName()));
         eventFullDto.setConfirmedRequests(event.getConfirmedRequests());
-        eventFullDto.setCreated(event.getCreated());
+        eventFullDto.setCreatedOn(event.getCreated());
         eventFullDto.setDescription(event.getDescription());
         eventFullDto.setEventDate(event.getEventDate());
         eventFullDto.setLocation(new EventFullDto.Location(event.getLat(), event.getLon()));
