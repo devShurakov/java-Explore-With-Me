@@ -7,12 +7,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder
-@Getter
-@Setter
-@Entity
-@Table(name = "statistics", schema = "stat")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "stata", schema = "schema")
 public class EndpointHit {
 
     @Id

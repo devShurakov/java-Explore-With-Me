@@ -1,5 +1,6 @@
 package ru.practicum.app.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.practicum.app.model.EndpointHit;
 import ru.practicum.app.model.HitsRequest;
@@ -19,12 +20,13 @@ import java.util.List;
 public class StatisticService {
     private final StatisticRepository statisticRepository;
 
+    @Autowired
     public StatisticService(StatisticRepository statisticRepository) {
         this.statisticRepository = statisticRepository;
     }
 
-    public EndpointHit addHit(EndpointHit endpointHit) {
-        return statisticRepository.save(endpointHit);
+    public void addHit(EndpointHit endpointHit) {
+        statisticRepository.save(endpointHit);
     }
 
     public Collection<ViewStats> getStatistic(String start, String end, List<String> uris, boolean uniq) {

@@ -42,6 +42,7 @@ services:
       - DB_HOST=stats-db
       - DB_PORT=5432
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statistic
+#      - EXPLORE_STATISTIC=http://statistic:9090
 
 
   stats-db:
