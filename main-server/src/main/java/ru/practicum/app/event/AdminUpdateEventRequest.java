@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminUpdateEventRequest {
 
-    Integer eventId; //todo 
+    Integer eventId;
 
     @NotNull
     @Size(min = 20, max = 2100)
