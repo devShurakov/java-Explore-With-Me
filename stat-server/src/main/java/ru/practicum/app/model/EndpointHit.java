@@ -10,18 +10,18 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "statistics")
+@Table(name = "statistics", schema="stat")
 @AllArgsConstructor
 @NoArgsConstructor
 public class EndpointHit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @Column(name = "app")
+    @Column(name = "app")
     private String app;
-//    @Column(name = "uri")
+    @Column(name = "uri")
     private String uri;
-//    @Column(name = "ip")
+    @Column(name = "ip")
     private String ip;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
