@@ -13,4 +13,5 @@ public interface UserService {
 
     List<UserDto> getAllUsers(List<Integer> ids, int from, int size);
 
+    List<UserDto> getUsersById(Set<Integer> ids);
 }

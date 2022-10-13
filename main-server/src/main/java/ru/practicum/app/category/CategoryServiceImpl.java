@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public CategoryDto  update(CategoryDto categoryDto) {
+    public CategoryDto update(CategoryDto categoryDto) {
         if (categoryDto.getId() == null && categoryDto.getName() == null) {
             throw new CategoryCastomException("данные введены неверно");
         }

@@ -9,7 +9,6 @@ import ru.practicum.app.request.ParticipationRequestDto;
 import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.request.RequestDto;
 import ru.practicum.app.request.RequestService;
-import ru.practicum.app.request.RequestServiceImpl;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -111,8 +110,8 @@ public class PrivateController {
 
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/reject")
     public ParticipationRequestDto rejectRequestByUser(@PathVariable Integer userId,
-                                    @PathVariable Integer eventId,
-                                    @PathVariable Integer reqId) {
+                                                       @PathVariable Integer eventId,
+                                                       @PathVariable Integer reqId) {
         return requestService.rejectRequestByUser(userId, eventId, reqId);
     }
 

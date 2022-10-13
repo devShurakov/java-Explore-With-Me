@@ -53,13 +53,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllUsers(List<Integer> ids, int from, int size) {
         List<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
-
-
+        log.info("пользователи получены");
         return userMapper.maptoAllUserDto(userCollection);
     }
 
     @Override
     public List<UserDto> getUsersById(Set<Integer> ids) {
+        log.info("пользователь получен");
         return userRepository.findUsersByIdIn(ids)
                 .stream()
                 .map(UserMapper::mapToUserDto)
