@@ -58,6 +58,7 @@ public class EventServiceImpl implements EventService {
         event.setInitiator(user);
         Event eventToReturn = eventRepository.save(event);
         EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
+        log.info("событие {} создано", event.getTitle());
         return eventShortDto;
     }
 
@@ -67,9 +68,7 @@ public class EventServiceImpl implements EventService {
             return true;
         } else {
             throw new EventCanNotBeException("Дата события не может быть раньше ");
-
         }
-
     }
 
     @Override
@@ -96,7 +95,7 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
 
         EventFullDto updatedEvent = eventMapper.mapToFullEventDto(event);
-
+        log.info("событие {} обновлено", event.getTitle());
         return updatedEvent;
     }
 
@@ -129,17 +128,19 @@ public class EventServiceImpl implements EventService {
         findUserById(userId);
         findEventById(eventId);
         Event ownerEvent = eventRepository.findByIdAndInitiator_Id(eventId, userId);
-
+        log.info("получен полный список событий пользователя");
         return eventMapper.mapToFullEventDto(ownerEvent);
     }
 
     @Override
     public EventFullDto getFullInfoEvents(int eventId) {
+        log.info("получена полная информация о событии");
         return eventMapper.mapToFullEventDto(findEventById(eventId));
     }
 
     @Override
     public User findUserById(int userId) {
+        log.info("полученена информация о пользователе");
         return userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserCastomException("пользователь не найден"));
@@ -147,6 +148,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event findEventById(int eventId) {
+        log.info("полученена информация о событии");
         return eventRepository
                 .findById(eventId)
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
@@ -183,6 +185,7 @@ public class EventServiceImpl implements EventService {
 
         event.setStatus(EventStatus.PENDING);
         Event updatedEvent = eventRepository.save(event);
+        log.info("событие обновленое");
         return eventMapper.mapToFullEventDto(updatedEvent);
     }
 
@@ -201,6 +204,7 @@ public class EventServiceImpl implements EventService {
         }
         event.setStatus(EventStatus.PUBLISHED);
         Event publishedEvent = eventRepository.save(event);
+        log.info("событие опубликовано");
         return eventMapper.mapToFullEventDto(publishedEvent);
     }
 
@@ -214,11 +218,13 @@ public class EventServiceImpl implements EventService {
         }
         event.setStatus(EventStatus.CANCELED);
         Event rejectedEvent = eventRepository.save(event);
+        log.info("событие отменено");
         return eventMapper.mapToFullEventDto(rejectedEvent);
     }
 
     @Override
     public List<EventShortDto> getEventsByIds(List<Integer> ids) {
+        log.info("событие получено по id");
         return eventRepository.findAllById(ids)
                 .stream()
                 .map(eventMapper::mapToEventShortDto)
@@ -246,7 +252,7 @@ public class EventServiceImpl implements EventService {
             end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
-
+        log.info("плучена информация о событии");
         return eventRepository.findByAdmin(isUsers, users, isState, statesStr, isCat, categories, start, end,
                         PageRequest.of(from, size))
                 .stream()
@@ -292,7 +298,7 @@ public class EventServiceImpl implements EventService {
                 events.stream().sorted(Comparator.comparing(Event::getEventDate));
             }
         }
-
+        log.info("плучена информация о событии с использованием фильтров");
         return events.stream()
                 .map(event -> eventMapper.mapToEventShortDto(event))
                 .collect(Collectors.toList());

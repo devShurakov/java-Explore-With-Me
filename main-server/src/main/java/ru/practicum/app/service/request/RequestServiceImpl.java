@@ -65,6 +65,7 @@ public class RequestServiceImpl implements RequestService {
         request.setEvent(event);
         request.setCreated(LocalDateTime.now());
         request.setStatus(RequestStatus.PENDING);
+        log.info("создан запрос");
         return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
@@ -73,6 +74,7 @@ public class RequestServiceImpl implements RequestService {
 
         List<Request> requestList = requestRepository.findAllByRequesterId(userId);
         Collection<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
+        log.info("получен запрос");
         return listToReturn;
     }
 
@@ -92,6 +94,7 @@ public class RequestServiceImpl implements RequestService {
 
         request.setStatus(RequestStatus.CANCELED);
         Request cancelledRequest = requestRepository.save(request);
+        log.info("создана отмена запроса");
         return requestMapper.mapToParticipationRequestDto(cancelledRequest);
     }
 
@@ -100,6 +103,7 @@ public class RequestServiceImpl implements RequestService {
         Request req = requestRepository.findById(reqId).orElseThrow();
         req.setStatus(RequestStatus.CONFIRMED);
         requestRepository.save(req);
+        log.info("запрос подтвержден");
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
@@ -108,14 +112,14 @@ public class RequestServiceImpl implements RequestService {
         Request req = requestRepository.findById(reqId).orElseThrow();
         req.setStatus(RequestStatus.REJECTED);
         requestRepository.save(req);
+        log.info("запрос отменен");
         return requestMapper.mapToParticipationRequestDto(req);
     }
 
     @Override
     public List<RequestDto> getRequestByUser(Integer userId, Integer eventId) {
-
         List<Request> requests = requestRepository.getRequestByUser(userId, eventId);
-
+        log.info("запрос получен");
         return requests.stream().map(RequestMapper::mapToRequestDto).collect(Collectors.toList());
     }
 }
