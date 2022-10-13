@@ -145,10 +145,10 @@ public class EventServiceImpl {
                 .orElseThrow(() -> new UserCastomException("событие не найдено"));
 
         EventStatus state = event.getStatus();
-        if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
-            String message = "Только события со статусом pending или canceled может быть изменено";
-            throw new OperationException(message);
-        }
+//        if (!EventStatus.CANCELED.equals(state) && !EventStatus.PENDING.equals(state)) {
+//            String message = "Только события со статусом pending или canceled может быть изменено";
+//            throw new OperationException(message);
+//        }
         if (adminUpdateEventRequest.getTitle() != null) event.setTitle(adminUpdateEventRequest.getTitle());
         if (adminUpdateEventRequest.getLocation() != null) event.setLon(adminUpdateEventRequest.getLocation().getLon());
         if (adminUpdateEventRequest.getLocation() != null) event.setLat(adminUpdateEventRequest.getLocation().getLat());

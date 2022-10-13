@@ -33,6 +33,8 @@ public class EventShortDto {
 
     private Integer views;
 
+    private Boolean paid;
+
     @Getter
     @Setter
     @Builder
