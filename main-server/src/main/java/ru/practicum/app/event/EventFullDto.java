@@ -70,7 +70,6 @@ public class EventFullDto {
 
         private String name;
 
-//        private String email;
     }
 
     @Getter

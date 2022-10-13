@@ -72,7 +72,7 @@ public class EventServiceImpl {
         }
 
         Category category = categoryRepository
-                .findById(updateEventRequest.getEventId())
+                .findById(updateEventRequest.getCategory())
                 .orElseThrow(() -> new UserCastomException("Категория не найдена"));
 
         event.setAnnotation(updateEventRequest.getAnnotation());
@@ -153,9 +153,9 @@ public class EventServiceImpl {
         if (adminUpdateEventRequest.getLocation() != null) event.setLon(adminUpdateEventRequest.getLocation().getLon());
         if (adminUpdateEventRequest.getLocation() != null) event.setLat(adminUpdateEventRequest.getLocation().getLat());
 
-        if (adminUpdateEventRequest.getAnnotation() != null)//
+        if (adminUpdateEventRequest.getAnnotation() != null)
             event.setAnnotation(adminUpdateEventRequest.getAnnotation());
-        if (adminUpdateEventRequest.getDescription() != null)//
+        if (adminUpdateEventRequest.getDescription() != null)
             event.setDescription(adminUpdateEventRequest.getDescription());
         if (adminUpdateEventRequest.getEventDate() != null)
             event.setEventDate(adminUpdateEventRequest.getEventDate());
@@ -286,7 +286,6 @@ public class EventServiceImpl {
                 .map(event -> eventMapper.mapToEventShortDto(event))
                 .collect(Collectors.toList());
     }
-
 
 
 }
