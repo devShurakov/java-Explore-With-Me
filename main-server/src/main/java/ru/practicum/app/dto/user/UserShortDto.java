@@ -4,12 +4,12 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserShortDto {
 
-    private Integer id;
+    int id;
 
-    private String name;
+    String name;
 
 }

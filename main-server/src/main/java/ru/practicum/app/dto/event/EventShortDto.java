@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EventShortDto {
 
     private Integer id;
@@ -38,8 +38,8 @@ public class EventShortDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Category {
 
         private Integer id;
@@ -50,8 +50,8 @@ public class EventShortDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class UserShortDto {
 
         private Integer id;

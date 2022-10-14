@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class NewEventDto {
 
 
@@ -34,8 +34,8 @@ public class NewEventDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Location {
 
         private Float lat;

@@ -7,19 +7,19 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ParticipationRequestDto {
 
-    private Integer id;
+    Integer id;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created;
+    LocalDateTime created;
 
-    private Integer event;
+    Integer event;
 
-    private Integer requester;
+    Integer requester;
 
-    private String status;
+    String status;
 
 }

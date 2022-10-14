@@ -4,9 +4,9 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class NewCategoryDto {
 
-    private String name;
+    String name;
 }

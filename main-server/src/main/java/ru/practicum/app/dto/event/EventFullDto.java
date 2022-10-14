@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EventFullDto {
 
     private Integer id;
@@ -49,8 +49,8 @@ public class EventFullDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Category {
 
         private Integer id;
@@ -61,8 +61,8 @@ public class EventFullDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class UserShortDto {
 
         private Integer id;
@@ -73,8 +73,8 @@ public class EventFullDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Location {
 
         private Float lat;
