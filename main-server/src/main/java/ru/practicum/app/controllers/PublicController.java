@@ -26,8 +26,8 @@ import java.util.List;
 @Slf4j
 public class PublicController {
 
-    URI uri;
-    HttpClient client = HttpClient.newHttpClient();
+    private final URI uri;
+    private final HttpClient client = HttpClient.newHttpClient();
 
     private final EventService eventService;
 

@@ -6,11 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 
 
-@Entity
-@Table(name = "compilation_event")
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "compilation_event")
 public class CompilationEvent {
 
     @Id

@@ -1,19 +1,16 @@
 package ru.practicum.app.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.app.model.request.RequestStatus;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @AllArgsConstructor
-@Data
 @NoArgsConstructor
-@Builder
 public class RequestDto {
 
     private Integer id;

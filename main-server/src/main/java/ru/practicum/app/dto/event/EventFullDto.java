@@ -47,11 +47,10 @@ public class EventFullDto {
 
     private Integer views;
 
-    @Builder
     @Getter
     @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Category {
 
         private Integer id;
@@ -62,9 +61,8 @@ public class EventFullDto {
 
     @Getter
     @Setter
-    @Builder
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class UserShortDto {
 
         private Integer id;
@@ -75,9 +73,8 @@ public class EventFullDto {
 
     @Getter
     @Setter
-    @Builder
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Location {
 
         private Float lat;

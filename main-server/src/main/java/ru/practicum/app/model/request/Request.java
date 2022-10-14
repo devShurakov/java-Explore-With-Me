@@ -1,5 +1,6 @@
 package ru.practicum.app.model.request;
 
+import lombok.AllArgsConstructor;
 import ru.practicum.app.model.event.Event;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "requests")

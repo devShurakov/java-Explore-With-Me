@@ -1,17 +1,14 @@
 package ru.practicum.app.model.event;
 
-import lombok.Builder;
 import ru.practicum.app.model.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.app.model.event.EventStatus;
 import ru.practicum.app.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,7 +30,6 @@ public class Event {
     Category category;
 
     @Column(name = "confirmed_requests")
-//    @Column(name = "confirmed_requests", nullable = false)
     Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)

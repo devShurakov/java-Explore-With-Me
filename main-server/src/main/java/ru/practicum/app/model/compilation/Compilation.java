@@ -4,11 +4,11 @@ import lombok.*;
 import javax.persistence.*;
 
 
-@Entity
-@Table(name = "compilations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "compilations")
 public class Compilation {
 
     @Id

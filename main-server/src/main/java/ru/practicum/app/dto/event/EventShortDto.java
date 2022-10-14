@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
  * Список идентификаторов событий входящих в подборку
  */
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class EventShortDto {
 
     private Integer id;
@@ -37,9 +38,8 @@ public class EventShortDto {
 
     @Getter
     @Setter
-    @Builder
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Category {
 
         private Integer id;
@@ -50,9 +50,8 @@ public class EventShortDto {
 
     @Getter
     @Setter
-    @Builder
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class UserShortDto {
 
         private Integer id;

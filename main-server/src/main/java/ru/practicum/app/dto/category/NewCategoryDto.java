@@ -1,15 +1,12 @@
 package ru.practicum.app.dto.category;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class NewCategoryDto {
 
-    String name;
+    private String name;
 }
