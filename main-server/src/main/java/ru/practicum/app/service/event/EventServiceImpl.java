@@ -32,18 +32,14 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-
     private final CategoryRepository categoryRepository;
-    private final EventMapper eventMapper;
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository,
                             UserRepository userRepository,
-                            EventMapper eventMapper,
                             CategoryRepository categoryRepository) {
 
         this.eventRepository = eventRepository;
-        this.eventMapper = eventMapper;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
     }
@@ -52,12 +48,12 @@ public class EventServiceImpl implements EventService {
     public EventFullDto create(int userId, NewEventDto newEventDto) {
         isDateAfterTwoHours(newEventDto.getEventDate());
         User user = findUserById(userId);
-        Event event = eventMapper.mapFromNewEvent(newEventDto);
+        Event event = EventMapper.mapFromNewEvent(newEventDto);
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow();
         event.setCategory(category);
         event.setInitiator(user);
         Event eventToReturn = eventRepository.save(event);
-        EventFullDto eventShortDto = eventMapper.mapToFullEventDto(eventToReturn);
+        EventFullDto eventShortDto = EventMapper.mapToFullEventDto(eventToReturn);
         log.info("событие {} создано", event.getTitle());
         return eventShortDto;
     }
@@ -94,7 +90,7 @@ public class EventServiceImpl implements EventService {
 
         eventRepository.save(event);
 
-        EventFullDto updatedEvent = eventMapper.mapToFullEventDto(event);
+        EventFullDto updatedEvent = EventMapper.mapToFullEventDto(event);
         log.info("событие {} обновлено", event.getTitle());
         return updatedEvent;
     }
@@ -108,7 +104,7 @@ public class EventServiceImpl implements EventService {
             throw new UserCastomException("Пользователь не является создателем события");
         }
         event.setStatus(EventStatus.CANCELED);
-        EventFullDto eventFullDto = eventMapper.mapToFullEventDto(eventRepository.save(event));
+        EventFullDto eventFullDto = EventMapper.mapToFullEventDto(eventRepository.save(event));
         log.info("событие {} отменено", event.getTitle());
         return eventFullDto;
     }
@@ -118,7 +114,7 @@ public class EventServiceImpl implements EventService {
         findUserById(userId);
         Pageable pageable = PageRequest.of(from / size, size);
         List<Event> eventsList = eventRepository.findAllByInitiatorId(userId, pageable);
-        List<EventShortDto> eventsShortDtoList = eventMapper.mapAlltoShortDto(eventsList);
+        List<EventShortDto> eventsShortDtoList = EventMapper.mapAlltoShortDto(eventsList);
         log.info("получен список событий пользователя");
         return eventsShortDtoList;
     }
@@ -129,13 +125,13 @@ public class EventServiceImpl implements EventService {
         findEventById(eventId);
         Event ownerEvent = eventRepository.findByIdAndInitiator_Id(eventId, userId);
         log.info("получен полный список событий пользователя");
-        return eventMapper.mapToFullEventDto(ownerEvent);
+        return EventMapper.mapToFullEventDto(ownerEvent);
     }
 
     @Override
     public EventFullDto getFullInfoEvents(int eventId) {
         log.info("получена полная информация о событии");
-        return eventMapper.mapToFullEventDto(findEventById(eventId));
+        return EventMapper.mapToFullEventDto(findEventById(eventId));
     }
 
     @Override
@@ -186,7 +182,7 @@ public class EventServiceImpl implements EventService {
         event.setStatus(EventStatus.PENDING);
         Event updatedEvent = eventRepository.save(event);
         log.info("событие обновленое");
-        return eventMapper.mapToFullEventDto(updatedEvent);
+        return EventMapper.mapToFullEventDto(updatedEvent);
     }
 
     @Override
@@ -205,7 +201,7 @@ public class EventServiceImpl implements EventService {
         event.setStatus(EventStatus.PUBLISHED);
         Event publishedEvent = eventRepository.save(event);
         log.info("событие опубликовано");
-        return eventMapper.mapToFullEventDto(publishedEvent);
+        return EventMapper.mapToFullEventDto(publishedEvent);
     }
 
     @Override
@@ -219,7 +215,7 @@ public class EventServiceImpl implements EventService {
         event.setStatus(EventStatus.CANCELED);
         Event rejectedEvent = eventRepository.save(event);
         log.info("событие отменено");
-        return eventMapper.mapToFullEventDto(rejectedEvent);
+        return EventMapper.mapToFullEventDto(rejectedEvent);
     }
 
     @Override
@@ -227,7 +223,7 @@ public class EventServiceImpl implements EventService {
         log.info("событие получено по id");
         return eventRepository.findAllById(ids)
                 .stream()
-                .map(eventMapper::mapToEventShortDto)
+                .map(EventMapper::mapToEventShortDto)
                 .collect(Collectors.toList());
     }
 
@@ -256,7 +252,7 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findByAdmin(isUsers, users, isState, statesStr, isCat, categories, start, end,
                         PageRequest.of(from, size))
                 .stream()
-                .map(eventMapper::mapToFullEventDto)
+                .map(EventMapper::mapToFullEventDto)
                 .collect(Collectors.toList());
     }
 
@@ -300,7 +296,7 @@ public class EventServiceImpl implements EventService {
         }
         log.info("плучена информация о событии с использованием фильтров");
         return events.stream()
-                .map(event -> eventMapper.mapToEventShortDto(event))
+                .map(event -> EventMapper.mapToEventShortDto(event))
                 .collect(Collectors.toList());
     }
 

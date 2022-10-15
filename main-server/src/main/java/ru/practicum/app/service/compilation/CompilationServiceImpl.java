@@ -35,17 +35,14 @@ public class CompilationServiceImpl implements CompilationService {
     private final EventRepository eventRepository;
     private final EventServiceImpl eventService;
 
-    private final CompilationMapper compilationMapper;
-
     @Autowired
     public CompilationServiceImpl(CompilationRepository compilationRepository,
                                   CompilationEventRepository compilationEventRepository,
-                                  EventServiceImpl eventService, CompilationMapper compilationMapper,
+                                  EventServiceImpl eventService,
                                   EventRepository eventRepository) {
         this.compilationRepository = compilationRepository;
         this.compilationEventRepository = compilationEventRepository;
         this.eventService = eventService;
-        this.compilationMapper = compilationMapper;
         this.eventRepository = eventRepository;
     }
 
@@ -69,7 +66,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public CompilationDto addCompilation(@Valid NewCompilationDto newCompilationDto) {
 
-        Compilation compilation = compilationMapper.mapToCompilation(newCompilationDto);
+        Compilation compilation = CompilationMapper.mapToCompilation(newCompilationDto);
         Compilation addedCompilation = compilationRepository.save(compilation);
         Integer compId = addedCompilation.getId();
 

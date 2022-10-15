@@ -24,12 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    private final CategoryMapper categoryMapper;
-
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -39,9 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
             throw new CategoryCastomException("данные введены неверно");
         }
         try {
-            Category category = categoryRepository.save(categoryMapper.mapNewToCategory(newCategoryDto));
+            Category category = categoryRepository.save(CategoryMapper.mapNewToCategory(newCategoryDto));
             log.info("категория создана");
-            return categoryMapper.mapNewToCategoryDto(category);
+            return CategoryMapper.mapNewToCategoryDto(category);
         } catch (DataIntegrityViolationException | ConstraintViolationException e) {
             throw new CategoryCastomException("Такая категория уже существует");
         }
@@ -59,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         category.setName(categoryDto.getName());
         log.info("категория обновлена");
-        return categoryMapper.mapToCategoryDto(categoryRepository.save(category));
+        return CategoryMapper.mapToCategoryDto(categoryRepository.save(category));
     }
 
     @Override
@@ -78,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
         Page<Category> catList = categoryRepository.findAll(pegable);
         List<Category> categoryList = catList.getContent();
         log.info("категория получена");
-        return categoryMapper.mapAllToCategoryDto(categoryList);
+        return CategoryMapper.mapAllToCategoryDto(categoryList);
     }
 
     @Override
@@ -87,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new CategoryCastomException(String.format("Такой категории не сущетствует", catId));
         });
         log.info("категория удалена");
-        return categoryMapper.mapToCategoryDto(category);
+        return CategoryMapper.mapToCategoryDto(category);
     }
 }
 

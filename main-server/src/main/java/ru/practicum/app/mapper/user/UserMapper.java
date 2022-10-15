@@ -1,6 +1,5 @@
 package ru.practicum.app.mapper.user;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.app.dto.user.UserDto;
 import ru.practicum.app.model.user.NewUserRequest;
 import ru.practicum.app.model.user.User;
@@ -8,7 +7,6 @@ import ru.practicum.app.model.user.User;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class UserMapper {
 
     public static UserDto mapToUserDto(User user) {
@@ -27,7 +25,7 @@ public class UserMapper {
         return usersDtoList;
     }
 
-    public User mapFromNewUsertoUser(NewUserRequest newUserRequest) {
+    public static User mapFromNewUsertoUser(NewUserRequest newUserRequest) {
         User user = new User();
         user.setName(newUserRequest.getName());
         user.setEmail(newUserRequest.getEmail());

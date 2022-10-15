@@ -1,6 +1,5 @@
 package ru.practicum.app.mapper.event;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.app.dto.event.EventFullDto;
 import ru.practicum.app.dto.event.EventShortDto;
 import ru.practicum.app.dto.event.NewEventDto;
@@ -11,10 +10,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class EventMapper {
 
-    public Event mapFromNewEvent(NewEventDto newEventDto) {
+    public static Event mapFromNewEvent(NewEventDto newEventDto) {
         Event event = new Event();
         event.setAnnotation(newEventDto.getAnnotation());
         event.setDescription(newEventDto.getDescription());
@@ -33,7 +31,7 @@ public class EventMapper {
         return event;
     }
 
-    public EventShortDto mapToEventShortDto(Event event) {
+    public static EventShortDto mapToEventShortDto(Event event) {
         EventShortDto eventShortDto = new EventShortDto();
 
         eventShortDto.setId(event.getEventId());
@@ -51,7 +49,7 @@ public class EventMapper {
         return eventShortDto;
     }
 
-    public EventFullDto mapToFullEventDto(Event event) {
+    public static EventFullDto mapToFullEventDto(Event event) {
         EventFullDto eventFullDto = new EventFullDto();
         eventFullDto.setId(event.getEventId());
         eventFullDto.setAnnotation(event.getAnnotation());
@@ -75,7 +73,7 @@ public class EventMapper {
         return eventFullDto;
     }
 
-    public List<EventShortDto> mapAlltoShortDto(List<Event> eventsList) {
+    public static List<EventShortDto> mapAlltoShortDto(List<Event> eventsList) {
         List<EventShortDto> eventShortDtoDtoList = new ArrayList<>();
         for (Event event : eventsList) {
             eventShortDtoDtoList.add(mapToEventShortDto(event));

@@ -1,6 +1,5 @@
 package ru.practicum.app.mapper.category;
 
-import org.springframework.stereotype.Component;
 import ru.practicum.app.model.category.Category;
 import ru.practicum.app.dto.category.CategoryDto;
 import ru.practicum.app.dto.category.NewCategoryDto;
@@ -8,7 +7,6 @@ import ru.practicum.app.dto.category.NewCategoryDto;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class CategoryMapper {
 
     public static CategoryDto mapToCategoryDto(Category category) {
@@ -26,14 +24,14 @@ public class CategoryMapper {
         return returnList;
     }
 
-    public Category mapNewToCategory(NewCategoryDto newCategoryDto) {
+    public static Category mapNewToCategory(NewCategoryDto newCategoryDto) {
         Category category = new Category();
         category.setName(newCategoryDto.getName());
         return category;
     }
 
 
-    public CategoryDto mapNewToCategoryDto(Category category) {
+    public static CategoryDto mapNewToCategoryDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getCategoryId());
         categoryDto.setName(category.getName());

@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@AllArgsConstructor
 public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
@@ -34,15 +33,12 @@ public class RequestServiceImpl implements RequestService {
 
     private final UserRepository userRepository;
 
-    private final RequestMapper requestMapper;
 
     @Autowired
     public RequestServiceImpl(RequestRepository requestRepository,
-                              RequestMapper requestMapper,
                               EventRepository eventRepository,
                               UserRepository userRepository) {
         this.requestRepository = requestRepository;
-        this.requestMapper = requestMapper;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
     }
@@ -66,14 +62,14 @@ public class RequestServiceImpl implements RequestService {
         request.setCreated(LocalDateTime.now());
         request.setStatus(RequestStatus.PENDING);
         log.info("создан запрос");
-        return requestMapper.mapToParticipationRequestDto(requestRepository.save(request));
+        return RequestMapper.mapToParticipationRequestDto(requestRepository.save(request));
     }
 
     @Override
     public Collection<RequestDto> getRequest(Integer userId) {
 
         List<Request> requestList = requestRepository.findAllByRequesterId(userId);
-        Collection<RequestDto> listToReturn = requestMapper.mappAlltoRequestDto(requestList);
+        Collection<RequestDto> listToReturn = RequestMapper.mappAlltoRequestDto(requestList);
         log.info("получен запрос");
         return listToReturn;
     }
@@ -95,7 +91,7 @@ public class RequestServiceImpl implements RequestService {
         request.setStatus(RequestStatus.CANCELED);
         Request cancelledRequest = requestRepository.save(request);
         log.info("создана отмена запроса");
-        return requestMapper.mapToParticipationRequestDto(cancelledRequest);
+        return RequestMapper.mapToParticipationRequestDto(cancelledRequest);
     }
 
     @Override
@@ -104,7 +100,7 @@ public class RequestServiceImpl implements RequestService {
         req.setStatus(RequestStatus.CONFIRMED);
         requestRepository.save(req);
         log.info("запрос подтвержден");
-        return requestMapper.mapToParticipationRequestDto(req);
+        return RequestMapper.mapToParticipationRequestDto(req);
     }
 
     @Override
@@ -113,7 +109,7 @@ public class RequestServiceImpl implements RequestService {
         req.setStatus(RequestStatus.REJECTED);
         requestRepository.save(req);
         log.info("запрос отменен");
-        return requestMapper.mapToParticipationRequestDto(req);
+        return RequestMapper.mapToParticipationRequestDto(req);
     }
 
     @Override

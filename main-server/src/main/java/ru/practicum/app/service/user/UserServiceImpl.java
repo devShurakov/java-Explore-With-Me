@@ -25,13 +25,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-                           UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
 
@@ -41,9 +38,9 @@ public class UserServiceImpl implements UserService {
             throw new UserCastomException("Неверные данные");
         }
         checkEmail(newUserRequest.getEmail());
-        User savedUser = userRepository.save(userMapper.mapFromNewUsertoUser(newUserRequest));
+        User savedUser = userRepository.save(UserMapper.mapFromNewUsertoUser(newUserRequest));
         log.info("пользователь создан");
-        return userMapper.mapToUserDto(savedUser);
+        return UserMapper.mapToUserDto(savedUser);
     }
 
     @Override
@@ -61,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUsers(List<Integer> ids, int from, int size) {
         List<User> userCollection = userRepository.findAllById(ids, PageRequest.of(from, size));
         log.info("пользователи получены");
-        return userMapper.maptoAllUserDto(userCollection);
+        return UserMapper.maptoAllUserDto(userCollection);
     }
 
     @Override
