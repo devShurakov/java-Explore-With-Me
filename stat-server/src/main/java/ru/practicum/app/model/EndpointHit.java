@@ -19,13 +19,13 @@ public class EndpointHit {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "app")
+    @Column(name = "app", length = 64)
     private String app;
 
-    @Column(name = "uri")
+    @Column(name = "uri", length = 512)
     private String uri;
 
-    @Column(name = "ip")
+    @Column(name = "ip", length = 64)
     private String ip;
 
     @Column(name = "timestamp")

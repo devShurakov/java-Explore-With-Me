@@ -33,7 +33,7 @@ public class Request {
     User requester;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "requests_status")
+    @Column(name = "requests_status", length = 32)
     RequestStatus status;
 
 }

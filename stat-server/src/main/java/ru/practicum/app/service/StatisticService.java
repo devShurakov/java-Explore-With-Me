@@ -33,7 +33,7 @@ public class StatisticService {
         LocalDateTime stDate = null;
         LocalDateTime eDate = null;
         Collection<ViewStats> viewStatsCollection = new ArrayList<>();
-        if (!start.isEmpty() && !end.isEmpty()) {
+        if (!start.isBlank() && !end.isBlank()) {
             stDate = LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             eDate = LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }

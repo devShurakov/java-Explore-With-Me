@@ -22,7 +22,7 @@ public class Event {
     @Column(name = "event_id")
     Integer eventId;
 
-    @Column(name = "annotation", nullable = false)
+    @Column(name = "annotation", nullable = false, length = 4000)
     String annotation;
 
     @ManyToOne
@@ -35,7 +35,7 @@ public class Event {
     @Column(name = "created_on", nullable = false)
     LocalDateTime created;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 4000)
     String description;
 
     @Column(name = "event_date", nullable = false)
@@ -65,7 +65,7 @@ public class Event {
     Boolean requestModeration;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "event_status", nullable = false)
+    @Column(name = "event_status", nullable = false, length = 32)
     EventStatus status;
 
     @Column(name = "title", nullable = false)

@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 public class NewCategoryDto {
 
-    String name;
+    private String name;
 }

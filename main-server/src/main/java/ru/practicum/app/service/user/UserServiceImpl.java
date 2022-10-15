@@ -13,6 +13,8 @@ import ru.practicum.app.model.user.NewUserRequest;
 import ru.practicum.app.model.user.User;
 import ru.practicum.app.repository.user.UserRepository;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,10 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(NewUserRequest newUserRequest) {
-        if (newUserRequest.getName() == null || newUserRequest.getEmail() == null) {
+        if (newUserRequest.getName().isBlank() || newUserRequest.getEmail().isBlank()) {
             throw new UserCastomException("Неверные данные");
         }
-
+        checkEmail(newUserRequest.getEmail());
         User savedUser = userRepository.save(userMapper.mapFromNewUsertoUser(newUserRequest));
         log.info("пользователь создан");
         return userMapper.mapToUserDto(savedUser);
@@ -69,6 +71,15 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(UserMapper::mapToUserDto)
                 .collect(Collectors.toList());
+    }
+
+    private void checkEmail(String email) {
+        try {
+            InternetAddress emailAddress = new InternetAddress(email);
+            emailAddress.validate();
+        } catch (AddressException ex) {
+            throw new UserCastomException("Email должен быть в формате Email");
+        }
     }
 
 }

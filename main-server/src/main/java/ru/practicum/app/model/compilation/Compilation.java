@@ -1,6 +1,7 @@
 package ru.practicum.app.model.compilation;
 
 import lombok.*;
+
 import javax.persistence.*;
 
 
@@ -14,7 +15,7 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "title")
+    @Column(name = "title", length = 128)
     private String title;
     @Column(name = "pinned")
     private Boolean pinned;
