@@ -26,6 +26,7 @@
         <javax.xml.bind.version>2.3.0</javax.xml.bind.version>
         <com.sun.mail.version>1.6.2</com.sun.mail.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
+        <com.h2database.version>2.1.214</com.h2database.version>
     </properties>
 
     <modules>
@@ -69,6 +70,7 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <scope>runtime</scope>
+                <version>${com.h2database.version}</version>
             </dependency>
 
             <dependency>
