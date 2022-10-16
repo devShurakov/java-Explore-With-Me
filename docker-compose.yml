@@ -17,7 +17,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/exploreWithMe
 
   ewm-db:
-    image: postgres:14-alpine
+    image: postgres:13.7-alpine
     container_name: ewm-db
     ports:
       - "6541:5432"
@@ -46,7 +46,7 @@ services:
 
 
   stats-db:
-    image: postgres:14-alpine
+    image: postgres:13.7-alpine
     container_name: stats-db
     ports:
       - "6543:5432"
