@@ -20,58 +20,58 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    Integer eventId;
+    private Integer eventId;
 
     @Column(name = "annotation", nullable = false, length = 4000)
-    String annotation;
+    private String annotation;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    Category category;
+    private Category category;
 
     @Column(name = "confirmed_requests")
-    Integer confirmedRequests;
+    private Integer confirmedRequests;
 
     @Column(name = "created_on", nullable = false)
-    LocalDateTime created;
+    private LocalDateTime created;
 
     @Column(name = "description", nullable = false, length = 4000)
-    String description;
+    private String description;
 
     @Column(name = "event_date", nullable = false)
-    LocalDateTime eventDate;
+    private LocalDateTime eventDate;
 
     @OneToOne
     @JoinColumn(name = "initiator_id", nullable = false)
-    User initiator;
+    private User initiator;
 
     @Column(name = "location_lat", nullable = false)
-    Float lat;
+    private Float lat;
 
     @Column(name = "location_lon", nullable = false)
-    Float lon;
+    private Float lon;
 
 
     @Column(name = "paid", nullable = false)
-    Boolean paid;
+    private Boolean paid;
 
     @Column(name = "participant_limit", nullable = false)
-    Integer participantLimit;
+    private Integer participantLimit;
 
     @Column(name = "published_on", nullable = false)
-    LocalDateTime publishedOn;
+    private LocalDateTime publishedOn;
 
     @Column(name = "request_moderation", nullable = false)
-    Boolean requestModeration;
+    private Boolean requestModeration;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "event_status", nullable = false, length = 32)
-    EventStatus status;
+    private EventStatus status;
 
     @Column(name = "title", nullable = false)
-    String title;
+    private String title;
 
     @Column(name = "views", nullable = false)
-    Integer views;
+    private Integer views;
 
 }

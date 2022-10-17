@@ -12,34 +12,34 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminUpdateEventRequest {
 
-    Integer eventId;
+    private Integer eventId;
 
     @NotNull
     @Size(min = 20, max = 2100)
-    String annotation;
+    private String annotation;
 
     @NotNull
-    Integer category;
+    private Integer category;
 
     @Size(min = 20, max = 5000)
     @NotNull
-    String description;
+    private String description;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime eventDate;
+    private LocalDateTime eventDate;
 
-    Location location;
+    private Location location;
 
-    Boolean paid;
+    private Boolean paid;
 
-    Integer participantLimit;
+    private Integer participantLimit;
 
-    Boolean requestModeration;
+    private Boolean requestModeration;
 
     @NotNull
     @Size(min = 3, max = 120)
-    String title;
+    private String title;
 
     @Getter
     @Setter

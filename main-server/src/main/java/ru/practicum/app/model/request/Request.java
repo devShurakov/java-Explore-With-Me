@@ -19,21 +19,21 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer id;
+    private Integer id;
 
     @Column(name = "created", nullable = false)
-    LocalDateTime created;
+    private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "event_id")
-    Event event;
+    private Event event;
 
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    User requester;
+    private User requester;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "requests_status", length = 32)
-    RequestStatus status;
+    private RequestStatus status;
 
 }
