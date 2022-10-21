@@ -79,10 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getCategoryById(int catId) { //CategoryCastomException
-//        categoryRepository.findById(catId).orElseThrow(() -> {
-//            throw new CategoryNotFoundException(String.format("Такой категории не сущетствует", catId));
-//        });
+    public CategoryDto getCategoryById(int catId) {
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
             throw new CategoryNotFoundException("Такой категории не сущетствует");
         });
