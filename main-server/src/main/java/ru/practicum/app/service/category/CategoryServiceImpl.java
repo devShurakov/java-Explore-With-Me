@@ -14,6 +14,7 @@ import ru.practicum.app.repository.category.CategoryRepository;
 import ru.practicum.app.dto.category.CategoryDto;
 import ru.practicum.app.dto.category.NewCategoryDto;
 import ru.practicum.app.exception.CategoryCastomException;
+import ru.practicum.app.exception.CategoryNotFoundException;
 
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -61,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(int id) {
         categoryRepository.findById(id).orElseThrow(() -> {
-            throw new CategoryCastomException(String.format("такой категории не сущетствует", id));
+            throw new CategoryNotFoundException(String.format("такой категории не сущетствует", id));
         });
         categoryRepository.deleteById(id);
         log.info("категория удалена");
@@ -78,9 +79,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getCategoryById(int catId) {
+    public CategoryDto getCategoryById(int catId) { //CategoryCastomException
+//        categoryRepository.findById(catId).orElseThrow(() -> {
+//            throw new CategoryNotFoundException(String.format("Такой категории не сущетствует", catId));
+//        });
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
-            throw new CategoryCastomException(String.format("Такой категории не сущетствует", catId));
+            throw new CategoryNotFoundException("Такой категории не сущетствует");
         });
         log.info("категория удалена");
         return CategoryMapper.mapToCategoryDto(category);
