@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.practicum.app.exception.CategoryNotFoundException;
 import ru.practicum.app.model.category.Category;
 import ru.practicum.app.mapper.category.CategoryMapper;
 import ru.practicum.app.repository.category.CategoryRepository;
