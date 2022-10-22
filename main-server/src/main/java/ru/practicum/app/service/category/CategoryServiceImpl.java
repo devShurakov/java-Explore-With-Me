@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.practicum.app.exception.CategoryNotFoundException;
 import ru.practicum.app.model.category.Category;
 import ru.practicum.app.mapper.category.CategoryMapper;
 import ru.practicum.app.repository.category.CategoryRepository;
@@ -80,7 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getCategoryById(int catId) {
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
-            throw new CategoryCastomException(String.format("Такой категории не сущетствует", catId));
+            throw new CategoryNotFoundException(String.format("Такой категории не сущетствует", catId));
         });
         log.info("категория удалена");
         return CategoryMapper.mapToCategoryDto(category);

@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.practicum.app.exception.CategoryCastomException;
-import ru.practicum.app.exception.EntryNotFoundException;
-import ru.practicum.app.exception.UserCastomException;
-import ru.practicum.app.exception.UserCastomExceptionTwo;
+import ru.practicum.app.exception.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
@@ -99,6 +96,19 @@ public class ErrorHandler {
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 ));
 
+    }
+
+    @ResponseBody
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response categoryNotFound(CategoryNotFoundException exception) {
+        log.trace("Ошибка CategoryCastomException");
+        return new Response(
+                exception.getMessage(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                HttpStatus.NOT_FOUND.toString(),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                ));
     }
 
 
