@@ -9,8 +9,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CommentUpdateDto {
+public class CommentDto {
+
+    private Integer id;
 
     private String text;
+
+    private Integer eventId;
 
 }

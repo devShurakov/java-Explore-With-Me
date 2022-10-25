@@ -2,9 +2,8 @@ package ru.practicum.app.service.comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.practicum.app.dto.comment.CommentInDto;
-import ru.practicum.app.dto.comment.CommentOutDto;
-import ru.practicum.app.dto.comment.CommentUpdateDto;
+import ru.practicum.app.dto.comment.CommentNewDto;
+import ru.practicum.app.dto.comment.CommentDto;
 import ru.practicum.app.exception.CommentCustomException;
 import ru.practicum.app.mapper.comment.CommentMapper;
 import ru.practicum.app.model.comment.Comment;
@@ -14,6 +13,7 @@ import ru.practicum.app.repository.comment.CommentRepository;
 import ru.practicum.app.repository.event.EventRepository;
 import ru.practicum.app.repository.user.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,24 +33,25 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentOutDto createComment(CommentInDto commentInDto, Integer userId, Integer eventId) {
+    public CommentDto createComment(CommentNewDto commentNewDto, Integer userId, Integer eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow();
         User user = userRepository.findById(userId).orElseThrow();
-        Comment comment = CommentMapper.mapToComment(commentInDto);
+        Comment comment = CommentMapper.mapToComment(commentNewDto);
         comment.setAuthor(user);
         comment.setEvent(event);
+        comment.setCreated(LocalDateTime.now());
         return CommentMapper.mapToCommentOutDto(commentRepository.save(comment));
     }
 
 
     @Override
-    public List<CommentOutDto> getUserComments(Integer userId) {
+    public List<CommentDto> getUserComments(Integer userId) {
         List<Comment> list = commentRepository.findByAuthor_Id(userId);
         return CommentMapper.mapAlltoOutDto(list);
     }
 
     @Override
-    public CommentOutDto updateComment(CommentUpdateDto commentUpdateDto, Integer commentId) {
+    public CommentDto updateComment(CommentNewDto commentUpdateDto, Integer commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         comment.setText(commentUpdateDto.getText());
         return CommentMapper.mapToCommentOutDto(commentRepository.save(comment));

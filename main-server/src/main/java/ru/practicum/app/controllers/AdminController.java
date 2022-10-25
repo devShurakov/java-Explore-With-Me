@@ -179,7 +179,7 @@ public class AdminController {
 
     // ------------------------------ доп.функциональность ----------------------------
 
-    @DeleteMapping("/users/event/comment/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public void deleteComment(@PathVariable Integer commentId) {
         commentServiceImpl.deleteCommentByAdmin(commentId);
     }

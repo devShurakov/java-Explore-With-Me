@@ -3,9 +3,8 @@ package ru.practicum.app.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.app.dto.comment.CommentInDto;
-import ru.practicum.app.dto.comment.CommentOutDto;
-import ru.practicum.app.dto.comment.CommentUpdateDto;
+import ru.practicum.app.dto.comment.CommentNewDto;
+import ru.practicum.app.dto.comment.CommentDto;
 import ru.practicum.app.dto.event.EventFullDto;
 import ru.practicum.app.dto.event.EventShortDto;
 import ru.practicum.app.dto.event.NewEventDto;
@@ -136,20 +135,20 @@ public class PrivateController {
 
     // ------------------------------ доп.функциональность ----------------------------
     @PostMapping("/users/{userId}/event/{eventId}/comment")
-    public CommentOutDto createComment(@RequestBody CommentInDto commentInDto,
-                                       @PathVariable Integer userId,
-                                       @PathVariable Integer eventId) {
-        return commentServiceImpl.createComment(commentInDto, userId, eventId);
+    public CommentDto createComment(@RequestBody CommentNewDto commentNewDto,
+                                    @PathVariable Integer userId,
+                                    @PathVariable Integer eventId) {
+        return commentServiceImpl.createComment(commentNewDto, userId, eventId);
     }
 
     @PatchMapping("/users/comment/{commentId}")
-    public CommentOutDto updateComment(@RequestBody CommentUpdateDto commentUpdateDto,
-                                       @PathVariable Integer commentId) {
+    public CommentDto updateComment(@RequestBody CommentNewDto commentUpdateDto,
+                                    @PathVariable Integer commentId) {
         return commentServiceImpl.updateComment(commentUpdateDto, commentId);
     }
 
     @GetMapping("/users/{userId}/comment")
-    public List<CommentOutDto> getUserComments(@PathVariable Integer userId) {
+    public List<CommentDto> getUserComments(@PathVariable Integer userId) {
         return commentServiceImpl.getUserComments(userId);
     }
 
