@@ -13,6 +13,7 @@ import ru.practicum.app.exception.EntryNotFoundException;
 import ru.practicum.app.model.event.AdminUpdateEventRequest;
 import ru.practicum.app.model.user.NewUserRequest;
 import ru.practicum.app.service.category.CategoryService;
+import ru.practicum.app.service.comment.CommentServiceImpl;
 import ru.practicum.app.service.compilation.CompilationService;
 import ru.practicum.app.service.event.EventService;
 import ru.practicum.app.service.user.UserService;
@@ -34,15 +35,19 @@ public class AdminController {
 
     private final CategoryService categoryService;
 
+    private final CommentServiceImpl commentServiceImpl;
+
     @Autowired
     public AdminController(CategoryService categoryService,
                            CompilationService compilationService,
                            EventService eventService,
-                           UserService userService) {
+                           UserService userService,
+                           CommentServiceImpl commentServiceImpl) {
         this.categoryService = categoryService;
         this.compilationService = compilationService;
         this.eventService = eventService;
         this.userService = userService;
+        this.commentServiceImpl = commentServiceImpl;
     }
 
 
@@ -170,6 +175,13 @@ public class AdminController {
     @DeleteMapping(value = "/users/{userId}")
     public void deleteUser(@PathVariable @NotNull int userId) throws EntryNotFoundException {
         userService.delete(userId);
+    }
+
+    // ------------------------------ доп.функциональность ----------------------------
+
+    @DeleteMapping("/comments/{commentId}")
+    public void deleteComment(@PathVariable Integer commentId) {
+        commentServiceImpl.deleteCommentByAdmin(commentId);
     }
 
 }
