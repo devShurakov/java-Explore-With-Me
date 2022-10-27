@@ -1,5 +1,7 @@
 # Explore With Me (Сервис поиска мероприятий поблизости).
 ![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
+###### Пэт проект в рамках прохождения учебного курса Яндекс.
+
 
 ## Описание:
 
@@ -45,7 +47,3 @@
 
 Проверить работоспособность приложения, можно с помощью [готовой коллекции тестов](https://github.com/devShurakov/java-Explore-With-Me/tree/main/postman), например в Postman.
 
-
-
-
-###### Пэт проект в рамках прохождения учебного курса Яндекс.
