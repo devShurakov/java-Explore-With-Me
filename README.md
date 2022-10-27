@@ -30,6 +30,10 @@ API основного сервиса разделён на три части:
 
 Сервис статистики, собирает информацию о количестве обращений пользователей к спискам событий и о количестве запросов к подробной информации о событии.
 
+### Спецификация
+
+Спецификации [основго сервисов] (https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-main-service-spec.json) и [сервиса статистики](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-stats-service-spec.json) можно посмотреть с помощью [Swagger](https://editor-next.swagger.io) 
+
 ### Шаблоны проектирования
 
 В приложении использован шаблон проектирования Data Transfer Object (DTO Pattern).
