@@ -1,8 +1,7 @@
 # Explore With Me (Сервис поиска мероприятий поблизости).
-[![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
- ![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)
+![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
 
-### Описание:
+## Описание:
 
 Бэкенд сервиса, который позволяет находить интересные мероприятия вокруг себя, а также размещать свои.
 
@@ -28,11 +27,11 @@ API основного сервиса разделён на три части:
 
 Сервис статистики, собирает информацию о количестве обращений пользователей к спискам событий и о количестве запросов к подробной информации о событии.
 
-### Спецификация
+## Спецификация
 
 Спецификации [основного сервиса](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-main-service-spec.json) и [сервиса статистики](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-stats-service-spec.json) можно посмотреть с помощью [Swagger](https://editor-next.swagger.io) 
 
-### Шаблоны проектирования
+## Шаблоны проектирования
 
 В приложении использован шаблон проектирования Data Transfer Object (DTO Pattern).
 
