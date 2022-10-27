@@ -1,12 +1,10 @@
-# Сервис быстрого поиска мероприятий поблизости. Explore With Me.
+# Explore With Me (Сервис поиска мероприятий поблизости).
 [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
-###### Пэт проект в рамках прохождения учебного курса Яндекс.
+![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)
 
 ### Описание:
 
 Бэкенд сервиса, который позволяет находить интересные мероприятия вокруг себя, а также размещать свои.
-
-![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)
 
 Архитектура приложения представлена двумя частями, взаимодействующими между собой: основной сервис и сервис статистики. 
 API основного сервиса разделён на три части:
@@ -37,3 +35,5 @@ API основного сервиса разделён на три части:
 ### Шаблоны проектирования
 
 В приложении использован шаблон проектирования Data Transfer Object (DTO Pattern).
+
+###### Пэт проект в рамках прохождения учебного курса Яндекс.
