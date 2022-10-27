@@ -1,6 +1,6 @@
 # Explore With Me (Сервис поиска мероприятий поблизости).
 [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
-![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)
+ ![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)
 
 ### Описание:
 
