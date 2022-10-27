@@ -1,6 +1,6 @@
 # Сервис быстрого поиска мероприятий поблизости. Explore With Me.
-#### Учебный проект
 [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
+###### Пэт проект в рамках прохождения учебного курса Яндекс.
 
 ### Описание:
 
@@ -32,7 +32,7 @@ API основного сервиса разделён на три части:
 
 ### Спецификация
 
-Спецификации [основного сервиса](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-main-service-spec.json) и [сервиса статистики(https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-stats-service-spec.json) можно посмотреть с помощью [Swagger](https://editor-next.swagger.io) 
+Спецификации [основного сервиса](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-main-service-spec.json) и [сервиса статистики](https://github.com/devShurakov/java-Explore-With-Me/blob/main/ewm-stats-service-spec.json) можно посмотреть с помощью [Swagger](https://editor-next.swagger.io) 
 
 ### Шаблоны проектирования
 
