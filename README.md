@@ -1,4 +1,4 @@
-# Сервис поиска мероприятий. Explore With Me.
+# Сервис быстрого поиска мероприятий поблизости. Explore With Me.
 #### Учебный проект
 [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
 
