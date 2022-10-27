@@ -1,5 +1,5 @@
 # Explore With Me. Cервис поиска мероприятий поблизости.
-![Java](https://img.shields.io/badge/-Java-green) ![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
+![Java 11](https://img.shields.io/badge/-Java-green) ![Spring Boot 2.7.2 ](https://img.shields.io/badge/-Spring%20Boot-blue)![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
 ###### Пэт проект в рамках прохождения учебного курса Яндекс.
 
 
@@ -47,4 +47,16 @@
 ## Тестирование проекта:
 
 Проверить работоспособность приложения, можно с помощью [готовой коллекции тестов](https://github.com/devShurakov/java-Explore-With-Me/tree/main/postman), например в Postman.
+
+##  Технологический стек:
+- Java 11 - язык программирования 
+- IntelliJ IDEA 2022.1.4 (Ultimate Edition) - среда разработки 
+- Spring Boot 2.7.2 - используемый фреймворк 
+- Apache Maven 4.0.0 - управление зависимостями 
+- Project Lombok 1.18.24 - библиотека аннотаций для сокращения шаблонного кода 
+- Hibernate 5.6.10 - ORM-фреймворк 
+- PostgreSQL 11-alpine - база данных 
+- Docker Desktop 20.10.17 - платформа контейнеризации 
+- Docker Compose 3.1 - утилита для развертывания нескольких контейнеров 
+- Postman 9.31.0 - приложение для выполнения запросов к API.
 
