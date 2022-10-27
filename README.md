@@ -2,7 +2,7 @@
 #### Учебный проект
 [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
 
-Описание:
+### Описание:
 
 Бэкенд сервиса, который позволяет находить интересные мероприятия вокруг себя, а также размещать свои.
 
