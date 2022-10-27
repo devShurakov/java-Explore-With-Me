@@ -1,5 +1,5 @@
 # Explore With Me. Cервис поиска интересных событий.
-![Java 11](https://img.shields.io/badge/-Java-green) ![11](https://img.shields.io/badge/-11-orange) ![Spring Boot 2.7.2 ](https://img.shields.io/badge/-Spring%20Boot-blue) ![2.7.2 ](https://img.shields.io/badge/-2.7.2-orange) ![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![REST](https://img.shields.io/badge/-REST-orange) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
+![Java 11](https://img.shields.io/badge/-Java-green) ![11](https://img.shields.io/badge/-11-orange) ![Spring Boot 2.7.2 ](https://img.shields.io/badge/-Spring%20Boot-blue) ![2.7.2 ](https://img.shields.io/badge/-2.7.2-orange) ![Postgres SQL](https://img.shields.io/badge/-Postgres%20SQL-brightgreen) ![Postgres SQL](https://img.shields.io/badge/-11--alpine%20-orange) ![Lombock](https://img.shields.io/badge/-Lombok%201.18.24-lightgrey) ![REST](https://img.shields.io/badge/-REST-orange) ![hib](https://img.shields.io/badge/-Hibernate%205.6.10%20-green) ![Apache](https://img.shields.io/badge/-Apache%20Maven%204.0.0-blue) ![Docker](https://badgen.net/badge/icon/docker?icon=docker&label) ![Git](https://badgen.net/badge/icon/github?icon=github&label)     [![Explore With Me API Tests](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml/badge.svg)](https://github.com/Gidrosliv/java-explore-with-me/actions/workflows/api-tests.yml)
 ###### Пэт проект в рамках прохождения учебного курса Яндекс.
 
 
@@ -57,13 +57,8 @@
 
 ##  Технологический стек:
 
-- Java 11 - язык программирования 
 - IntelliJ IDEA 2022.1.4 (Ultimate Edition) - среда разработки 
-- Spring Boot 2.7.2 - используемый фреймворк 
 - Apache Maven 4.0.0 - управление зависимостями 
-- Project Lombok 1.18.24 - библиотека аннотаций 
-- Hibernate 5.6.10 - ORM-фреймворк 
-- PostgreSQL 11-alpine - база данных 
 - Docker Desktop 20.10.17 - платформа контейнеризации 
 - Docker Compose 3.1 - утилита развертывания контейнеров 
 - Postman 9.31.0 - приложение для выполнения запросов к API.
