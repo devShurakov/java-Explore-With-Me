@@ -1,9 +1,10 @@
 package ru.practicum.app.controllers;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.app.dto.comment.CommentNewDto;
+import ru.practicum.app.dto.comment.CommentDto;
 import ru.practicum.app.dto.event.EventFullDto;
 import ru.practicum.app.dto.event.EventShortDto;
 import ru.practicum.app.dto.event.NewEventDto;
@@ -11,9 +12,9 @@ import ru.practicum.app.dto.request.ParticipationRequestDto;
 import ru.practicum.app.dto.request.RequestDto;
 import ru.practicum.app.exception.RequestCustomException;
 import ru.practicum.app.model.event.UpdateEventRequest;
+import ru.practicum.app.service.comment.CommentServiceImpl;
 import ru.practicum.app.service.event.EventService;
 import ru.practicum.app.service.request.RequestService;
-
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -31,11 +32,15 @@ public class PrivateController {
 
     private final EventService eventService;
     private final RequestService requestService;
+    private final CommentServiceImpl commentServiceImpl;
 
     @Autowired
-    public PrivateController(EventService eventService, RequestService requestService) {
+    public PrivateController(EventService eventService,
+                             RequestService requestService,
+                             CommentServiceImpl commentServiceImpl) {
         this.eventService = eventService;
         this.requestService = requestService;
+        this.commentServiceImpl = commentServiceImpl;
     }
 
     /***
@@ -116,8 +121,8 @@ public class PrivateController {
 
     @PatchMapping("/users/{userId}/events/{eventId}/requests/{reqId}/reject")
     public ParticipationRequestDto rejectRequestByUser(@PathVariable Integer userId,
-                                    @PathVariable Integer eventId,
-                                    @PathVariable Integer reqId) {
+                                                       @PathVariable Integer eventId,
+                                                       @PathVariable Integer reqId) {
         return requestService.rejectRequestByUser(userId, eventId, reqId);
     }
 
@@ -126,6 +131,31 @@ public class PrivateController {
                                              @PathVariable Integer eventId) {
 
         return requestService.getRequestByUser(userId, eventId);
+    }
+
+    // ------------------------------ доп.функциональность ----------------------------
+    @PostMapping("/users/{userId}/event/{eventId}/comment")
+    public CommentDto createComment(@RequestBody CommentNewDto commentNewDto,
+                                    @PathVariable Integer userId,
+                                    @PathVariable Integer eventId) {
+        return commentServiceImpl.createComment(commentNewDto, userId, eventId);
+    }
+
+    @PatchMapping("/users/comment/{commentId}")
+    public CommentDto updateComment(@RequestBody CommentNewDto commentUpdateDto,
+                                    @PathVariable Integer commentId) {
+        return commentServiceImpl.updateComment(commentUpdateDto, commentId);
+    }
+
+    @GetMapping("/users/{userId}/comment")
+    public List<CommentDto> getUserComments(@PathVariable Integer userId) {
+        return commentServiceImpl.getUserComments(userId);
+    }
+
+    @DeleteMapping("/users/{userId}/event/comment/{commentId}")
+    public void deleteComment(@PathVariable(value = "userId") int userId,
+                              @PathVariable(value = "commentId") int commentId) {
+        commentServiceImpl.deleteComment(commentId, userId);
     }
 
 }
